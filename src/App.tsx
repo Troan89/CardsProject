@@ -5,7 +5,7 @@ export function App() {
     <div>
       {/*<Button href={'https://yandex.ru'}>Hello</Button>*/}
       <Button as={'a'} href={'https://yandex.ru'}>
-        Hello Ivan
+        Hello Ivan commit
       </Button>
     </div>
   )
