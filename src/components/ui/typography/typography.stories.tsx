@@ -32,6 +32,7 @@ type Story = StoryObj<typeof meta>
 
 export const H1: Story = {
   args: {
+    as: 'h1',
     children: 'This is H1 Typography',
     variant: 'h1',
   },
@@ -39,6 +40,7 @@ export const H1: Story = {
 
 export const H2: Story = {
   args: {
+    as: 'h2',
     children: 'This is H2 Typography',
     variant: 'h2',
   },
@@ -46,6 +48,7 @@ export const H2: Story = {
 
 export const H3: Story = {
   args: {
+    as: 'h3',
     children: 'This is H3 Typography',
     variant: 'h3',
   },
@@ -53,6 +56,7 @@ export const H3: Story = {
 
 export const H4: Story = {
   args: {
+    as: 'h4',
     children: 'This is H4 Typography',
     variant: 'h4',
   },
@@ -102,6 +106,7 @@ export const Overline: Story = {
 
 export const Link1: Story = {
   args: {
+    as: 'a',
     children: 'This is Link 1 Typography',
     variant: 'link1',
   },
@@ -109,6 +114,7 @@ export const Link1: Story = {
 
 export const Link2: Story = {
   args: {
+    as: 'a',
     children: 'This is Link 2 Typography',
     variant: 'link2',
   },
