@@ -1,0 +1,63 @@
+@mixin typography($fontSize, $lineHeight, $fontWeight) {
+  margin: 0;
+
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  color: var(--color-light-100);
+  letter-spacing: 0;
+}
+
+.h1 {
+  @include typography(var(--font-size-xxl), var(--line-height-l), var(--font-weight-bold));
+}
+
+.h2 {
+  @include typography(var(--font-size-xl), var(--line-height-l), var(--font-weight-bold));
+}
+
+.h3 {
+  @include typography(var(--font-size-l), var(--line-height-m), var(--font-weight-bold));
+
+  letter-spacing: 0;
+}
+
+.h4 {
+  @include typography(var(--font-size-m), var(--line-height-m), var(--font-weight-bold));
+}
+
+.body1 {
+  @include typography(var(--font-size-m), var(--line-height-m), var(--font-weight-regular));
+}
+
+.subtitle1 {
+  @include typography(var(--font-size-m), var(--line-height-m), var(--font-weight-bold));
+}
+
+.body2 {
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-regular));
+}
+
+.subtitle2 {
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-bold));
+}
+
+.capilot {
+  @include typography(var(--font-size-xs), var(--line-height-s), var(--font-weight-regular));
+}
+
+.overline {
+  @include typography(var(--font-size-s), var(--line-height-s), var(--font-weight-bold));
+}
+
+.link1 {
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-regular));
+
+  color: var(--color-info-500);
+}
+
+.link2 {
+  @include typography(var(--font-size-xs), var(--line-height-m), var(--font-weight-regular));
+
+  color: var(--color-info-500);
+}
