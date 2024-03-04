@@ -1,9 +1,22 @@
 .button {
   all: unset;
+
   cursor: pointer;
+
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
   box-sizing: border-box;
-  color: inherit;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding: 6px 28px;
+
   font-family: inherit;
+  color: inherit;
+
+  border-radius: 4px;
 
   &:focus-visible {
     outline: 2px solid var(--color-info-500);

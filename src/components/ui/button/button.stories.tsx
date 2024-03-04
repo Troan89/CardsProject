@@ -1,14 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import Logout from '@/assets/icons/Logout'
+
 import { Button } from './'
 
 const meta = {
-  argTypes: {
-    variant: {
-      control: { type: 'radio' },
-      options: ['primary', 'secondary'],
-    },
-  },
   component: Button,
   tags: ['autodocs'],
   title: 'Components/Button',
@@ -46,6 +42,19 @@ export const AsLink: Story = {
   args: {
     as: 'a',
     children: 'Link that looks like a button',
+    href: 'https://google.com',
+    variant: 'primary',
+  },
+}
+
+export const PrimaryIcon: Story = {
+  args: {
+    children: (
+      <>
+        <Logout /> Sign out
+      </>
+    ),
+    disabled: false,
     variant: 'primary',
   },
 }
