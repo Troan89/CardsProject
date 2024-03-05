@@ -119,3 +119,11 @@ export const Link2: Story = {
     variant: 'link2',
   },
 }
+
+export const Error: Story = {
+  args: {
+    as: 'p',
+    children: 'This is Error Typography',
+    variant: 'error',
+  },
+}

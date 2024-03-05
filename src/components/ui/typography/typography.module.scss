@@ -61,3 +61,13 @@
 
   color: var(--color-info-500);
 }
+
+.error {
+  @include typography(var(--font-sise-xs), var(--line-height-m), var(--font-weight-regular));
+
+  color: var(--color-danger-300);
+}
+
+.large {
+  @include typography(var(--font-size-xxl), var(--line-height-l), var(--font-weight-bold));
+}
