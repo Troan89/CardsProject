@@ -67,13 +67,5 @@
   &:active:not(.disabled) {
     background-color: var(--color-dark-100);
   }
-
-  &.left {
-    margin-left: -9px;
-  }
 }
 
-.indicator {
-  width: 18px;
-  height: 18px;
-}
