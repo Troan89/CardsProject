@@ -23,6 +23,7 @@ const meta = {
     },
   },
   component: Typography,
+  tags: ['autodocs'],
   title: 'Components/Typography',
 } satisfies Meta<typeof Typography>
 
