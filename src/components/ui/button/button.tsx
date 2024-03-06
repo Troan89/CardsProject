@@ -6,10 +6,10 @@ import s from './button.module.scss'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
-  children: ReactNode
+  children?: ReactNode
   classname?: string
   fullWidth?: boolean
-  variant?: 'link' | 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {

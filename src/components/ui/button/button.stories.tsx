@@ -58,3 +58,23 @@ export const PrimaryIcon: Story = {
     variant: 'primary',
   },
 }
+
+export const SecondaryIcon: Story = {
+  args: {
+    children: (
+      <>
+        <Logout /> Sign out
+      </>
+    ),
+    disabled: false,
+    variant: 'secondary',
+  },
+}
+
+export const SecondaryDisabled: Story = {
+  args: {
+    children: 'Secondary Button',
+    disabled: true,
+    variant: 'secondary',
+  },
+}
