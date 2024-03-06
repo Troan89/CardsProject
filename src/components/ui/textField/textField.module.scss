@@ -1,0 +1,143 @@
+.rootContainer {
+  position: relative;
+  width: 100%;
+}
+
+.label {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-dark-100);
+
+  &.disabled {
+    opacity: 0.5;
+  }
+}
+
+.textField {
+  width: 284px;
+  padding: 6px 12px;
+
+  font-family: inherit;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+
+  background: transparent;
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+  outline: 0;
+
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: var(--color-dark-100);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+
+    &::placeholder {
+      color: var(--color-dark-300);
+    }
+  }
+
+  &:focus-visible {
+    border-color: var(--color-info-700);
+    outline: 1px solid var(--color-info-700);
+  }
+
+  &.error {
+    color: var(--color-danger-300);
+    border-color: var(--color-danger-300);
+  }
+
+  &.active {
+    border-color: var(--color-light-100);
+  }
+
+  .hasSearchIcon {
+    position: relative;
+  }
+
+  .hasSearchIcon .searchIcon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+
+  .inputWrapper {
+    position: relative;
+
+    // Добавьте псевдо-класс для события hover
+    &:hover {
+      border-color: var(--color-danger-300);
+
+      .searchIconActive {
+        pointer-events: initial;
+        cursor: pointer;
+      }
+    }
+
+    .inputWrapper input {
+      padding: 8px;
+      background-color: var(--color-dark-900);
+
+      // Используйте переменную для цвета обводки
+      border-color: var(--color-danger-300);
+    }
+
+    .label {
+      margin-bottom: 8px;
+    }
+
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .passwordIcon {
+      cursor: pointer;
+
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+
+      border: none;
+    }
+
+    .searchIcon {
+      background-color: #171717;
+    }
+
+    .searchIconActive {
+      background-color: var(--color-danger-300);
+    }
+  }
+
+  .passwordIcon {
+    cursor: pointer;
+
+    position: absolute;
+    top: 50%;
+    right: 0;
+    bottom: 50%;
+    transform: translateY(-50%);
+
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    outline: 0;
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+  }
+}

@@ -17,6 +17,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+// История для основной кнопки
 export const Primary: Story = {
   args: {
     children: 'Primary Button',
@@ -25,6 +26,7 @@ export const Primary: Story = {
   },
 }
 
+// История для второстепенной кнопки
 export const Secondary: Story = {
   args: {
     children: 'Secondary Button',
@@ -33,6 +35,7 @@ export const Secondary: Story = {
   },
 }
 
+// История для кнопки с полной шириной
 export const FullWidth: Story = {
   args: {
     children: 'Full Width Primary Button',
@@ -42,6 +45,7 @@ export const FullWidth: Story = {
   },
 }
 
+// История для кнопки, выглядящей как ссылка
 export const AsLink: Story = {
   args: {
     as: 'a',
