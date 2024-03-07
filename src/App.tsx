@@ -1,12 +1,9 @@
-import { Button } from '@/components/ui/button'
+import { Slider } from '@/components/ui/slider'
 
 export function App() {
   return (
     <div>
-      {/*<Button href={'https://yandex.ru'}>Hello</Button>*/}
-      <Button as={'a'} href={'https://yandex.ru'}>
-        Hello Ivan commit
-      </Button>
+      <Slider max={120} min={10} step={10} />
     </div>
   )
 }
