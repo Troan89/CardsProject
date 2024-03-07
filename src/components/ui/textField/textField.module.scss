@@ -101,6 +101,14 @@
   }
 }
 
+.passwordIcon {
+  fill: white;
+
+  &.disabled {
+    fill: var(--color-dark-300);
+  }
+}
+
 .searchIcon {
   pointer-events: none;
 

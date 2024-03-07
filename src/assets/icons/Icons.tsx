@@ -4,6 +4,7 @@ import IconsSprite from './iconsSprite.svg'
 
 export type IconsPropsType = {
   className?: string
+  full?: string
   height?: string
   iconId: string
   viewBox?: string
@@ -11,17 +12,26 @@ export type IconsPropsType = {
 }
 export const Icons = memo(
   forwardRef<SVGSVGElement, IconsPropsType>((props, ref) => {
-    const { className, height = '24', iconId, viewBox = '0 0 24 24', width = '24' } = props
+    const {
+      className,
+      full = 'none',
+      height = '24',
+      iconId,
+      viewBox = '0 0 24 24',
+      width = '24',
+      ...rest
+    } = props
 
     return (
       <svg
         className={className}
-        fill={'none'}
-        height={height || '24'}
+        fill={full}
+        height={height}
         ref={ref}
-        viewBox={viewBox || '0 0 24 24'}
-        width={width || '24'}
+        viewBox={viewBox}
+        width={width}
         xmlns={'http://www.w3.org/2000/svg'}
+        {...rest}
       >
         <use xlinkHref={`${IconsSprite}#${iconId}`} />
       </svg>

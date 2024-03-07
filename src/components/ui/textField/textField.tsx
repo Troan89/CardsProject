@@ -84,9 +84,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               type={'button'}
             >
               {showPassword ? (
-                <Icons iconId={'eye-outline'} />
+                <Icons className={s.passwordIcon} iconId={'eye-outline'} />
               ) : (
-                <Icons iconId={'eye-off-outline'} />
+                <Icons className={s.passwordIcon} iconId={'eye-off-outline'} />
               )}
             </button>
           )}
