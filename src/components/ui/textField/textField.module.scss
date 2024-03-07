@@ -1,6 +1,7 @@
 .rootContainer {
-  position: relative;
   width: 100%;
+  min-width: 284px;
+  font-family: inherit;
 }
 
 .label {
@@ -14,11 +15,22 @@
   }
 }
 
+.inputWrapper {
+  position: relative;
+
+  &:active {
+    .searchIconActive {
+      pointer-events: initial;
+      cursor: pointer;
+      fill: var(--color-light-100);
+    }
+  }
+}
+
 .textField {
-  width: 284px;
+  width: 100%;
   padding: 6px 12px;
 
-  font-family: inherit;
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
 
@@ -27,19 +39,23 @@
   border-radius: 2px;
   outline: 0;
 
-  transition: border-color 0.2s;
-
   &::placeholder {
     color: var(--color-dark-100);
   }
 
+  &::-webkit-search-cancel-button {
+    color: var(--color-light-100);
+    visibility: visible;
+    filter: brightness(0) invert(1);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   &:disabled {
     pointer-events: none;
-    opacity: 0.5;
-
-    &::placeholder {
-      color: var(--color-dark-300);
-    }
+    opacity: 0.7;
   }
 
   &:focus-visible {
@@ -47,98 +63,64 @@
     outline: 1px solid var(--color-info-700);
   }
 
+  &:not(:disabled):hover {
+    background: var(--color-dark-700);
+  }
+
+  &:not(:disabled):active {
+    border: 1px solid var(--color-light-100);
+  }
+
   &.error {
     color: var(--color-danger-300);
     border-color: var(--color-danger-300);
   }
+}
 
-  &.active {
-    color: var(--color-light-100);
-    border: 1px solid var(--color-light-100);
+.passwordBtn {
+  cursor: pointer;
+
+  position: absolute;
+  top: 50%;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(-50%);
+
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  outline: 0;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.7;
   }
+}
 
-  .hasSearchIcon {
-    position: relative;
+.searchIcon {
+  pointer-events: none;
+
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  left: 0;
+  transform: translateY(-50%);
+
+  width: 20px;
+  height: 20px;
+  margin-left: 12px;
+
+  fill: var(--color-dark-100);
+
+  &.disabled {
+    fill: var(--color-dark-300);
   }
+}
 
-  .hasSearchIcon .searchIcon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-  }
-
-  .inputWrapper {
-    position: relative;
-
-    // Добавьте псевдо-класс для события hover
-    &:hover {
-      border-color: var(--color-danger-300);
-
-      .searchIconActive {
-        pointer-events: initial;
-        cursor: pointer;
-      }
-    }
-
-    .inputWrapper input {
-      padding: 8px;
-      background-color: var(--color-dark-900);
-
-      // Используйте переменную для цвета обводки
-      border-color: var(--color-danger-300);
-    }
-
-    .label {
-      margin-bottom: 8px;
-    }
-
-    .disabled {
-      pointer-events: none;
-      opacity: 0.5;
-    }
-
-    .passwordIcon {
-      cursor: pointer;
-
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-
-      border: none;
-    }
-
-    .searchIcon {
-      background-color: #171717;
-    }
-
-    .searchIconActive {
-      background-color: var(--color-danger-300);
-    }
-  }
-
-  .passwordIcon {
-    cursor: pointer;
-
-    position: absolute;
-    top: 50%;
-    right: 0;
-    bottom: 50%;
-    transform: translateY(-50%);
-
-    width: 20px;
-    height: 20px;
-    margin-right: 12px;
-    padding: 0;
-
-    background: transparent;
-    border: 0;
-    outline: 0;
-
-    &.disabled {
-      pointer-events: none;
-      opacity: 0.7;
-    }
-  }
+.hasSearchIcon {
+  padding-left: 40px;
 }

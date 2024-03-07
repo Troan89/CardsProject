@@ -30,12 +30,12 @@ export const Email: Story = {
     onChange: () => {
       console.log('email')
     },
-    type: 'text',
+    type: 'email',
   },
 }
 export const Password: Story = {
   args: {
-    label: 'Input with email',
+    label: 'Input with password',
     onChange: () => {
       console.log('password')
     },

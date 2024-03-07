@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import React, { ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import { Icons } from '@/assets/icons/Icons'
 import { Typography } from '@/components/ui/typography'
@@ -7,40 +7,42 @@ import { clsx } from 'clsx'
 import s from './textField.module.scss'
 
 export type TextFieldProps = {
-  className?: string
   error?: string
-  label: string
-  onChange?: (value: string) => void
-  placeholder?: string
-  size?: 'large' | 'medium' | 'small'
-  type: 'password' | 'search' | 'text'
+  label?: string
+  labelProps?: ComponentProps<'label'>
+  onValueChange?: (value: string) => void
+  type: 'email' | 'password' | 'search' | 'text'
   value?: string
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
-    { className, error, label, onChange, placeholder, type, value, ...rest }: TextFieldProps,
+    {
+      className,
+      error,
+      label,
+      labelProps,
+      onChange,
+      onValueChange,
+      type,
+      value,
+      ...rest
+    }: TextFieldProps & Omit<ComponentPropsWithoutRef<'input'>, keyof TextFieldProps>,
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false)
-
     const isShowPasswordIconBtn = type === 'password'
     const isSearchIconBtn = type === 'search'
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (onChange) {
-        onChange(event.currentTarget.value)
-      }
-    }
-
-    const setShowPasswordHandler = () => {
-      setShowPassword(prevValue => !prevValue)
+      onChange?.(event)
+      onValueChange?.(event.currentTarget.value)
     }
 
     const classes = {
       inputWrapper: clsx(s.inputWrapper),
-      label: clsx(s.label, rest.disabled && s.disabled, label && label),
-      passwordIcon: clsx(s.passwordBtn, rest.disabled && s.disabled),
+      label: clsx(s.label, rest.disabled && s.disabled, labelProps?.className),
+      passwordBtn: clsx(s.passwordBtn, rest.disabled && s.disabled),
       rootContainer: clsx(s.rootContainer),
       searchIcon: clsx(
         s.searchIcon,
@@ -58,34 +60,33 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     return (
       <div className={classes.rootContainer}>
         {label && (
-          <Typography as={'label'} className={clsx(s.label, classes.label)} variant={'body2'}>
+          <Typography as={'label'} className={classes.label} variant={'body2'}>
             {label}
           </Typography>
         )}
         <div className={classes.inputWrapper}>
-          {isSearchIconBtn && <Icons className={classes.searchIcon} iconId={'#search'} />}
+          {isSearchIconBtn && <Icons className={classes.searchIcon} iconId={'search-outline'} />}
           <input
             autoFocus
             className={classes.textField}
             onChange={handleChange}
-            placeholder={placeholder}
+            placeholder={rest.placeholder}
             ref={ref}
-            type={isShowPasswordIconBtn && showPassword ? 'text' : type}
+            type={type === 'password' && showPassword ? 'text' : type}
             value={value}
             {...rest}
           />
-          {isSearchIconBtn && <Icons className={classes.searchIcon} iconId={'#close'} />}
           {isShowPasswordIconBtn && (
             <button
-              className={classes.passwordIcon}
+              className={classes.passwordBtn}
               disabled={rest.disabled}
-              onClick={setShowPasswordHandler}
+              onClick={() => setShowPassword(prevValue => !prevValue)}
               type={'button'}
             >
               {showPassword ? (
-                <Icons className={classes.passwordIcon} iconId={'#eye'} />
+                <Icons iconId={'eye-outline'} />
               ) : (
-                <Icons className={classes.passwordIcon} iconId={'#eye-off'} />
+                <Icons iconId={'eye-off-outline'} />
               )}
             </button>
           )}

@@ -1,6 +1,4 @@
-import React from 'react'
-
-import clsx from 'clsx'
+import IconsSprite from './iconsSprite.svg'
 
 type IconsPropsType = {
   className?: string
@@ -9,21 +7,17 @@ type IconsPropsType = {
   viewBox?: string
   width?: string
 }
-
-export const Icons = React.forwardRef<SVGSVGElement, IconsPropsType>((props, ref) => {
-  const { className, height = '24', iconId, viewBox = '0 0 24 24', width = '24' } = props
-
+export const Icons = ({ className, height, iconId, viewBox, width }: IconsPropsType) => {
   return (
     <svg
-      className={clsx(className)}
-      fill={'none'}
-      height={height}
-      ref={ref}
-      viewBox={viewBox}
-      width={width}
+      className={className}
+      fill={'#fff'}
+      height={height || '24'}
+      viewBox={viewBox || '0 0 24 24'}
+      width={width || '24'}
       xmlns={'http://www.w3.org/2000/svg'}
     >
-      <use xlinkHref={`../../assets/img/iconsSprite.svg#${iconId}`} />
+      <use xlinkHref={`${IconsSprite}#${iconId}`} />
     </svg>
   )
-})
+}
