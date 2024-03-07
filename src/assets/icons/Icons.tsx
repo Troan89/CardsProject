@@ -15,7 +15,7 @@ export const Icons = forwardRef<SVGSVGElement, IconsPropsType>((props, ref) => {
   return (
     <svg
       className={className}
-      fill={'#fff'}
+      fill={'none'}
       height={height || '24'}
       ref={ref}
       viewBox={viewBox || '0 0 24 24'}
