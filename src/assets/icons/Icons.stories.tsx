@@ -25,5 +25,5 @@ CustomSize.args = {
 export const CustomColor = Template.bind({})
 CustomColor.args = {
   full: 'var(--color-warning-300)',
-  iconId: 'star',
+  iconId: 'disabled-true',
 }

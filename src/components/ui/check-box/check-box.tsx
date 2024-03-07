@@ -1,5 +1,4 @@
-import Default from '@/assets/icons/DefaultTrue.svg'
-import Disabled from '@/assets/icons/DisabledTrue.svg'
+import { Icons } from '@/assets/icons/Icons'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import * as LabelRadix from '@radix-ui/react-label'
 import { clsx } from 'clsx'
@@ -35,8 +34,10 @@ export const Checkbox = ({ checked, disabled, id, label, onChange, required }: C
           onCheckedChange={onChange}
           required={required}
         >
-          {!disabled && checked && <img alt={'Check'} src={Default} />}
-          {disabled && checked && <img alt={'Disabled'} src={Disabled} />}
+          {!disabled && checked && (
+            <Icons className={s.svg} height={'80'} iconId={'default-true'} width={'80'} />
+          )}
+          {disabled && checked && <Icons height={'80'} iconId={'disabled-true'} width={'80'} />}
         </CheckboxRadix.Root>
       </div>
       <LabelRadix.Root className={classNames.label}>{label}</LabelRadix.Root>
