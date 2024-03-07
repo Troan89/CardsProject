@@ -1,13 +1,15 @@
+import { memo } from 'react'
+
 import IconsSprite from './iconsSprite.svg'
 
-type IconsPropsType = {
+export type IconsPropsType = {
   className?: string
   height?: string
   iconId: string
   viewBox?: string
   width?: string
 }
-export const Icons = ({ className, height, iconId, viewBox, width }: IconsPropsType) => {
+export const Icons = memo(({ className, height, iconId, viewBox, width }: IconsPropsType) => {
   return (
     <svg
       className={className}
@@ -20,4 +22,4 @@ export const Icons = ({ className, height, iconId, viewBox, width }: IconsPropsT
       <use xlinkHref={`${IconsSprite}#${iconId}`} />
     </svg>
   )
-}
+})
