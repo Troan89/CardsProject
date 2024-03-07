@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import { Slider } from '@/components/ui/slider'
 
 export function App() {
   return (
@@ -44,6 +45,7 @@ export function App() {
       <Typography as={'a'} variant={'link2'}>
         link2
       </Typography>
+      <Slider max={120} min={10} step={10} />
     </div>
   )
 }
