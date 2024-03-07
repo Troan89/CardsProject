@@ -1,12 +1,13 @@
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import { Slider } from '@/components/ui/slider'
 
 export function App() {
   return (
     <div>
       {/*<Button href={'https://yandex.ru'}>Hello</Button>*/}
       <Button as={'a'} href={'https://yandex.ru'}>
-        Hello
+        Hello Ivan commit
       </Button>
       <Typography as={'h1'} variant={'h1'}>
         H1
@@ -44,6 +45,7 @@ export function App() {
       <Typography as={'a'} variant={'link2'}>
         link2
       </Typography>
+      <Slider max={120} min={10} step={10} />
     </div>
   )
 }
