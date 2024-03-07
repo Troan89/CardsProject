@@ -1,7 +1,7 @@
 import Default from '@/assets/icons/DefaultTrue.svg'
 import Disabled from '@/assets/icons/DisabledTrue.svg'
+import { Typography } from '@/components/ui/typography'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
-import * as LabelRadix from '@radix-ui/react-label'
 import { clsx } from 'clsx'
 
 import s from './check-box.module.scss'
@@ -39,7 +39,9 @@ export const Checkbox = ({ checked, disabled, id, label, onChange, required }: C
           {disabled && checked && <img alt={'Disabled'} src={Disabled} />}
         </CheckboxRadix.Root>
       </div>
-      <LabelRadix.Root className={classNames.label}>{label}</LabelRadix.Root>
+      <Typography className={classNames.label} variant={'body2'}>
+        {label}
+      </Typography>
     </div>
   )
 }
