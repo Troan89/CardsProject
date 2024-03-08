@@ -1,5 +1,4 @@
-import Default from '@/assets/icons/DefaultTrue.svg'
-import Disabled from '@/assets/icons/DisabledTrue.svg'
+import { Icons } from '@/assets/icons/Icons'
 import { Typography } from '@/components/ui/typography'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
@@ -18,7 +17,7 @@ export type CheckboxProps = {
 export const Checkbox = ({ checked, disabled, id, label, onChange, required }: CheckboxProps) => {
   const classNames = {
     buttonWrapper: clsx(s.buttonWrapper, disabled && s.disabled),
-    container: s.container,
+    container: clsx(s.container),
     indicator: s.indicator,
     label: clsx(s.label, disabled && s.disabled),
     root: s.root,
@@ -26,20 +25,21 @@ export const Checkbox = ({ checked, disabled, id, label, onChange, required }: C
 
   return (
     <div className={classNames.container}>
-      <div className={classNames.buttonWrapper}>
-        <CheckboxRadix.Root
-          checked={checked}
-          className={classNames.root}
-          disabled={disabled}
-          id={id}
-          onCheckedChange={onChange}
-          required={required}
-        >
-          {!disabled && checked && <img alt={'Check'} src={Default} />}
-          {disabled && checked && <img alt={'Disabled'} src={Disabled} />}
-        </CheckboxRadix.Root>
-      </div>
-      <Typography className={classNames.label} variant={'body2'}>
+      <Typography as={'label'} className={classNames.label} variant={'body2'}>
+        <div className={classNames.buttonWrapper}>
+          <CheckboxRadix.Root
+            checked={checked}
+            className={classNames.root}
+            disabled={disabled}
+            id={id}
+            onCheckedChange={onChange}
+            required={required}
+          >
+            <CheckboxRadix.Indicator className={classNames.indicator} forceMount>
+              {checked && <Icons iconId={'iconCheckbox'} />}
+            </CheckboxRadix.Indicator>
+          </CheckboxRadix.Root>
+        </div>
         {label}
       </Typography>
     </div>
