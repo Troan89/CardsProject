@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ForwardedRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ForwardedRef, ReactNode, forwardRef } from 'react'
 
 import { Typography } from '@/components/ui/typography'
 import * as Tabs from '@radix-ui/react-tabs'
@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import s from './tabSwitcher.module.scss'
 
 export type TabType = {
-  content: React.ReactNode // Добавленное свойство для содержимого вкладки
+  content: ReactNode
   disabled?: boolean
   title: string
   value: string
