@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import s from './tabSwitcher.module.scss'
 
 export type TabType = {
+  content: React.ReactNode // Добавленное свойство для содержимого вкладки
   disabled?: boolean
   title: string
   value: string
@@ -44,7 +45,7 @@ export const TabSwitcher = forwardRef(
         <Tabs.List>
           {tabs.map(tab => (
             <Tabs.Trigger
-              className={s.trigger}
+              className={clsx(s.trigger, className)}
               disabled={tab.disabled}
               key={tab.value}
               value={tab.value}
@@ -53,6 +54,11 @@ export const TabSwitcher = forwardRef(
             </Tabs.Trigger>
           ))}
         </Tabs.List>
+        {tabs.map(tab => (
+          <Tabs.Content className={s.tabContent} key={tab.value} value={tab.value}>
+            {tab.content}
+          </Tabs.Content>
+        ))}
       </Tabs.Root>
     )
   }
