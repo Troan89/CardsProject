@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, Preview, StoryObj } from '@storybook/react'
 
 import { Icons } from '@/assets/icons/Icons'
 
@@ -12,6 +12,31 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
+
+const preview: Preview = {
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    backgrounds: {
+      default: 'dark',
+      values: [
+        {
+          name: 'dark',
+          value: '#000000',
+        },
+        {
+          name: 'light',
+          value: '#ffffff',
+        },
+      ],
+    },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+}
 
 // История для основной кнопки
 export const Primary: Story = {
