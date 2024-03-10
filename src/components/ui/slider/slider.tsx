@@ -14,7 +14,6 @@ export const Slider = forwardRef(
     const [maxValue, setMaxValue] = useState(max)
 
     const onChangeValueHandler = (newValue: number[]) => {
-      debugger
       setMinValue(newValue[0])
       setMaxValue(newValue[1])
       onValueChange && onValueChange(newValue)

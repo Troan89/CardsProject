@@ -38,6 +38,31 @@ const preview: Preview = {
   },
 }
 
+// const preview: Preview = {
+//   parameters: {
+//     actions: { argTypesRegex: '^on[A-Z].*' },
+//     backgrounds: {
+//       default: 'dark',
+//       values: [
+//         {
+//           name: 'dark',
+//           value: '#000000',
+//         },
+//         {
+//           name: 'light',
+//           value: '#ffffff',
+//         },
+//       ],
+//     },
+//     controls: {
+//       matchers: {
+//         color: /(background|color)$/i,
+//         date: /Date$/i,
+//       },
+//     },
+//   },
+// }
+
 // История для основной кнопки
 export const Primary: Story = {
   args: {
