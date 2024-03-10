@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ForwardedRef, ReactNode, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ForwardedRef, forwardRef } from 'react'
 
 import { Typography } from '@/components/ui/typography'
 import * as Tabs from '@radix-ui/react-tabs'
@@ -7,7 +7,6 @@ import clsx from 'clsx'
 import s from './tabSwitcher.module.scss'
 
 export type TabType = {
-  content: ReactNode
   disabled?: boolean
   title: string
   value: string
@@ -45,7 +44,7 @@ export const TabSwitcher = forwardRef(
         <Tabs.List>
           {tabs.map(tab => (
             <Tabs.Trigger
-              className={clsx(s.trigger, className)}
+              className={s.trigger}
               disabled={tab.disabled}
               key={tab.value}
               value={tab.value}
@@ -54,11 +53,6 @@ export const TabSwitcher = forwardRef(
             </Tabs.Trigger>
           ))}
         </Tabs.List>
-        {tabs.map(tab => (
-          <Tabs.Content className={s.tabContent} key={tab.value} value={tab.value}>
-            {tab.content}
-          </Tabs.Content>
-        ))}
       </Tabs.Root>
     )
   }
