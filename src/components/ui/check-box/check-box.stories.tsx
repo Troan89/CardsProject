@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Meta, type StoryObj } from '@storybook/react'
 
 import { Checkbox } from './check-box'
@@ -11,18 +13,24 @@ const meta: Meta<typeof Checkbox> = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-
-export const Checked: Story = {
+export const Uncontrolled: Story = {
   args: {
-    checked: true,
     disabled: false,
     label: 'Click here',
   },
 }
 
-export const Unchecked: Story = {
-  args: {
-    disabled: false,
-    label: 'Click here to',
+export const Controlled: Story = {
+  render: args => {
+    const [checked, setChecked] = useState(false)
+
+    return (
+      <Checkbox
+        {...args}
+        checked={checked}
+        label={'Click here'}
+        onChange={() => setChecked(!checked)}
+      />
+    )
   },
 }
