@@ -42,16 +42,13 @@
 
   height: 3px;
 
-  background-color: var(--color-accent-500);
+  background-color: var(--color-accent-300);
   border-radius: 9999px;
 }
 
 .SliderRange {
   position: absolute;
-
   height: 100%;
-
-  opacity: 1;
   background-color: var(--color-accent-500);
   border-radius: 9999px;
 }
