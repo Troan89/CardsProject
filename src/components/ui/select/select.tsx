@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import React, { ComponentPropsWithoutRef, forwardRef } from 'react'
 
 import { Typography } from '@/components/ui/typography'
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
@@ -22,26 +22,17 @@ type Props = SelectProps & ComponentPropsWithoutRef<typeof SelectFromRadix.Root>
 export const Select = forwardRef<HTMLButtonElement, Props>(
   ({ children, defaultValue, disabled, onChange, placeholder, title, value }: Props, ref) => {
     const classNames = {
-      Icon: clsx(disabled && s.disabled),
+      Icon: clsx(s.Icon, disabled && s.disabled),
       SelectContent: s.SelectContent,
       SelectTrigger: clsx(s.SelectTrigger, disabled && s.SelectTriggerDisabled),
       SelectViewport: s.SelectViewport,
       TypographyTitle: clsx(s.Title, disabled && s.disabled),
     }
 
-    const [isOpen, setIsOpen] = useState(false)
-    const handleOpen = () => {
-      setIsOpen(true)
-    }
-    const handleClose = () => {
-      setIsOpen(false)
-    }
-
     return (
       <SelectFromRadix.Root
         defaultValue={defaultValue}
         disabled={disabled}
-        onOpenChange={isOpen ? handleClose : handleOpen}
         onValueChange={onChange}
         value={value}
       >
@@ -51,7 +42,7 @@ export const Select = forwardRef<HTMLButtonElement, Props>(
         <SelectFromRadix.Trigger aria-label={'Food'} className={classNames.SelectTrigger} ref={ref}>
           <SelectFromRadix.Value placeholder={placeholder} />
           <SelectFromRadix.Icon className={classNames.Icon}>
-            {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            <ChevronDownIcon />
           </SelectFromRadix.Icon>
         </SelectFromRadix.Trigger>
         <SelectFromRadix.Portal>
