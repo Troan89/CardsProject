@@ -5,9 +5,15 @@ import clsx from 'clsx'
 
 import s from './slider.module.scss'
 
-export type SliderProps = ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+export type SliderProps = ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & {
+  ariaLabelMax?: string
+  ariaLabelMin?: string
+}
 export const Slider = forwardRef(
-  ({ className, onValueChange, value, ...rest }: SliderProps, ref: any) => {
+  (
+    { ariaLabelMax, ariaLabelMin, className, onValueChange, value, ...rest }: SliderProps,
+    ref: any
+  ) => {
     const [valueSlider, setValueSlider] = useState(value)
     const onChangeValueHandler = (newValue: number[]) => {
       setValueSlider(newValue)
@@ -38,8 +44,8 @@ export const Slider = forwardRef(
           <SliderPrimitive.Track className={s.SliderTrack}>
             <SliderPrimitive.Range className={s.SliderRange} />
           </SliderPrimitive.Track>
-          <SliderPrimitive.Thumb className={s.SliderThumb} />
-          <SliderPrimitive.Thumb className={s.SliderThumb} />
+          <SliderPrimitive.Thumb aria-label={ariaLabelMin} className={s.SliderThumb} />
+          <SliderPrimitive.Thumb aria-label={ariaLabelMax} className={s.SliderThumb} />
         </SliderPrimitive.Root>
         <input
           onChange={e => changeInputValue(1, Number(e.target.value))}
