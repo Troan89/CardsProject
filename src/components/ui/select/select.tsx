@@ -1,13 +1,14 @@
 import React, { ComponentPropsWithoutRef, forwardRef } from 'react'
 
+import { Icons } from '@/assets/icons/Icons'
 import { Typography } from '@/components/ui/typography'
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import * as SelectFromRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
 import s from './select.module.scss'
 
 type SelectProps = {
+  className?: string
   defaultValue?: string
   disabled?: boolean
   label?: string
@@ -20,11 +21,24 @@ type SelectProps = {
 type Props = SelectProps & ComponentPropsWithoutRef<typeof SelectFromRadix.Root>
 
 export const Select = forwardRef<HTMLButtonElement, Props>(
-  ({ children, defaultValue, disabled, onChange, placeholder, title, value }: Props, ref) => {
+  (
+    {
+      children,
+      className,
+      defaultValue,
+      disabled,
+      onChange,
+      placeholder,
+      title,
+      value,
+      ...props
+    }: Props,
+    ref
+  ) => {
     const classNames = {
       Icon: clsx(s.Icon, disabled && s.disabled),
       SelectContent: s.SelectContent,
-      SelectTrigger: clsx(s.SelectTrigger, disabled && s.SelectTriggerDisabled),
+      SelectTrigger: clsx(s.SelectTrigger, disabled && s.SelectTriggerDisabled, className),
       SelectViewport: s.SelectViewport,
       TypographyTitle: clsx(s.Title, disabled && s.disabled),
     }
@@ -35,6 +49,7 @@ export const Select = forwardRef<HTMLButtonElement, Props>(
         disabled={disabled}
         onValueChange={onChange}
         value={value}
+        {...props}
       >
         <Typography className={classNames.TypographyTitle} variant={'body2'}>
           {title}
@@ -42,7 +57,7 @@ export const Select = forwardRef<HTMLButtonElement, Props>(
         <SelectFromRadix.Trigger aria-label={'Food'} className={classNames.SelectTrigger} ref={ref}>
           <SelectFromRadix.Value placeholder={placeholder} />
           <SelectFromRadix.Icon className={classNames.Icon}>
-            <ChevronDownIcon />
+            <Icons height={'6'} iconId={'vector-select'} viewBox={'0 0 11 6'} width={'11'} />
           </SelectFromRadix.Icon>
         </SelectFromRadix.Trigger>
         <SelectFromRadix.Portal>
@@ -52,13 +67,13 @@ export const Select = forwardRef<HTMLButtonElement, Props>(
             position={'popper'}
           >
             <SelectFromRadix.ScrollUpButton>
-              <ChevronUpIcon />
+              <Icons height={'6'} iconId={'vector-select-up'} viewBox={'0 0 11 6'} width={'11'} />
             </SelectFromRadix.ScrollUpButton>
             <SelectFromRadix.Viewport className={classNames.SelectViewport}>
               {children}
             </SelectFromRadix.Viewport>
             <SelectFromRadix.ScrollDownButton>
-              <ChevronDownIcon />
+              <Icons height={'6'} iconId={'vector-select'} viewBox={'0 0 11 6'} width={'11'} />
             </SelectFromRadix.ScrollDownButton>
           </SelectFromRadix.Content>
         </SelectFromRadix.Portal>
