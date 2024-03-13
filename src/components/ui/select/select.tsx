@@ -9,13 +9,13 @@ import s from './select.module.scss'
 
 type SelectProps = {
   className?: string
-  defaultValue?: string
+  defaultValue?: number | string
   disabled?: boolean
-  label?: string
-  onChange?: (value: string) => void
+  label?: number | string
+  onChange?: (value: number | string) => void
   placeholder?: string
   title?: string
-  value?: string
+  value: number | string
 }
 
 type Props = SelectProps & ComponentPropsWithoutRef<typeof SelectFromRadix.Root>
@@ -84,18 +84,20 @@ export const Select = forwardRef<HTMLButtonElement, Props>(
 
 export const SelectItem = forwardRef<
   HTMLDivElement,
-  React.PropsWithChildren<{ className?: string; disabled?: boolean; value: string }>
+  React.PropsWithChildren<{ className?: string; disabled?: boolean; value: number | string }>
 >(({ children, className, value, ...props }, forwardedRef) => {
   const classNames = {
     TypographyTitle: clsx(s.SelectItem, className),
   }
+
+  const stringValue = value.toString()
 
   return (
     <SelectFromRadix.Item
       className={classNames.TypographyTitle}
       {...props}
       ref={forwardedRef}
-      value={value}
+      value={stringValue}
     >
       <Typography variant={'body1'}>
         <SelectFromRadix.ItemText>{children}</SelectFromRadix.ItemText>

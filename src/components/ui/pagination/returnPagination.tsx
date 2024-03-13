@@ -98,7 +98,7 @@ export const usePagination = ({ count, onChange, page, siblings = 1 }: UsePagina
   }, [page, onChange])
 
   function handleMainPageClicked(pageNumber: number) {
-    return () => onChange(pageNumber)
+    onChange(pageNumber)
   }
 
   return {

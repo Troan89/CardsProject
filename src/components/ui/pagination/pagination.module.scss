@@ -62,7 +62,6 @@
   justify-content: center;
   border: none;
   background-color: var(--color-dark-900);
-  color: var(--color-light-100);
   cursor: pointer;
 }
 
@@ -70,11 +69,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  fill: var(--color-light-100);
 }
 
-.item:hover {
+.item:hover:not(:disabled) {
   background-color: var(--color-dark-500);
   border-radius: 2px;
+}
+
+.item:disabled .Icon {
+  fill: var(--color-dark-100);
+}
+
+.item:disabled {
+  cursor: default;
 }
 
 .select {

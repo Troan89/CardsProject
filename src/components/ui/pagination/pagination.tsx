@@ -7,13 +7,29 @@ import { clsx } from 'clsx'
 
 import s from './pagination.module.scss'
 
+type PaginationConditionals =
+  | {
+      onPerPageChange: (itemPerPage: number) => void
+      perPage: number
+      perPageOptions: number[]
+    }
+  | {
+      onPerPageChange?: never
+      perPage?: null
+      perPageOptions?: never
+    }
+
 export type PaginatorProps = {
   count: number
   limit: number
   onChange: (page: number) => void
+  onPerPageChange?: (itemPerPage: number | string) => void
   page: number
-  siblings: number
-} & Omit<ComponentPropsWithoutRef<'div'>, 'onChange'>
+  perPage?: number | string
+  perPageOptions?: number[]
+  siblings?: number
+} & PaginationConditionals &
+  Omit<ComponentPropsWithoutRef<'div'>, 'onChange'>
 
 const classNames = {
   SelectItem: clsx(s.SelectItem),
@@ -29,7 +45,17 @@ const classNames = {
   selectRoot: clsx(s.selectRoot),
 }
 
-export const Pagination = ({ count, limit, onChange, page, siblings, ...rest }: PaginatorProps) => {
+export const Pagination = ({
+  count,
+  limit,
+  onChange,
+  onPerPageChange,
+  page,
+  perPage,
+  perPageOptions,
+  siblings,
+  ...rest
+}: PaginatorProps) => {
   const {
     handleMainPageClicked,
     handleNextPageClicked,
@@ -38,6 +64,8 @@ export const Pagination = ({ count, limit, onChange, page, siblings, ...rest }: 
     isLastPage,
     paginationRange,
   } = usePagination({ count, onChange, page, siblings })
+
+  const showPerPageSelect = !!onPerPageChange && !!perPage && !!perPageOptions
 
   return (
     <div className={classNames.root} {...rest}>
@@ -51,20 +79,17 @@ export const Pagination = ({ count, limit, onChange, page, siblings, ...rest }: 
         />
 
         <NextButton disabled={isLastPage} onClick={handleNextPageClicked} />
-
-        <div className={classNames.selectRoot}>
-          Показать
-          <Select className={classNames.select} placeholder={'hello'}>
-            <SelectItem className={classNames.SelectItem} value={'1'}>
-              100
-            </SelectItem>
-            <SelectItem className={classNames.SelectItem} value={'2'}>
-              50
-            </SelectItem>
-          </Select>
-          на странице
-        </div>
       </div>
+
+      {showPerPageSelect && (
+        <PerPageSelect
+          {...{
+            onPerPageChange,
+            perPage,
+            perPageOptions,
+          }}
+        />
+      )}
     </div>
   )
 }
@@ -100,7 +125,6 @@ const PrevButton = ({ disabled, onClick }: PrevNextButtonType) => {
     <button className={classNames.item} disabled={disabled} onClick={onClick}>
       <Icons
         className={classNames.icon}
-        full={disabled ? 'grey' : 'white'}
         height={'10'}
         iconId={'vector-left'}
         viewBox={'0 0 5 10'}
@@ -115,7 +139,6 @@ const NextButton = ({ disabled, onClick }: PrevNextButtonType) => {
     <button className={classNames.item} disabled={disabled} onClick={onClick}>
       <Icons
         className={classNames.icon}
-        full={disabled ? 'grey' : 'white'}
         height={'10'}
         iconId={'vector-right'}
         viewBox={'0 0 5 10'}
@@ -150,5 +173,38 @@ const MainPaginationButtons = ({
         )
       })}
     </>
+  )
+}
+
+export type PerPageSelectProps = {
+  onPerPageChange: (itemPerPage: number | string) => void
+  perPage: number | string
+  perPageOptions: number[]
+}
+export const PerPageSelect = ({ onPerPageChange, perPage, perPageOptions }: PerPageSelectProps) => {
+  const selectOptions = perPageOptions.map(value => ({
+    label: value,
+    value,
+  }))
+
+  const stringValue = perPage.toString()
+
+  return (
+    <div className={classNames.selectRoot}>
+      Показать
+      <Select
+        className={classNames.select}
+        label={perPage}
+        onChange={onPerPageChange}
+        value={stringValue}
+      >
+        {selectOptions.map(item => (
+          <SelectItem className={classNames.SelectItem} key={item.value} value={item.value}>
+            {item.label}
+          </SelectItem>
+        ))}
+      </Select>
+      на странице
+    </div>
   )
 }
