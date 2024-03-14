@@ -5,7 +5,7 @@ import { ColumnType, Table } from '@/components/ui/table'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 
-import s from './tableSortHeader.module.scss'
+import s from './tableSort.module.scss'
 
 export type Column = {
   column: ColumnType
@@ -61,7 +61,7 @@ export const TableSort = memo(
                   className={clsx(s.sortDefault, sort?.direction === 'asc' ? s.asc : s.desc)}
                   ref={sort?.sortBy === sortBy ? ref : null}
                 >
-                  <Icons className={s.icon} iconId={'arrow-ios-Up'} />
+                  <Icons full={'write'} iconId={'arrow-ios-Up'} />
                 </span>
               )}
             </Table.HeadCell>
