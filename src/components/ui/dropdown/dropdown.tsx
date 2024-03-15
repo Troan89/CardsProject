@@ -8,7 +8,12 @@ import clsx from 'clsx'
 import s from './dropdown.module.css'
 
 export const DropdownMenu = DropdownMenuPrimitive.Root
-export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
+export const DropdownMenuTrigger = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.Trigger>,
+  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
+>(({ className, ...props }, ref) => (
+  <DropdownMenuPrimitive.Trigger className={clsx(s.trigger, className)} ref={ref} {...props} />
+))
 
 export const DropdownMenuContent = React.forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.Content>,

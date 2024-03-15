@@ -1,3 +1,7 @@
+.trigger {
+  all: unset;
+}
+
 .item {
   all: unset;
 
