@@ -1,0 +1,110 @@
+.root {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  list-style-type: none;
+}
+
+.pageButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 8px;
+  border: none;
+  background-color: var(--color-dark-900);
+  color: var(--color-light-100);
+  cursor: pointer;
+}
+
+.pageButton:disabled {
+  cursor: default;
+}
+
+.pageButton.selected {
+  cursor: default;
+  background-color: var(--color-light-100);
+  color: var(--color-dark-900);
+  border-radius: 2px;
+}
+
+.pageButton:hover:not(.selected) {
+  background-color: var(--color-dark-500);
+  border-radius: 2px;
+}
+
+.pageButton:focus {
+  border: 2px solid var(--color-info-700);
+  border-radius: 2px;
+  outline: none;
+}
+
+.dots {
+  width: 12px;
+  height: 24px;
+  margin: 0 8px;
+  color: var(--color-light-100);
+}
+
+.item {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: var(--color-dark-900);
+  cursor: pointer;
+}
+
+.item .Icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: var(--color-light-100);
+}
+
+.item:hover:not(:disabled) {
+  background-color: var(--color-dark-500);
+  border-radius: 2px;
+}
+
+.item:disabled .Icon {
+  fill: var(--color-dark-100);
+}
+
+.item:disabled {
+  cursor: default;
+}
+
+.select {
+  flex-shrink: 0;
+  width: 50px;
+  height: 25px;
+  margin: 0;
+  padding: 3px;
+}
+
+.selectRoot {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--color-light-100);
+  white-space: nowrap;
+}
+
+.SelectItem {
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  padding: 0;
+}

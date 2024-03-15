@@ -1,49 +1,55 @@
-import React, { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import React, { ComponentPropsWithoutRef, forwardRef } from 'react'
 
+import { Icons } from '@/assets/icons/Icons'
 import { Typography } from '@/components/ui/typography'
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import * as SelectFromRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
 import s from './select.module.scss'
 
 type SelectProps = {
-  defaultValue?: string
+  className?: string
+  defaultValue?: number | string
   disabled?: boolean
-  label?: string
-  onChange?: (value: string) => void
+  label?: number | string
+  onChange?: (value: number | string) => void
   placeholder?: string
   title?: string
-  value?: string
+  value: number | string
 }
 
 type Props = SelectProps & ComponentPropsWithoutRef<typeof SelectFromRadix.Root>
 
 export const Select = forwardRef<HTMLButtonElement, Props>(
-  ({ children, defaultValue, disabled, onChange, placeholder, title, value }: Props, ref) => {
+  (
+    {
+      children,
+      className,
+      defaultValue,
+      disabled,
+      onChange,
+      placeholder,
+      title,
+      value,
+      ...props
+    }: Props,
+    ref
+  ) => {
     const classNames = {
-      Icon: clsx(disabled && s.disabled),
+      Icon: clsx(s.Icon, disabled && s.disabled),
       SelectContent: s.SelectContent,
-      SelectTrigger: clsx(s.SelectTrigger, disabled && s.SelectTriggerDisabled),
+      SelectTrigger: clsx(s.SelectTrigger, disabled && s.SelectTriggerDisabled, className),
       SelectViewport: s.SelectViewport,
       TypographyTitle: clsx(s.Title, disabled && s.disabled),
-    }
-
-    const [isOpen, setIsOpen] = useState(false)
-    const handleOpen = () => {
-      setIsOpen(true)
-    }
-    const handleClose = () => {
-      setIsOpen(false)
     }
 
     return (
       <SelectFromRadix.Root
         defaultValue={defaultValue}
         disabled={disabled}
-        onOpenChange={isOpen ? handleClose : handleOpen}
         onValueChange={onChange}
         value={value}
+        {...props}
       >
         <Typography className={classNames.TypographyTitle} variant={'body2'}>
           {title}
@@ -51,7 +57,7 @@ export const Select = forwardRef<HTMLButtonElement, Props>(
         <SelectFromRadix.Trigger aria-label={'Food'} className={classNames.SelectTrigger} ref={ref}>
           <SelectFromRadix.Value placeholder={placeholder} />
           <SelectFromRadix.Icon className={classNames.Icon}>
-            {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            <Icons height={'6'} iconId={'vector-select'} viewBox={'0 0 11 6'} width={'11'} />
           </SelectFromRadix.Icon>
         </SelectFromRadix.Trigger>
         <SelectFromRadix.Portal>
@@ -61,13 +67,13 @@ export const Select = forwardRef<HTMLButtonElement, Props>(
             position={'popper'}
           >
             <SelectFromRadix.ScrollUpButton>
-              <ChevronUpIcon />
+              <Icons height={'6'} iconId={'vector-select-up'} viewBox={'0 0 11 6'} width={'11'} />
             </SelectFromRadix.ScrollUpButton>
             <SelectFromRadix.Viewport className={classNames.SelectViewport}>
               {children}
             </SelectFromRadix.Viewport>
             <SelectFromRadix.ScrollDownButton>
-              <ChevronDownIcon />
+              <Icons height={'6'} iconId={'vector-select'} viewBox={'0 0 11 6'} width={'11'} />
             </SelectFromRadix.ScrollDownButton>
           </SelectFromRadix.Content>
         </SelectFromRadix.Portal>
@@ -78,18 +84,20 @@ export const Select = forwardRef<HTMLButtonElement, Props>(
 
 export const SelectItem = forwardRef<
   HTMLDivElement,
-  React.PropsWithChildren<{ className?: string; disabled?: boolean; value: string }>
+  React.PropsWithChildren<{ className?: string; disabled?: boolean; value: number | string }>
 >(({ children, className, value, ...props }, forwardedRef) => {
   const classNames = {
     TypographyTitle: clsx(s.SelectItem, className),
   }
+
+  const stringValue = value.toString()
 
   return (
     <SelectFromRadix.Item
       className={classNames.TypographyTitle}
       {...props}
       ref={forwardedRef}
-      value={value}
+      value={stringValue}
     >
       <Typography variant={'body1'}>
         <SelectFromRadix.ItemText>{children}</SelectFromRadix.ItemText>
