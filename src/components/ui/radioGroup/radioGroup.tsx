@@ -28,7 +28,7 @@ type Options = {
   label: string
   value: string
 }
-type RadioGroupProps = ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> & {
+export type RadioGroupProps = ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> & {
   errorMessage?: string
   options: Options[]
 }
@@ -37,6 +37,17 @@ const RadioGroup = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Radio
   (props, ref) => {
     const { errorMessage, options, ...rest } = props
 
+    const radioGroupOptions = options.map(option => {
+      return (
+        <div className={s.option} key={option.value}>
+          <RadioGroupItem value={option.value} />
+          <Typography as={'label'} htmlFor={option.value} variant={'body2'}>
+            {option.label}
+          </Typography>
+        </div>
+      )
+    })
+
     return (
       <RadioGroupRoot
         {...rest}
@@ -44,18 +55,8 @@ const RadioGroup = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Radio
           console.log(e)
         }}
         ref={ref}
-        // value={''}
       >
-        {options.map(option => {
-          return (
-            <div className={s.option} key={option.value}>
-              <RadioGroupItem value={option.value} />
-              <Typography as={'label'} variant={'body2'}>
-                {option.label}
-              </Typography>
-            </div>
-          )
-        })}
+        {radioGroupOptions}
       </RadioGroupRoot>
     )
   }
