@@ -1,4 +1,4 @@
-.cardForm {
+.cardSignUp {
   width: 100%;
   max-width: 420px;
   height: 100%;
@@ -13,7 +13,7 @@
   text-align: center;
 }
 
-.form {
+.formRoot {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,15 +31,10 @@
   height: 72px;
 }
 
-.checkbox {
-  align-self: start;
+.confirmPassword {
+  width: 100%;
+  height: 72px;
   margin-top: 12px;
-}
-
-.recoverLink {
-  align-self: end;
-  margin-top: 6px;
-  text-decoration: none;
 }
 
 .btn {
