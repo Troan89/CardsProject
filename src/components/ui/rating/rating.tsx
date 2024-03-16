@@ -12,7 +12,7 @@ export type RatingPropsType = {
 } & ComponentPropsWithoutRef<'div'>
 
 export const Rating = forwardRef<HTMLDivElement, RatingPropsType>(
-  ({ onClick, value, ...rest }, ref: ForwardedRef<HTMLDivElement>) => {
+  ({ value, ...rest }, ref: ForwardedRef<HTMLDivElement>) => {
     const maxRating: RatingValueType = 5
     const stars = [...Array(maxRating)].map((_, index) => index + 1)
 

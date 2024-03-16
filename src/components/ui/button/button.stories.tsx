@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, Preview, StoryObj } from '@storybook/react'
 
-import Logout from '@/assets/icons/Logout'
+import { Icons } from '@/assets/icons/Icons'
 
 import { Button } from './'
 
@@ -12,6 +12,56 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
+
+const preview: Preview = {
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    backgrounds: {
+      default: 'dark',
+      values: [
+        {
+          name: 'dark',
+          value: '#000000',
+        },
+        {
+          name: 'light',
+          value: '#ffffff',
+        },
+      ],
+    },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+}
+
+// const preview: Preview = {
+//   parameters: {
+//     actions: { argTypesRegex: '^on[A-Z].*' },
+//     backgrounds: {
+//       default: 'dark',
+//       values: [
+//         {
+//           name: 'dark',
+//           value: '#000000',
+//         },
+//         {
+//           name: 'light',
+//           value: '#ffffff',
+//         },
+//       ],
+//     },
+//     controls: {
+//       matchers: {
+//         color: /(background|color)$/i,
+//         date: /Date$/i,
+//       },
+//     },
+//   },
+// }
 
 // История для основной кнопки
 export const Primary: Story = {
@@ -55,7 +105,7 @@ export const PrimaryIcon: Story = {
   args: {
     children: (
       <>
-        <Logout /> Sign out
+        <Icons iconId={'log-out-outline'} /> Sign out
       </>
     ),
     disabled: false,
@@ -67,7 +117,7 @@ export const SecondaryIcon: Story = {
   args: {
     children: (
       <>
-        <Logout /> Sign out
+        <Icons iconId={'log-out-outline'} /> Sign out
       </>
     ),
     disabled: false,

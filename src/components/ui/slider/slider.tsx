@@ -1,48 +1,57 @@
-import { ComponentPropsWithoutRef, useState } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import clsx from 'clsx'
 
 import s from './slider.module.scss'
 
-export type SliderProps = Omit<ComponentPropsWithoutRef<typeof SliderPrimitive.Root>, 'value'> & {
-  value?: number | number[]
+export type SliderProps = ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & {
+  ariaLabelMax?: string
+  ariaLabelMin?: string
 }
-export const Slider = ({
-  className,
-  max = 100,
-  min = 0,
-  onValueChange,
-  value,
-  ...props
-}: SliderProps) => {
-  const [minValue, setMinValue] = useState(min)
-  const [maxValue, setMaxValue] = useState(max)
+export const Slider = forwardRef(
+  (
+    { ariaLabelMax, ariaLabelMin, className, onValueChange, value, ...rest }: SliderProps,
+    ref: any
+  ) => {
+    const [valueSlider, setValueSlider] = useState(value)
+    const onChangeValueHandler = (newValue: number[]) => {
+      setValueSlider(newValue)
+    }
+    const changeInputValue = (number: number, value: number) => {
+      const oldVal = valueSlider?.[number ? 0 : 1]
 
-  const onChangeValueHandler = (newValue: number[]) => {
-    setMinValue(newValue[0])
-    setMaxValue(newValue[1])
-    onValueChange && onValueChange(newValue)
+      if (number === 0) {
+        oldVal && setValueSlider([value, oldVal])
+      } else {
+        oldVal && setValueSlider([oldVal, value])
+      }
+    }
+
+    return (
+      <div className={s.container}>
+        <input
+          onChange={e => changeInputValue(0, Number(e.target.value))}
+          value={valueSlider?.[0]}
+        />
+        <SliderPrimitive.Root
+          className={clsx(s.SliderRoot, className)}
+          onValueChange={newValue => onChangeValueHandler(newValue)}
+          {...rest}
+          ref={ref}
+          value={valueSlider}
+        >
+          <SliderPrimitive.Track className={s.SliderTrack}>
+            <SliderPrimitive.Range className={s.SliderRange} />
+          </SliderPrimitive.Track>
+          <SliderPrimitive.Thumb aria-label={ariaLabelMin} className={s.SliderThumb} />
+          <SliderPrimitive.Thumb aria-label={ariaLabelMax} className={s.SliderThumb} />
+        </SliderPrimitive.Root>
+        <input
+          onChange={e => changeInputValue(1, Number(e.target.value))}
+          value={valueSlider?.[1]}
+        />
+      </div>
+    )
   }
-
-  return (
-    <div className={s.container}>
-      <input onChange={e => setMinValue(Number(e.target.value))} value={minValue} />
-      <SliderPrimitive.Root
-        className={clsx(s.SliderRoot, className)}
-        max={max}
-        min={min}
-        onValueChange={newValue => onChangeValueHandler(newValue)}
-        {...props}
-        value={[minValue, maxValue]}
-      >
-        <SliderPrimitive.Track className={s.SliderTrack}>
-          <SliderPrimitive.Range className={s.SliderRange} />
-        </SliderPrimitive.Track>
-        <SliderPrimitive.Thumb className={s.SliderThumb} />
-        <SliderPrimitive.Thumb className={s.SliderThumb} />
-      </SliderPrimitive.Root>
-      <input onChange={e => setMaxValue(Number(e.target.value))} value={maxValue} />
-    </div>
-  )
-}
+)
