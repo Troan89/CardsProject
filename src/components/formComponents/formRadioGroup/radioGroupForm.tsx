@@ -8,13 +8,22 @@ export type RadioGroupFormProps<TFieldValues extends FieldValues> =
 export const RadioGroupForm = <TFieldValues extends FieldValues>(
   props: RadioGroupFormProps<TFieldValues>
 ) => {
+  const { control, name, options } = props
   const {
     field: { onChange, ...field },
     fieldState: { error },
   } = useController({
-    control: props.control,
-    name: props.name,
+    control,
+    name,
   })
 
-  return <RadioGroup onValueChange={onChange} {...field} {...props} errorMessage={error?.message} />
+  return (
+    <RadioGroup
+      onValueChange={onChange}
+      {...field}
+      {...props}
+      errorMessage={error?.message}
+      options={options}
+    />
+  )
 }
