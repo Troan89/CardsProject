@@ -76,13 +76,7 @@ export const SignIn = ({ onSubmit }: LoginProps) => {
       <Typography className={s.typography} variant={'body2'}>
         Don&apos;t have an account?
       </Typography>
-      <Typography
-        as={NavLink}
-        className={s.link}
-        style={{ color: 'var(--color-accent-500)' }}
-        to={'#'}
-        variant={'subtitle1'}
-      >
+      <Typography as={NavLink} className={s.link} to={'#'} variant={'subtitle1'}>
         Sign Up
       </Typography>
     </Card>

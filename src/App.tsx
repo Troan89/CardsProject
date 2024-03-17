@@ -1,17 +1,13 @@
-import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
-import { FormValues, SignIn } from '@/components/auth/signIn'
-import { SignUp } from '@/components/auth/signUp'
+import { store } from '@/services/store'
+
+import { Router } from './router/router'
 
 export function App() {
-  const handlePerPageChange = (value: FormValues) => {
-    console.log(value)
-  }
-
   return (
-    <BrowserRouter>
-      <SignIn onSubmit={handlePerPageChange} />
-      <SignUp onSubmit={handlePerPageChange} />
-    </BrowserRouter>
+    <Provider store={store}>
+      <Router />
+    </Provider>
   )
 }

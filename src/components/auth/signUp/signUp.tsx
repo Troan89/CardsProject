@@ -77,13 +77,7 @@ export const SignUp = ({ onSubmit }: LogProps) => {
       <Typography className={s.typography} variant={'body2'}>
         Already have an account?
       </Typography>
-      <Typography
-        as={NavLink}
-        className={s.link}
-        style={{ color: 'var(--color-accent-500)' }}
-        to={'#'}
-        variant={'subtitle1'}
-      >
+      <Typography as={NavLink} className={s.link} to={'#'} variant={'subtitle1'}>
         Sing In
       </Typography>
     </Card>
