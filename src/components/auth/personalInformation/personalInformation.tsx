@@ -7,19 +7,23 @@ import { Card } from '@/components/ui/card'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
 
-import s from './editProfile.module.css'
+import s from './personalInformation.module.css'
 
 import AvatarDemo from '../../../assets/img/avatarDemo.jpeg'
 type Props = {
   email: string
   name: string
 }
-export const EditProfile = (props: Props) => {
+export const PersonalInformation = (props: Props) => {
   const { email, name } = props
   const [editMode, setEditMode] = useState(false)
+  const [nameValue, setNameValue] = useState(name)
 
   const onChangeEditMode = (value: boolean) => {
     setEditMode(value)
+  }
+  const onChangeName = (value: string) => {
+    setNameValue(value)
   }
 
   return (
@@ -39,8 +43,9 @@ export const EditProfile = (props: Props) => {
               <TextField
                 label={'Nickname'}
                 onBlur={() => onChangeEditMode(false)}
+                onValueChange={onChangeName}
                 type={'text'}
-                value={name}
+                value={nameValue}
               />
             </div>
             <Button fullWidth variant={'primary'}>
@@ -50,7 +55,7 @@ export const EditProfile = (props: Props) => {
         ) : (
           <div className={s.content}>
             <Typography variant={'h2'}>
-              {name}{' '}
+              {nameValue}{' '}
               <button className={s.editButton} onClick={() => onChangeEditMode(true)}>
                 <Icons className={s.icons} iconId={'edit-2-outline'} />
               </button>

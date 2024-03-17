@@ -1,19 +1,39 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {
+  Navigate,
+  Outlet,
+  RouteObject,
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom'
 
-import AvatarDemo from '@/assets/img/avatarDemo.jpeg'
-import { Header } from '@/components/ui/header/header'
+const publicRoutes: RouteObject[] = [
+  {
+    element: <div>login</div>,
+    path: '/login',
+  },
+]
+
+const privateRoutes: RouteObject[] = [
+  {
+    element: <div>Hello</div>,
+    path: '/',
+  },
+]
 
 const router = createBrowserRouter([
   {
-    element: (
-      <div>
-        <Header avatar={AvatarDemo} email={'111@yandex.ru'} isLoggedIn userName={'Ivan'} />
-      </div>
-    ),
-    path: '/',
+    children: privateRoutes,
+    element: <PrivateRoutes />,
   },
+  ...publicRoutes,
 ])
 
 export const Router = () => {
   return <RouterProvider router={router} />
+}
+
+function PrivateRoutes() {
+  const isAuthenticated = true
+
+  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }

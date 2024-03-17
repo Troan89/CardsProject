@@ -83,7 +83,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               onClick={() => setShowPassword(prevValue => !prevValue)}
               type={'button'}
             >
-              {showPassword ? (
+              {!showPassword ? (
                 <Icons className={s.passwordIcon} iconId={'eye-outline'} />
               ) : (
                 <Icons className={s.passwordIcon} iconId={'eye-off-outline'} />
