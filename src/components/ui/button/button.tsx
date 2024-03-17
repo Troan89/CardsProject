@@ -12,7 +12,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
-export const Button = forwardRef(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   <T extends ElementType = 'button'>(props: ButtonProps<T>, ref: any) => {
     const {
       as: Component = 'button',

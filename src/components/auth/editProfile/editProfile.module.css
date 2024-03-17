@@ -1,0 +1,52 @@
+.cardWrapper {
+  max-width: 413px;
+  padding: 33px;
+  background: var(--color-dark-700);
+  border: 1px solid rgb(49 49 49 / 10%);
+}
+
+.cardWrapper .info {
+  font: 700 26px/36px sans-serif;
+  color: var(--color-light-100);
+}
+
+.cardWrapper .infoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 33px 13px;
+}
+
+.editInput {
+  margin-bottom: 36px;
+}
+
+.cardWrapper .infoWrapper .content {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 10px;
+  padding: 5px;
+}
+
+.cardWrapper .editButton {
+  all: unset;
+  cursor: pointer;
+}
+
+.avatar {
+  margin: 27px 0 12px;
+}
+
+.email {
+  margin-bottom: 13px;
+  color: var(--color-dark-100);
+}
+
+.icons {
+  width: 20px;
+  height: 20px;
+}

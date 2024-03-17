@@ -14,7 +14,7 @@ export const Avatar = (props: Props) => {
 
   return (
     <img
-      className={clsx(className, s.avatar)}
+      className={clsx(s.avatar, className)}
       style={{
         ...style,
         height,
