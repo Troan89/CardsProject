@@ -77,6 +77,15 @@
   }
 }
 
+.textField:-webkit-autofill,
+.textField:-webkit-autofill:hover,
+.textField:-webkit-autofill:focus,
+.textField:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px var(--color-dark-700) inset !important;
+
+  -webkit-text-fill-color: var(--color-light-100) !important;
+}
+
 .passwordBtn {
   cursor: pointer;
 
