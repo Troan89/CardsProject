@@ -6,10 +6,22 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { Login } from '@/pages/login'
+import { Logout } from '@/pages/logout'
+
+export const ROUTES = {
+  login: '/login',
+  logout: '/logout',
+} as const
+
 const publicRoutes: RouteObject[] = [
   {
-    element: <div>login</div>,
-    path: '/login',
+    element: <Login />,
+    path: ROUTES.login,
+  },
+  {
+    element: <Logout />,
+    path: ROUTES.logout,
   },
 ]
 
