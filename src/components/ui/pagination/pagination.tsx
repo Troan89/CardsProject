@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import { Icons } from '@/assets/icons/Icons'
-import { usePagination } from '@/components/ui/pagination/returnPagination'
+import { usePagination } from '@/components/ui/pagination/usePagination'
 import { Select, SelectItem } from '@/components/ui/select'
 import { clsx } from 'clsx'
 
