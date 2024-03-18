@@ -43,7 +43,7 @@ export const CreateNewPassword = ({ onSubmit }: Props) => {
           {...register('password')}
           control={control}
           error={errors.password?.message}
-          label={'password'}
+          label={'Password'}
           type={'password'}
         />
         <div>
