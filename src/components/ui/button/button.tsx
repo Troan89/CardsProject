@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import s from './button.module.scss'
 
-export type ButtonProps<T extends ElementType = 'button'> = {
+export type ButtonProps<T extends ElementType = ElementType> = {
   as?: T
   children?: ReactNode
   classname?: string
@@ -12,7 +12,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
-export const Button = forwardRef<HTMLButtonElement, any>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   <T extends ElementType = 'button'>(props: ButtonProps<T>, ref: any) => {
     const {
       as: Component = 'button',
