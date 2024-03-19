@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { Error404Page } from '@/pages/error404'
+import {DecksPage} from "@/pages";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -21,7 +22,7 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <div>Hello !</div>,
+    element: <DecksPage />,
     path: '/',
   },
 ]
