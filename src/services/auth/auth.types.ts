@@ -23,6 +23,16 @@ export type SignUpArgs = {
   subject?: string
 }
 
+export type SignUpResponse = {
+  avatar: string
+  created: string
+  email: string
+  id: string
+  isEmailVerified: boolean
+  name: string
+  updated: string
+}
+
 export type ResendCheckEmailArgs = {
   html?: string
   subject?: string

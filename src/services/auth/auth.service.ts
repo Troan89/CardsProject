@@ -3,6 +3,7 @@ import {
   RecoverPasswordArgs,
   ResendCheckEmailArgs,
   SignUpArgs,
+  SignUpResponse,
   User,
 } from '@/services/auth/auth.types'
 import { baseApi } from '@/services/baseApi'
@@ -46,8 +47,12 @@ const authService = baseApi.injectEndpoints({
           url: `/v1/auth/reset-password/${token}`,
         }),
       }),
-      signUp: builder.mutation<User, SignUpArgs>({
-        query: args => ({ body: args, method: 'POST', url: '/v1/auth/sign-up' }),
+      signUp: builder.mutation<SignUpResponse, SignUpArgs>({
+        query: args => ({
+          body: args ?? undefined,
+          method: 'POST',
+          url: '/v1/auth/sign-up',
+        }),
       }),
       updateProfile: builder.mutation<User, FormData>({
         query: args => ({
@@ -60,4 +65,15 @@ const authService = baseApi.injectEndpoints({
   },
 })
 
-export const { useGetMeQuery, useLoginMutation, useLogoutMutation } = authService
+export const {
+  useCheckEmailMutation,
+  useCreateAccessTokenMutation,
+  useGetMeQuery,
+  useLoginMutation,
+  useLogoutMutation,
+  useRecoverPasswordMutation,
+  useResendCheckEmailMutation,
+  useResetPasswordMutation,
+  useSignUpMutation,
+  useUpdateProfileMutation,
+} = authService
