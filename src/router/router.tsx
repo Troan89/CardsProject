@@ -14,6 +14,7 @@ export const ROUTES = {
   base: '/',
   error: '/*',
   login: '/login',
+  newPassword: '/createPassword',
   signUp: '/signUp',
 } as const
 

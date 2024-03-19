@@ -68,7 +68,12 @@ export const SignIn = ({ disabled, onSubmit }: LoginProps) => {
           label={'remember me'}
           name={'rememberMe'}
         />
-        <Typography as={NavLink} className={s.recoverLink} to={'#'} variant={'body1'}>
+        <Typography
+          as={NavLink}
+          className={s.recoverLink}
+          to={ROUTES.newPassword}
+          variant={'body1'}
+        >
           Forgot Password?
         </Typography>
         <Button className={s.btn} disabled={disabled} fullWidth type={'submit'} variant={'primary'}>
