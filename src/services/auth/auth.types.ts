@@ -13,3 +13,20 @@ export type LoginArgs = {
   password: string
   rememberMe: boolean
 }
+
+export type SignUpArgs = {
+  email: string
+  html?: string
+  name: string
+  password: string
+  sendConfirmationEmail?: boolean
+  subject?: string
+}
+
+export type ResendCheckEmailArgs = {
+  html?: string
+  subject?: string
+  userId: string
+}
+
+export type RecoverPasswordArgs = Pick<SignUpArgs, 'email' | 'html' | 'subject'>
