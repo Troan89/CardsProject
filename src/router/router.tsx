@@ -6,16 +6,22 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { Error404Page } from '@/pages/error404'
+
 const publicRoutes: RouteObject[] = [
   {
     element: <div>login</div>,
     path: '/login',
   },
+  {
+    element: <Error404Page />,
+    path: '/*',
+  },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <div>Hello</div>,
+    element: <div>Hello !</div>,
     path: '/',
   },
 ]
