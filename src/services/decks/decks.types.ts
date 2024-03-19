@@ -24,7 +24,7 @@ export type Pagination = {
   totalPages: number
 }
 
-export type getDecksArgs = {
+export type GetDecksArgs = {
   authorId?: string
   currentPage?: number
   itemsPerPage?: number | string
@@ -32,4 +32,10 @@ export type getDecksArgs = {
   minCardsCount?: number
   name?: string
   orderBy?: string
+}
+
+export type CreateDecks = {
+  cover?: string
+  isPrivate?: boolean
+  name: string
 }
