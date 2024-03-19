@@ -1,0 +1,25 @@
+.icon {
+  cursor: pointer;
+
+  top: 50%;
+
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  outline: 0;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+}
+
+.lastCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
