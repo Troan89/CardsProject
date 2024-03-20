@@ -40,6 +40,11 @@ export type CreateDecks = {
   name: string
 }
 
-export type DeleteDecks = {
+export type IdDecks = {
+  id: string
+}
+
+export type UpdateDeck = {
+  data: FormData
   id: string
 }
