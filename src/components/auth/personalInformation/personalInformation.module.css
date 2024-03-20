@@ -1,6 +1,8 @@
 .cardWrapper {
-  max-width: 413px;
+  width: 420px;
+  height: 420px;
   padding: 33px;
+
   background: var(--color-dark-700);
   border: 1px solid rgb(49 49 49 / 10%);
 }
@@ -34,6 +36,29 @@
 
 .cardWrapper .editButton {
   all: unset;
+
+  cursor: pointer;
+
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+
+  text-align: center;
+
+  background: var(--color-dark-300);
+  border-radius: 4px;
+}
+
+.cardWrapper .editButton2 {
+  all: unset;
   cursor: pointer;
 }
 
@@ -41,12 +66,25 @@
   margin: 27px 0 12px;
 }
 
+.infoWrapper .avatarWrapper,
+.avatarWrapper2 {
+  position: relative;
+  display: flex;
+  gap: 10px;
+}
+
 .email {
   margin-bottom: 13px;
   color: var(--color-dark-100);
 }
 
-.icons {
-  width: 20px;
-  height: 20px;
+.icons,
+.iconButton {
+  width: 18px;
+  height: 18px;
+}
+
+.iconButton {
+  width: 24px;
+  height: 24px;
 }

@@ -9,6 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown'
+
+import s from './userDropdown.module.css'
 type Props = {
   avatar?: string
   email?: string
@@ -17,7 +19,8 @@ type Props = {
 export const UserDropdown = ({ avatar, email, userName }: Props) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className={s.wrapper}>
+        <div>{userName}</div>
         {/*<Button className={s.trigger}>*/}
         <Avatar src={avatar || AvatarDemo} />
         {/*</Button>*/}
