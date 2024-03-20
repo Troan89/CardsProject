@@ -22,9 +22,11 @@ const authService = baseApi.injectEndpoints({
         query: () => ({ method: 'POST', url: '/v1/auth/refresh-token' }),
       }),
       getMe: builder.query<User | undefined, void>({
+        providesTags: ['Me'],
         query: () => '/v1/auth/me',
       }),
       login: builder.mutation<void, LoginArgs>({
+        invalidatesTags: ['Me'],
         query: args => ({
           body: args,
           method: 'POST',
@@ -32,15 +34,18 @@ const authService = baseApi.injectEndpoints({
         }),
       }),
       logout: builder.mutation<void, void>({
+        invalidatesTags: ['Me'],
         query: () => ({ method: 'POST', url: '/v1/auth/logout' }),
       }),
       recoverPassword: builder.mutation<void, RecoverPasswordArgs>({
+        invalidatesTags: ['Me'],
         query: args => ({ body: args, method: 'POST', url: '/v1/auth/recover-password' }),
       }),
       resendCheckEmail: builder.mutation<void, ResendCheckEmailArgs>({
         query: args => ({ body: args, method: 'POST', url: '/v1/auth/resend-verification-email' }),
       }),
       resetPassword: builder.mutation<void, { password: string; token: string }>({
+        invalidatesTags: ['Me'],
         query: ({ password, token }) => ({
           body: { password },
           method: 'POST',
