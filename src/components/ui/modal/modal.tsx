@@ -26,7 +26,6 @@ export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>((pro
     overlay: s.overlay,
     title: clsx(s.text, className),
   }
-
   return (
     <Dialog.Root {...rest}>
       <Dialog.Trigger asChild>

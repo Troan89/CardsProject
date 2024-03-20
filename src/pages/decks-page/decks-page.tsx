@@ -12,6 +12,9 @@ import { useCreateDeckMutation, useDeleteDeckMutation, useGetDecksQuery } from '
 
 import s from './decks-page.module.scss'
 
+import {CreateDecks} from "@/services/decks/decks.types";
+import {DeckDialog} from "@/components/decks/deck-dialog/deck-dialog";
+
 const tabs: TabType[] = [
   { content: <div></div>, title: 'My Cards', value: 'Tab 1' },
   { content: <div></div>, title: 'All Cards', value: 'Tab 2' },
@@ -27,7 +30,7 @@ export const DecksPage = () => {
     itemsPerPage: perPageItem,
     name: search,
   })
-  const [createDeck] = useCreateDeckMutation()
+  const [createDecks] = useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
 
   if (isLoading) {
@@ -41,17 +44,15 @@ export const DecksPage = () => {
     deleteDecks({ id })
   }
 
+  const createDeck = (data: CreateDecks) => {
+    createDecks(data)
+  }
+
   return (
     <div className={s.root}>
       <div className={s.header}>
         <Typography variant={'h1'}>Decks list</Typography>
-        <Button
-          onClick={() => {
-            createDeck({ name: 'New decks yo' })
-          }}
-        >
-          Add New Deck
-        </Button>
+        <DeckDialog onClick={createDeck} />
       </div>
       <div className={s.filteredEl}>
         <TextField
@@ -72,7 +73,7 @@ export const DecksPage = () => {
           <Icons iconId={'decksList-delete'} /> Clear Filter
         </Button>
       </div>
-      <DecksTable decks={data?.items} onDeleteClick={deleteDeck} onEditClick={() => {}} />
+      <DecksTable decks={data?.items} onDeleteClick={deleteDeck} onEditClick={() => {}} onSort={()=>{}}/>
       {data && (
         <div className={s.pagination}>
           <Pagination

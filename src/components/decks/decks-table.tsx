@@ -40,7 +40,7 @@ type Props = {
   onDeleteClick: (id: string) => void
   onEditClick: (id: string) => void
   onSort: (key: Sort) => void
-  sort: Sort
+  sort?: Sort
 }
 
 export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: Props) => {
@@ -60,7 +60,7 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
               <Typography variant={'body2'}>{deck.cardsCount}</Typography>
             </Table.Cell>
             <Table.Cell rows={2}>
-              <Typography variant={'body2'}>{deck.updated}</Typography>
+              <Typography variant={'body2'}>{new Date(deck.updated).toLocaleDateString('ru-RU')}</Typography>
             </Table.Cell>
             <Table.Cell rows={3}>
               <Typography variant={'body2'}> {deck.author.name}</Typography>
