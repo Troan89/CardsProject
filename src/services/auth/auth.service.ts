@@ -60,11 +60,32 @@ const authService = baseApi.injectEndpoints({
         }),
       }),
       updateProfile: builder.mutation<User, FormData>({
-        query: args => ({
-          body: args,
-          method: 'PATCH',
-          url: '/v1/auth/me',
-        }),
+        invalidatesTags: ['Me'],
+        async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+          const updateResult = dispatch(
+            authService.util.updateQueryData('getMe', undefined, draft => {
+              if (draft) {
+                // Проверка на наличие значения draft
+                const name = arg.get('name')
+                const avatar = arg.get('avatar')
+
+                if (avatar instanceof File) {
+                  draft.avatar = URL.createObjectURL(avatar)
+                }
+                if (typeof name === 'string') {
+                  draft.name = name
+                }
+              }
+            })
+          )
+
+          try {
+            await queryFulfilled
+          } catch {
+            updateResult.undo()
+          }
+        },
+        query: args => ({ body: args ?? undefined, method: 'PATCH', url: '/v1/auth/me' }),
       }),
     }
   },
