@@ -39,3 +39,7 @@ export type CreateDecks = {
   isPrivate?: boolean
   name: string
 }
+
+export type DeleteDecks = {
+  id: string
+}

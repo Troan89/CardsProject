@@ -1,33 +1,32 @@
 import { Icons } from '@/assets/icons/Icons'
 import { Button } from '@/components/ui/button'
-import { TableSort } from '@/components/ui/table/tableSort'
+import { Column, TableSort } from '@/components/ui/table/tableSort'
 import { Typography } from '@/components/ui/typography'
 import { Deck } from '@/services/decks/decks.types'
 
 import { Table } from '../ui/table'
 
-const columns = [
-  { column: 1, sortBy: 'number', title: 'Number' },
-  { column: 2, sortBy: 'question', title: 'Question' },
-  { column: 3, sortBy: 'answer', title: 'Answer' },
-  { column: 4, sortBy: 'username', title: 'Username' },
-  { column: 5, sortBy: 'rating', sortable: false, title: 'Rating' },
-  { column: 6, sortBy: 'emoji', sortable: false, title: 'Emoji' },
+const columns: Column[] = [
+  { column: 1, sortBy: 'name', title: 'Name' },
+  { column: 2, sortBy: 'cards', title: 'Cards' },
+  { column: 3, sortBy: 'last updated', title: 'Last Updated' },
+  { column: 4, sortBy: 'created by', title: 'Created by' },
+  { column: 5, sortBy: '', title: '' },
 ]
 
 type Props = {
   decks: Deck[] | undefined
-  onDeleteClick: (id: string) => void
-  onEditClick: (id: string) => void
+  onDeleteClick?: (id: string) => void
+  onEditClick?: (id: string) => void
 }
 
 export const DecksTable = ({ decks, onDeleteClick, onEditClick }: Props) => {
-  const handleEditClick = (id: string) => () => onEditClick(id)
-  const handleDeleteClick = (id: string) => () => onDeleteClick(id)
+  const handleEditClick = (id: string) => () => onEditClick?.(id)
+  const handleDeleteClick = (id: string) => () => onDeleteClick?.(id)
 
   return (
     <Table.Root>
-      <TableSort columns={[]} {...columns} />
+      <TableSort columns={columns} />
       <Table.Body>
         {decks?.map((deck, index) => (
           <Table.Row key={index}>
@@ -47,10 +46,10 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick }: Props) => {
               <Button>
                 <Icons iconId={'decksList-play'} />
               </Button>
-              <Button onClick={handleEditClick}>
+              <Button onClick={handleEditClick(deck.id)}>
                 <Icons iconId={'decksList-edit'} />
               </Button>
-              <Button onClick={handleDeleteClick}>
+              <Button onClick={handleDeleteClick(deck.id)}>
                 <Icons iconId={'decksList-delete'} />
               </Button>
             </Table.Cell>

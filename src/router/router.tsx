@@ -6,8 +6,8 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { DecksPage } from '@/pages'
 import { Error404Page } from '@/pages/error404'
-import {DecksPage} from "@/pages";
 
 const publicRoutes: RouteObject[] = [
   {

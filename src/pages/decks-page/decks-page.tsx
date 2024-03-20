@@ -8,7 +8,7 @@ import { Slider } from '@/components/ui/slider'
 import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
-import { useCreateDeckMutation, useGetDecksQuery } from '@/services/baseApi'
+import { useCreateDeckMutation, useDeleteDeckMutation, useGetDecksQuery } from '@/services/baseApi'
 
 import s from './decks-page.module.scss'
 
@@ -28,6 +28,7 @@ export const DecksPage = () => {
     name: search,
   })
   const [createDeck] = useCreateDeckMutation()
+  const [deleteDecks] = useDeleteDeckMutation()
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -36,11 +37,21 @@ export const DecksPage = () => {
     return <div>{JSON.stringify(error)}</div>
   }
 
+  const deleteDeck = (id: string) => {
+    deleteDecks({ id })
+  }
+
   return (
     <div className={s.root}>
       <div className={s.header}>
         <Typography variant={'h1'}>Decks list</Typography>
-        <Button onClick={() => {}}>Add New Deck</Button>
+        <Button
+          onClick={() => {
+            createDeck({ name: 'New decks yo' })
+          }}
+        >
+          Add New Deck
+        </Button>
       </div>
       <div className={s.filteredEl}>
         <TextField
@@ -61,7 +72,7 @@ export const DecksPage = () => {
           <Icons iconId={'decksList-delete'} /> Clear Filter
         </Button>
       </div>
-      <DecksTable decks={data?.items} onDeleteClick={() => {}} onEditClick={() => {}} />
+      <DecksTable decks={data?.items} onDeleteClick={deleteDeck} onEditClick={() => {}} />
       {data && (
         <div className={s.pagination}>
           <Pagination

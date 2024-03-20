@@ -1,5 +1,10 @@
 .root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
+  max-width: 1008px;
+  margin-left: 100px;
 }
 
 .header {
@@ -11,6 +16,7 @@
 
 .filteredEl {
   display: flex;
+  justify-content: space-between;
   align-items: end;
   margin: 10px 0 16px;
 }
