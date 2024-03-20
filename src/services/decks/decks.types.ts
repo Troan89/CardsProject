@@ -43,3 +43,10 @@ export type CreateDecks = {
 export type DeleteDecks = {
   id: string
 }
+
+export type EditDecks = {
+  cover?: string
+  id: string
+  isPrivate?: boolean
+  name: string
+}

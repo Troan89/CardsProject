@@ -9,8 +9,13 @@ import { Slider } from '@/components/ui/slider'
 import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
-import { useCreateDeckMutation, useDeleteDeckMutation, useGetDecksQuery } from '@/services/baseApi'
-import { CreateDecks } from '@/services/decks/decks.types'
+import {
+  useCreateDeckMutation,
+  useDeleteDeckMutation,
+  useEditDecksMutation,
+  useGetDecksQuery,
+} from '@/services/baseApi'
+import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-page.module.scss'
 
@@ -31,6 +36,7 @@ export const DecksPage = () => {
   })
   const [createDecks] = useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
+  const [editDecks] = useEditDecksMutation()
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -47,11 +53,15 @@ export const DecksPage = () => {
     createDecks(data)
   }
 
+  const editDeck = (data: EditDecks) => {
+    editDecks(data)
+  }
+
   return (
     <div className={s.root}>
       <div className={s.header}>
         <Typography variant={'h1'}>Decks list</Typography>
-        <DeckDialog onClick={createDeck}  />
+        <DeckDialog onClick={createDeck} />
       </div>
       <div className={s.filteredEl}>
         <TextField
@@ -61,7 +71,7 @@ export const DecksPage = () => {
           type={'text'}
         />
         <div className={s.tab}>
-          <TabSwitcher tabs={tabs} title={"Show decks cards"} />
+          <TabSwitcher tabs={tabs} title={'Show decks cards'} />
         </div>
         <div className={s.slider}>
           <Typography variant={'body2'}>Number of cards</Typography>
@@ -76,7 +86,7 @@ export const DecksPage = () => {
       <DecksTable
         decks={data?.items}
         onDeleteClick={deleteDeck}
-        onEditClick={() => {}}
+        onEditClick={editDeck}
         onSort={() => {}}
       />
       {data && (

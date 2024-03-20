@@ -3,6 +3,7 @@ import {
   Deck,
   DecksResponse,
   DeleteDecks,
+  EditDecks,
   GetDecksArgs,
 } from '@/services/decks/decks.types'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
@@ -32,6 +33,14 @@ export const baseApi = createApi({
           url: `v1/decks/${args.id}`,
         }),
       }),
+      editDecks: builder.mutation<Deck, EditDecks>({
+        invalidatesTags: ['Deck'],
+        query: ({ id, ...args }) => ({
+          body: args,
+          method: 'PATCH',
+          url: `v1/decks/${id}`,
+        }),
+      }),
       getDecks: builder.query<DecksResponse, GetDecksArgs | void>({
         providesTags: ['Deck'],
         query: args => ({
@@ -45,4 +54,9 @@ export const baseApi = createApi({
   tagTypes: ['Deck'],
 })
 
-export const { useCreateDeckMutation, useDeleteDeckMutation, useGetDecksQuery } = baseApi
+export const {
+  useCreateDeckMutation,
+  useDeleteDeckMutation,
+  useEditDecksMutation,
+  useGetDecksQuery,
+} = baseApi
