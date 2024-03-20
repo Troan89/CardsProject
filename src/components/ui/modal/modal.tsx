@@ -15,50 +15,52 @@ export type ModalProps = {
   isOpen: boolean
   onChange?: (isOpen: boolean) => void
   title?: string
+  titleBtn?: string
 } & ComponentPropsWithoutRef<typeof Dialog.Root>
 
-export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>((props, ref) => {
-  const { children, className, title, ...rest } = props
+export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(
+  ({ isOpen, onChange, ...rest }, ref) => {
+    const classes = {
+      close: s.close,
+      content: clsx(s.content, rest.className),
+      overlay: s.overlay,
+      title: clsx(s.text, rest.className),
+    }
 
-  const classes = {
-    close: s.close,
-    content: clsx(s.content, className),
-    overlay: s.overlay,
-    title: clsx(s.text, className),
-  }
-  return (
-    <Dialog.Root {...rest}>
-      <Dialog.Trigger asChild>
-        <Button
-          aria-label={'Open'}
-          onClick={() => props.onChange && props.onChange(true)}
-          variant={'primary'}
-        >
-          Open
-        </Button>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className={classes.overlay} ref={ref} />
-        <Dialog.Content asChild className={classes.content}>
-          <Card className={s.card}>
-            {title && (
-              <Typography as={'div'} className={classes.title}>
-                <Typography as={'h3'} variant={'h3'}>
-                  {title}
+    return (
+      <Dialog.Root open={isOpen} {...rest}>
+        <Dialog.Trigger asChild>
+          <Button
+            aria-label={'Open'}
+            onClick={() => onChange && onChange(true)}
+            variant={'primary'}
+          >
+            {rest.titleBtn}
+          </Button>
+        </Dialog.Trigger>
+        <Dialog.Portal>
+          <Dialog.Overlay className={classes.overlay} ref={ref} />
+          <Dialog.Content asChild className={classes.content}>
+            <Card className={s.card}>
+              {rest.title && (
+                <Typography as={'div'} className={classes.title}>
+                  <Typography as={'h3'} variant={'h3'}>
+                    {rest.title}
+                  </Typography>
+                  <Dialog.Close
+                    aria-label={'Close'}
+                    className={classes.close}
+                    onClick={() => onChange && onChange(false)}
+                  >
+                    <Icons className={s.icon} iconId={'close'} />
+                  </Dialog.Close>
                 </Typography>
-                <Dialog.Close
-                  aria-label={'Close'}
-                  className={classes.close}
-                  onClick={() => props.onChange && props.onChange(false)}
-                >
-                  <Icons className={s.icon} iconId={'close'} />
-                </Dialog.Close>
-              </Typography>
-            )}
-            {children}
-          </Card>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
-  )
-})
+              )}
+              {rest.children}
+            </Card>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+    )
+  }
+)

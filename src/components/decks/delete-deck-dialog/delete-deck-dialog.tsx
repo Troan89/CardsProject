@@ -2,7 +2,7 @@ import s from './delete-deck-dialog.module.scss'
 import {Modal} from "@/components/ui/modal";
 export default {}
 type Props = {
-  deckName: string
+  deckName?: string
     isOpen: boolean
 }
 export const DeleteDeckDialog = ({ deckName, isOpen }: Props) => {
