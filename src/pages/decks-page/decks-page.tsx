@@ -13,6 +13,7 @@ import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
+  useGetMaxMinCardsQuery,
   useUpdateDeckMutation,
 } from '@/services/decks/decks.service'
 import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
@@ -28,15 +29,19 @@ export const DecksPage = () => {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [perPageItem, setPerPageItem] = useState<number | string>(10)
+  const [minMaxCard, setMinMaxCard] = useState<number[]>([0, 100])
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
     currentPage: page,
     itemsPerPage: perPageItem,
+    maxCardsCount: minMaxCard[1],
+    minCardsCount: minMaxCard[0],
     name: search,
   })
   const [createDecks] = useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
   const [editDecks] = useUpdateDeckMutation()
+  const { data: maxMinCard } = useGetMaxMinCardsQuery()
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -57,6 +62,12 @@ export const DecksPage = () => {
     editDecks(data)
   }
 
+  const sliderValue = maxMinCard ? [maxMinCard.min, maxMinCard.max] : []
+
+  const onChangeValueHandler = (newValue: number[]) => {
+    setMinMaxCard(newValue)
+  }
+
   return (
     <div className={s.root}>
       <div className={s.header}>
@@ -75,7 +86,12 @@ export const DecksPage = () => {
         </div>
         <div className={s.slider}>
           <Typography variant={'body2'}>Number of cards</Typography>
-          <Slider value={[0, 100]} />
+          <Slider
+            ariaLabelMax={String(minMaxCard[1])}
+            ariaLabelMin={String(minMaxCard[0])}
+            onValueChange={onChangeValueHandler}
+            value={sliderValue}
+          />
         </div>
         <div className={s.btn}>
           <Button variant={'secondary'}>

@@ -55,3 +55,8 @@ export type EditDecks = {
   isPrivate?: boolean
   name: string
 }
+
+export type GetMaxMinCard = {
+  max: number
+  min: number
+}
