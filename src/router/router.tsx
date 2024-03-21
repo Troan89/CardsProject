@@ -6,6 +6,18 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { Error404Page } from '@/pages/error404'
+import { SignInPage } from '@/pages/signInPage'
+import { SignUpPage } from '@/pages/signUpPage'
+
+export const ROUTES = {
+  base: '/',
+  error: '/*',
+  login: '/login',
+  newPassword: '/createPassword',
+  signUp: '/signUp',
+} as const
+
 import { DecksPage } from '@/pages'
 import { App } from '@/App'
 import { SignIn } from '@/components/auth/signIn'
@@ -13,12 +25,20 @@ import { Error404Page } from '@/pages/error404'
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <div>login</div>,
-    path: '/login',
+    element: <SignInPage />,
+    path: ROUTES.login,
+  },
+  {
+    element: <div>Hello</div>,
+    path: ROUTES.base,
+  },
+  {
+    element: <SignUpPage />,
+    path: ROUTES.signUp,
   },
   {
     element: <Error404Page />,
-    path: '/*',
+    path: ROUTES.error,
   },
 ]
 
@@ -62,5 +82,5 @@ export const Router = () => {
 function PrivateRoutes() {
   const isAuthenticated = true
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.login} />
 }
