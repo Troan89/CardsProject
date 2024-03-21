@@ -6,7 +6,6 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { Error404Page } from '@/pages/error404'
 import { SignInPage } from '@/pages/signInPage'
 import { SignUpPage } from '@/pages/signUpPage'
 
@@ -18,9 +17,9 @@ export const ROUTES = {
   signUp: '/signUp',
 } as const
 
-import { DecksPage } from '@/pages'
 import { App } from '@/App'
 import { SignIn } from '@/components/auth/signIn'
+import { DecksPage } from '@/pages'
 import { Error404Page } from '@/pages/error404'
 
 const publicRoutes: RouteObject[] = [

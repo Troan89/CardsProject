@@ -12,9 +12,9 @@ import { Typography } from '@/components/ui/typography'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
-  useEditDecksMutation,
   useGetDecksQuery,
-} from '@/services/baseApi'
+  useUpdateDeckMutation,
+} from '@/services/decks/decks.service'
 import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-page.module.scss'
@@ -36,7 +36,7 @@ export const DecksPage = () => {
   })
   const [createDecks] = useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
-  const [editDecks] = useEditDecksMutation()
+  const [editDecks] = useUpdateDeckMutation()
 
   if (isLoading) {
     return <div>Loading...</div>
