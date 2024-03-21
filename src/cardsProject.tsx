@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 
 import { Header } from '@/components/ui/header/header'
 
-export function App() {
+export const CardsProject = () => {
   return (
     <div>
       <Header />

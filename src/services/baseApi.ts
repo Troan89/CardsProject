@@ -16,6 +16,12 @@ export const baseApi = createApi({
       headers.append('x-auth-skip', 'true')
     },
   }),
+<<<<<<<<< Temporary merge branch 1
+  endpoints: () => ({}),
+  reducerPath: 'baseApi',
+  tagTypes: ['Decks', 'Me', 'Cards'],
+})
+=========
   endpoints: builder => {
     return {
       createDeck: builder.mutation<Deck, CreateDecks>({
@@ -60,3 +66,4 @@ export const {
   useEditDecksMutation,
   useGetDecksQuery,
 } = baseApi
+>>>>>>>>> Temporary merge branch 2

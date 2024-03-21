@@ -6,11 +6,13 @@ const meta = {
   component: SignIn,
   tags: ['autodocs'],
   title: 'Auth/SignIn',
-} satisfies Meta<typeof SignIn>
+} as Meta<typeof SignIn>
 
 export default meta
+
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {},
+  render: args => <SignIn {...args} />,
 }

@@ -5,19 +5,25 @@ import { FormTextField } from '@/components/formComponents/formTextField'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
+import { ROUTES } from '@/router/router'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './signUp.module.scss'
 
-const loginSchema = z.object({
-  confirmPassword: z.string().min(3),
-  email: z.string().email(),
-  password: z.string().min(3),
-  rememberMe: z.boolean().default(false),
-})
+const signUpSchema = z
+  .object({
+    confirmPassword: z.string(),
+    email: z.string().email(),
+    name: z.string().min(3).max(30),
+    password: z.string().min(3).max(15),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  })
 
-type FormValues = z.infer<typeof loginSchema>
+type FormValues = z.infer<typeof signUpSchema>
 
 type LogProps = {
   onSubmit: (data: FormValues) => void
@@ -32,9 +38,8 @@ export const SignUp = ({ onSubmit }: LogProps) => {
       confirmPassword: '',
       email: '',
       password: '',
-      rememberMe: false,
     },
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signUpSchema),
   })
 
   return (
@@ -43,6 +48,15 @@ export const SignUp = ({ onSubmit }: LogProps) => {
         Sign Up
       </Typography>
       <form className={s.formRoot} onSubmit={handleSubmit(onSubmit)}>
+        <div className={s.name}>
+          <FormTextField
+            control={control}
+            error={errors.name?.message}
+            label={'Name'}
+            name={'name'}
+            type={'text'}
+          />
+        </div>
         <div className={s.email}>
           <FormTextField
             control={control}
@@ -70,14 +84,14 @@ export const SignUp = ({ onSubmit }: LogProps) => {
             type={'password'}
           />
         </div>
-        <Button as={NavLink} className={s.btn} to={'#'} type={'submit'} variant={'primary'}>
-          Sing Up
+        <Button as={'button'} className={s.btn} fullWidth type={'submit'}>
+          Sign Up
         </Button>
       </form>
       <Typography className={s.typography} variant={'body2'}>
         Already have an account?
       </Typography>
-      <Typography as={NavLink} className={s.link} to={'#'} variant={'subtitle1'}>
+      <Typography as={NavLink} className={s.link} to={ROUTES.login} variant={'subtitle1'}>
         Sing In
       </Typography>
     </Card>

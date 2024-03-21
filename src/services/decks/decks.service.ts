@@ -3,16 +3,16 @@ import {
   CreateDecks,
   Deck,
   DecksResponse,
+  EditDecks,
   GetDecksArgs,
   IdDecks,
-  UpdateDeck,
 } from '@/services/decks/decks.types'
 
 const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       createDeck: builder.mutation<Deck, CreateDecks>({
-        invalidatesTags: ['Deck'],
+        invalidatesTags: ['Decks'],
         query: arg => ({
           body: arg,
           method: 'POST',
@@ -20,26 +20,26 @@ const decksService = baseApi.injectEndpoints({
         }),
       }),
       deleteDeck: builder.mutation<Deck, IdDecks>({
-        invalidatesTags: ['Deck'],
+        invalidatesTags: ['Decks'],
         query: args => ({
           method: 'DELETE',
           url: `v1/decks/${args.id}`,
         }),
       }),
       getDecks: builder.query<DecksResponse, GetDecksArgs | void>({
-        providesTags: ['Deck'],
+        providesTags: ['Decks'],
         query: args => ({
           params: args ?? undefined,
           url: `v2/decks`,
         }),
       }),
       getOneDeck: builder.query<Deck, IdDecks>({
-        providesTags: ['Deck'],
+        providesTags: ['Decks'],
         query: ({ id }) => `v1/decks/${id}`,
       }),
-      updateDeck: builder.mutation<Deck, UpdateDeck>({
-        invalidatesTags: ['Deck'],
-        query: ({ data, id }) => ({
+      updateDeck: builder.mutation<Deck, EditDecks>({
+        invalidatesTags: ['Decks'],
+        query: ({ id, ...data }) => ({
           body: data,
           method: 'PATCH',
           url: `v1/decks/${id}`,

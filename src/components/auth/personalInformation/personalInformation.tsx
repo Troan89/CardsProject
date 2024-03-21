@@ -30,11 +30,11 @@ export const PersonalInformation = (props: Props) => {
     <Card className={s.cardWrapper}>
       <div className={s.infoWrapper}>
         <Typography variant={'h1'}>Personal Information</Typography>
-        <div>
+        <div className={s.avatarWrapper}>
           <Avatar className={s.avatar} height={'96px'} src={AvatarDemo} width={'96px'} />
-          <button className={s.editButton}>
+          <Button className={s.editButton} variant={'secondary'}>
             <Icons className={s.icons} iconId={'edit-2-outline'} />
-          </button>
+          </Button>
         </div>
 
         {editMode ? (
@@ -53,20 +53,23 @@ export const PersonalInformation = (props: Props) => {
             </Button>
           </div>
         ) : (
-          <div className={s.content}>
-            <Typography variant={'h2'}>
-              {nameValue}{' '}
-              <button className={s.editButton} onClick={() => onChangeEditMode(true)}>
+          <>
+            <div className={s.avatarWrapper2}>
+              <Typography variant={'h2'}>{nameValue} </Typography>
+              <button className={s.editButton2} onClick={() => onChangeEditMode(true)}>
                 <Icons className={s.icons} iconId={'edit-2-outline'} />
               </button>
-            </Typography>
-            <Typography className={s.email} variant={'body2'}>
-              {email}
-            </Typography>
-            <Button variant={'secondary'}>
-              <Icons iconId={'log-out-outline'} /> Logout
-            </Button>
-          </div>
+            </div>
+
+            <div className={s.content}>
+              <Typography className={s.email} variant={'body2'}>
+                {email}
+              </Typography>
+              <Button variant={'secondary'}>
+                <Icons iconId={'log-out-outline'} /> Logout
+              </Button>
+            </div>
+          </>
         )}
       </div>
     </Card>

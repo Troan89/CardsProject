@@ -6,6 +6,7 @@ import { FormTextField } from '@/components/formComponents/formTextField'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
+import { ROUTES } from '@/router/router'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -20,9 +21,10 @@ const loginSchema = z.object({
 export type FormValues = z.infer<typeof loginSchema>
 
 type LoginProps = {
+  disabled: boolean
   onSubmit: (data: FormValues) => void
 }
-export const SignIn = ({ onSubmit }: LoginProps) => {
+export const SignIn = ({ disabled, onSubmit }: LoginProps) => {
   const {
     control,
     formState: { errors },
@@ -66,17 +68,22 @@ export const SignIn = ({ onSubmit }: LoginProps) => {
           label={'remember me'}
           name={'rememberMe'}
         />
-        <Typography as={NavLink} className={s.recoverLink} to={'#'} variant={'body1'}>
+        <Typography
+          as={NavLink}
+          className={s.recoverLink}
+          to={ROUTES.newPassword}
+          variant={'body1'}
+        >
           Forgot Password?
         </Typography>
-        <Button as={NavLink} className={s.btn} to={'#'} type={'submit'} variant={'primary'}>
+        <Button className={s.btn} disabled={disabled} fullWidth type={'submit'} variant={'primary'}>
           Sign In
         </Button>
       </form>
       <Typography className={s.typography} variant={'body2'}>
         Don&apos;t have an account?
       </Typography>
-      <Typography as={NavLink} className={s.link} to={'#'} variant={'subtitle1'}>
+      <Typography as={NavLink} className={s.link} to={ROUTES.signUp} variant={'subtitle1'}>
         Sign Up
       </Typography>
     </Card>

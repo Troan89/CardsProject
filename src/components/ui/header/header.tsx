@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { SvgLogo } from '@/assets/icons/logo'
-import { UserDropdown } from '@/components/profile/UserDropdown'
+import { UserDropdown } from '@/components/profile/userDropdown/UserDropdown'
 import { Button } from '@/components/ui/button'
 
 import s from './header.module.css'
@@ -13,7 +13,7 @@ type Props = {
   userName?: string
 }
 
-export const Header = ({ avatar, email, isLoggedIn, userName }: Props) => {
+export const Header = ({ avatar, email, isLoggedIn = true, userName = 'Ivan' }: Props) => {
   return (
     <header className={s.root}>
       <div className={s.content}>
