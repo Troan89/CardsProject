@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
+import { Sort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
 import {
@@ -19,7 +20,6 @@ import {
 import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-page.module.scss'
-import {Sort} from "@/components/ui/table/tableSort";
 
 const tabs: TabType[] = [
   { content: <div>My Cards</div>, title: 'My Cards', value: 'Tab 1' },
@@ -46,9 +46,6 @@ export const DecksPage = () => {
   const [deleteDecks] = useDeleteDeckMutation()
   const [editDecks] = useUpdateDeckMutation()
   const { data: maxMinCard } = useGetMaxMinCardsQuery()
-
-
-  console.log(`${sortKey}-${sortDirection}`)
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -120,7 +117,7 @@ export const DecksPage = () => {
         onDeleteClick={deleteDeck}
         onEditClick={editDeck}
         onSort={handleSort}
-        sort={{ sortBy: sortKey, direction: sortDirection}}
+        sort={{ direction: sortDirection, sortBy: sortKey }}
       />
       {data && (
         <div className={s.pagination}>

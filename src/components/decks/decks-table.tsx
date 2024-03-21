@@ -32,7 +32,8 @@ const columns: Column[] = [
   },
   {
     column: 1,
-    sortBy: 'created',
+    sortBy: '',
+    sortable: false,
     title: '',
   },
 ]
