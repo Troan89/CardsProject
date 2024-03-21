@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { DecksPage } from '@/pages'
 import { CardsProject } from '@/cardsProject'
 import { SignIn } from '@/components/auth/signIn'
 import { Error404Page } from '@/pages/error404'
@@ -35,6 +36,10 @@ const privateRoutes: RouteObject[] = [
       {
         element: <SignIn onSubmit={data => console.log(data)} />,
         path: '/sing-in',
+      },
+      {
+        element: <DecksPage />,
+        path: '/',
       },
     ],
     element: <CardsProject />,

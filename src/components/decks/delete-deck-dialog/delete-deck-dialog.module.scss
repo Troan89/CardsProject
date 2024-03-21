@@ -1,0 +1,14 @@
+.content {
+  padding: 18px 24px;
+
+  > p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px;
+}
