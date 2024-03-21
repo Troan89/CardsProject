@@ -2,7 +2,7 @@ import {
   CreateDecks,
   Deck,
   DecksResponse,
-  DeleteDecks,
+  // DeleteDecks,
   EditDecks,
   GetDecksArgs,
 } from '@/services/decks/decks.types'
@@ -26,7 +26,7 @@ export const baseApi = createApi({
           url: `v1/decks`,
         }),
       }),
-      deleteDeck: builder.mutation<Deck, DeleteDecks>({
+      deleteDeck: builder.mutation<Deck, any>({
         invalidatesTags: ['Deck'],
         query: args => ({
           method: 'DELETE',

@@ -28,7 +28,13 @@ export const ModalFromDeleteCard: Story = {
 
     return (
       <>
-        <Modal {...args} isOpen={open} onChange={() => setOpen(true)} title={'Delete card'}>
+        <Modal
+          {...args}
+          isOpen={open}
+          onChange={setOpen}
+          title={'Delete card'}
+          titleBtn={'Delete card'}
+        >
           <Typography
             as={'div'}
             style={{ fontFamily: 'Helvetica, sans-serif', padding: '18px 24px' }}
@@ -43,7 +49,11 @@ export const ModalFromDeleteCard: Story = {
               padding: '0 24px',
             }}
           >
-            <Button style={{ marginLeft: '0' }} variant={'secondary'}>
+            <Button
+              onClick={() => setOpen(false)}
+              style={{ marginLeft: '0' }}
+              variant={'secondary'}
+            >
               Cansel
             </Button>
             <Button variant={'primary'}>Delete card</Button>

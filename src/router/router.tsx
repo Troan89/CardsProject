@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { DecksPage } from '@/pages'
-import { CardsProject } from '@/cardsProject'
+import { App } from '@/App'
 import { SignIn } from '@/components/auth/signIn'
 import { Error404Page } from '@/pages/error404'
 
@@ -34,7 +34,7 @@ const privateRoutes: RouteObject[] = [
         path: '/*',
       },
       {
-        element: <SignIn onSubmit={data => console.log(data)} />,
+        element: <SignIn disabled={false} onSubmit={data => console.log(data)} />,
         path: '/sing-in',
       },
       {
@@ -42,7 +42,7 @@ const privateRoutes: RouteObject[] = [
         path: '/',
       },
     ],
-    element: <CardsProject />,
+    element: <App />,
     path: '/',
   },
 ]
