@@ -19,6 +19,7 @@ import {
 import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-page.module.scss'
+import {Sort} from "@/components/ui/table/tableSort";
 
 const tabs: TabType[] = [
   { content: <div>My Cards</div>, title: 'My Cards', value: 'Tab 1' },
@@ -30,6 +31,8 @@ export const DecksPage = () => {
   const [search, setSearch] = useState('')
   const [perPageItem, setPerPageItem] = useState<number | string>(10)
   const [minMaxCard, setMinMaxCard] = useState<number[]>([0, 100])
+  const [sortKey, setSortKey] = useState<string | undefined>('')
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
     currentPage: page,
@@ -37,11 +40,15 @@ export const DecksPage = () => {
     maxCardsCount: minMaxCard[1],
     minCardsCount: minMaxCard[0],
     name: search,
+    orderBy: sortKey ? `${sortKey}-${sortDirection}` : undefined,
   })
   const [createDecks] = useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
   const [editDecks] = useUpdateDeckMutation()
   const { data: maxMinCard } = useGetMaxMinCardsQuery()
+
+
+  console.log(`${sortKey}-${sortDirection}`)
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -66,6 +73,15 @@ export const DecksPage = () => {
 
   const onChangeValueHandler = (newValue: number[]) => {
     setMinMaxCard(newValue)
+  }
+
+  const handleSort = (key: Sort) => {
+    if (key && sortKey === key.sortBy) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortKey(key ? key.sortBy : undefined)
+      setSortDirection('asc')
+    }
   }
 
   return (
@@ -103,7 +119,8 @@ export const DecksPage = () => {
         decks={data?.items}
         onDeleteClick={deleteDeck}
         onEditClick={editDeck}
-        onSort={() => {}}
+        onSort={handleSort}
+        sort={{ sortBy: sortKey, direction: sortDirection}}
       />
       {data && (
         <div className={s.pagination}>

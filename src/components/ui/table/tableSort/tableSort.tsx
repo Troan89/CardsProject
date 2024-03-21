@@ -16,7 +16,7 @@ export type Column = {
 
 export type Sort = {
   direction: 'asc' | 'desc'
-  sortBy: string
+  sortBy: string | undefined
 } | null
 
 export type TableSortProps = Omit<
