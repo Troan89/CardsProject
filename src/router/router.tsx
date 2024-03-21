@@ -6,26 +6,34 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { SignInPage } from '@/pages/signInPage'
-import { SignUpPage } from '@/pages/signUpPage'
-
 export const ROUTES = {
   base: '/',
+  checkEmail: '/check-email',
+  createNewPassword: '/create-new-password',
   error: '/*',
   login: '/login',
-  newPassword: '/createPassword',
-  signUp: '/signUp',
+  newPassword: '/create-password',
+  profile: '/profile',
+  recoverPassword: '/recover-password',
+  signUp: '/sign-up',
 } as const
 
 import { App } from '@/App'
-import { SignIn } from '@/components/auth/signIn'
 import { DecksPage } from '@/pages'
+import { CheckEmailPage } from '@/pages/auth/checkEmail'
+import { RecoverPasswordPage } from '@/pages/auth/recoverPassword'
+import { SignInPage } from '@/pages/auth/signIn'
+import { SignUpPage } from '@/pages/auth/signUp'
 import { Error404Page } from '@/pages/error404'
 
 const publicRoutes: RouteObject[] = [
   {
     element: <SignInPage />,
     path: ROUTES.login,
+  },
+  {
+    element: <RecoverPasswordPage />,
+    path: ROUTES.recoverPassword,
   },
   {
     element: <div>Hello</div>,
@@ -49,12 +57,32 @@ const privateRoutes: RouteObject[] = [
         path: '/123',
       },
       {
-        element: <Error404Page />,
-        path: '/*',
+        element: <SignInPage />,
+        path: ROUTES.login,
       },
       {
-        element: <SignIn disabled={false} onSubmit={data => console.log(data)} />,
-        path: '/sing-in',
+        element: <RecoverPasswordPage />,
+        path: ROUTES.recoverPassword,
+      },
+      {
+        element: <CheckEmailPage />,
+        path: ROUTES.checkEmail,
+      },
+      {
+        element: <div>Hello</div>,
+        path: ROUTES.base,
+      },
+      {
+        element: <SignUpPage />,
+        path: ROUTES.signUp,
+      },
+      {
+        element: <Error404Page />,
+        path: ROUTES.error,
+      },
+      {
+        element: <Error404Page />,
+        path: '/*',
       },
       {
         element: <DecksPage />,

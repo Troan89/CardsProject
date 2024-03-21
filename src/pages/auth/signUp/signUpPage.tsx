@@ -2,13 +2,13 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
 import { SignUp } from '@/components/auth/signUp'
+import { PageWrapper } from '@/components/ui/pageWrapper'
 import { ROUTES } from '@/router/router'
 import { useSignUpMutation } from '@/services/auth'
 import { SignUpArgs } from '@/services/auth/auth.types'
 
 import 'react-toastify/dist/ReactToastify.css'
 
-import s from './signUpPage.module.scss'
 export const SignUpPage = () => {
   const [signUp] = useSignUpMutation()
   const navigate = useNavigate()
@@ -30,9 +30,9 @@ export const SignUpPage = () => {
   }
 
   return (
-    <div className={s.container}>
+    <PageWrapper>
       <SignUp onSubmit={handleSubmit} />
       <ToastContainer />
-    </div>
+    </PageWrapper>
   )
 }

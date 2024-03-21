@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { SignIn } from '@/components/auth/signIn'
+import { PageWrapper } from '@/components/ui/pageWrapper'
 import { ROUTES } from '@/router/router'
 import { useLoginMutation } from '@/services/auth'
 import { LoginArgs } from '@/services/auth/auth.types'
-
-import s from './signInPage.module.scss'
 
 export const SignInPage = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
@@ -33,8 +32,8 @@ export const SignInPage = () => {
   }
 
   return (
-    <div className={s.container}>
+    <PageWrapper>
       <SignIn disabled={isButtonDisabled} onSubmit={handleSubmit} />
-    </div>
+    </PageWrapper>
   )
 }
