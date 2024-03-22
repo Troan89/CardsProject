@@ -7,6 +7,7 @@ import s from './avatar.module.css'
 type Props = {
   className?: string
   height?: string
+  src?: string
   width?: string
 } & ComponentPropsWithoutRef<'img'>
 export const Avatar = (props: Props) => {
@@ -14,7 +15,9 @@ export const Avatar = (props: Props) => {
 
   return (
     <img
+      alt={'avatar'}
       className={clsx(s.avatar, className)}
+      src={props.src}
       style={{
         ...style,
         height,

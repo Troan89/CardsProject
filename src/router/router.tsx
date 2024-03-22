@@ -21,6 +21,7 @@ export const ROUTES = {
 import { App } from '@/App'
 import { DecksPage } from '@/pages'
 import { CheckEmailPage } from '@/pages/auth/checkEmail'
+import { Profile } from '@/pages/auth/profile'
 import { RecoverPasswordPage } from '@/pages/auth/recoverPassword'
 import { SignInPage } from '@/pages/auth/signIn'
 import { SignUpPage } from '@/pages/auth/signUp'
@@ -77,12 +78,12 @@ const privateRoutes: RouteObject[] = [
         path: ROUTES.signUp,
       },
       {
-        element: <Error404Page />,
-        path: ROUTES.error,
+        element: <Profile />,
+        path: ROUTES.profile,
       },
       {
         element: <Error404Page />,
-        path: '/*',
+        path: ROUTES.error,
       },
       {
         element: <DecksPage />,
