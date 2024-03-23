@@ -7,12 +7,14 @@ import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
+import { Sort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
+  useGetMaxMinCardsQuery,
   useUpdateDeckMutation,
 } from '@/services/decks/decks.service'
 import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
@@ -20,25 +22,34 @@ import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
 import s from './decks-page.module.scss'
 
 const tabs: TabType[] = [
-  { content: <div>My Cards</div>, title: 'My Cards', value: 'Tab 1' },
-  { content: <div>All Cards</div>, title: 'All Cards', value: 'Tab 2' },
+  { content: <div></div>, title: 'My Cards', value: 'my card' },
+  { content: <div></div>, title: 'All Cards', value: 'Tab 2' },
 ]
 
 export const DecksPage = () => {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [perPageItem, setPerPageItem] = useState<number | string>(10)
+  const [minMaxCard, setMinMaxCard] = useState<number[]>([])
+  const [sortKey, setSortKey] = useState<string | undefined>('')
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+  const [switcher, setSwitcher] = useState('')
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
+    authorId: switcher === tabs[0].value ? 'f2be95b9-4d07-4751-a775-bd612fc9553a' : undefined,
     currentPage: page,
     itemsPerPage: perPageItem,
+    maxCardsCount: minMaxCard[1],
+    minCardsCount: minMaxCard[0],
     name: search,
+    orderBy: sortKey ? `${sortKey}-${sortDirection}` : undefined,
   })
   const [createDecks] = useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
   const [editDecks] = useUpdateDeckMutation()
+  const { data: maxMinCard, isFetching: isLoadingMaxMinCards } = useGetMaxMinCardsQuery()
 
-  if (isLoading) {
+  if (isLoading || isLoadingMaxMinCards) {
     return <div>Loading...</div>
   }
   if (isError) {
@@ -57,6 +68,25 @@ export const DecksPage = () => {
     editDecks(data)
   }
 
+  const sliderValue = maxMinCard ? [maxMinCard.min, maxMinCard.max] : undefined
+
+  const onChangeValueHandler = (newValue: number[]) => {
+    setMinMaxCard(newValue)
+  }
+
+  const handleSort = (key: Sort) => {
+    if (key && sortKey === key.sortBy) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortKey(key ? key.sortBy : undefined)
+      setSortDirection('asc')
+    }
+  }
+
+  const handleSwitcher = (value: string) => {
+    setSwitcher(value)
+  }
+
   return (
     <div className={s.root}>
       <div className={s.header}>
@@ -71,11 +101,17 @@ export const DecksPage = () => {
           type={'text'}
         />
         <div className={s.tab}>
-          <TabSwitcher tabs={tabs} title={'Show decks cards'} />
+          <TabSwitcher
+            defaultValue={tabs[1]?.value}
+            onValueChange={handleSwitcher}
+            tabs={tabs}
+            title={'Show decks cards'}
+            value={switcher}
+          />
         </div>
         <div className={s.slider}>
           <Typography variant={'body2'}>Number of cards</Typography>
-          <Slider value={[0, 100]} />
+          <Slider onValueChange={onChangeValueHandler} value={sliderValue} />
         </div>
         <div className={s.btn}>
           <Button variant={'secondary'}>
@@ -87,7 +123,8 @@ export const DecksPage = () => {
         decks={data?.items}
         onDeleteClick={deleteDeck}
         onEditClick={editDeck}
-        onSort={() => {}}
+        onSort={handleSort}
+        sort={{ direction: sortDirection, sortBy: sortKey }}
       />
       {data && (
         <div className={s.pagination}>

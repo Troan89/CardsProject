@@ -15,17 +15,24 @@ export const Slider = forwardRef(
     ref: any
   ) => {
     const [valueSlider, setValueSlider] = useState(value)
+
     const onChangeValueHandler = (newValue: number[]) => {
       setValueSlider(newValue)
+      onValueChange?.(newValue)
     }
     const changeInputValue = (number: number, value: number) => {
-      const oldVal = valueSlider?.[number ? 0 : 1]
+      const oldVal: number | undefined = valueSlider?.[number ? 0 : 1]
+
+      let newValue: number[]
 
       if (number === 0) {
-        oldVal && setValueSlider([value, oldVal])
+        newValue = [value, oldVal as number]
       } else {
-        oldVal && setValueSlider([oldVal, value])
+        newValue = [oldVal as number, value]
       }
+
+      setValueSlider(newValue)
+      onValueChange?.(newValue)
     }
 
     return (

@@ -17,7 +17,7 @@ const columns: Column[] = [
   },
   {
     column: 1,
-    sortBy: 'cards',
+    sortBy: 'cardsCount',
     title: 'Cards',
   },
   {
@@ -32,7 +32,8 @@ const columns: Column[] = [
   },
   {
     column: 1,
-    sortBy: 'actions',
+    sortBy: '',
+    sortable: false,
     title: '',
   },
 ]
