@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import {RecoverPassword} from './recover-password'
+import { RecoverPassword } from './recoverPassword'
 
 const meta = {
   component: RecoverPassword,
