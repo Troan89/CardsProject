@@ -16,6 +16,7 @@ export type ModalProps = {
   onChange?: (isOpen: boolean) => void
   title?: string
   titleBtn?: string
+  titleIcon?: string | undefined
 } & ComponentPropsWithoutRef<typeof Dialog.Root>
 
 export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(
@@ -30,12 +31,8 @@ export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(
     return (
       <Dialog.Root open={isOpen} {...rest}>
         <Dialog.Trigger asChild>
-          <Button
-            aria-label={'Open'}
-            onClick={() => onChange && onChange(true)}
-            variant={'primary'}
-          >
-            {rest.titleBtn}
+          <Button aria-label={'Open'} onClick={() => onChange && onChange(true)} variant={'icon'}>
+            {rest.titleIcon ? <Icons iconId={rest.titleIcon} /> : rest.titleBtn}
           </Button>
         </Dialog.Trigger>
         <Dialog.Portal>

@@ -9,7 +9,7 @@ export type ButtonProps<T extends ElementType = ElementType> = {
   children?: ReactNode
   classname?: string
   fullWidth?: boolean
-  variant?: 'primary' | 'secondary'
+  variant?: 'icon' | 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
