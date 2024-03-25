@@ -106,9 +106,9 @@ export const PersonalInformation = (props: Props) => {
           <>
             <div className={s.avatarWrapper2}>
               <Typography variant={'h2'}>{data?.name}</Typography>
-              <button className={s.editButton2} onClick={() => setEditMode(true)}>
+              <Button className={s.editButton2} onClick={() => setEditMode(true)}>
                 <Icons className={s.icons} iconId={'edit-2-outline'} />
-              </button>
+              </Button>
             </div>
 
             <div className={s.content}>

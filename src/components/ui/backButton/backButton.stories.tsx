@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { BackButton } from '@/components/ui/backButton/backButton'
 import { withRouter } from 'storybook-addon-react-router-v6'
 
-import { RecoverPassword } from './recoverPassword'
-
 const meta = {
-  component: RecoverPassword,
+  args: {},
+  component: BackButton,
   decorators: [withRouter],
   tags: ['autodocs'],
-  title: 'Auth/RecoverPassword',
-} satisfies Meta<typeof RecoverPassword>
+  title: 'components/BackButton',
+} satisfies Meta<typeof BackButton>
 
 export default meta
 type Story = StoryObj<typeof meta>

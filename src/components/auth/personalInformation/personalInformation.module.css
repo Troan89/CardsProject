@@ -1,11 +1,8 @@
 .cardWrapper {
   width: 420px;
-  height: 420px;
+  height: 100%;
   margin: 36px auto;
   padding: 33px;
-
-  background: var(--color-dark-700);
-  border: 1px solid rgb(49 49 49 / 10%);
 }
 
 .cardWrapper .info {

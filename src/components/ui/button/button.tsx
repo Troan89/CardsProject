@@ -14,20 +14,14 @@ export type ButtonProps<T extends ElementType = ElementType> = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   <T extends ElementType = 'button'>(props: ButtonProps<T>, ref: any) => {
-    const {
-      as: Component = 'button',
-      className,
-      fullWidth = false,
-      variant = 'primary',
-      ...rest
-    } = props
-
-    return (
-      <Component
-        className={clsx(s.button, s[variant], fullWidth ? s.fullWidth : '', className)}
-        {...rest}
-        ref={ref}
-      />
+    const { as: Component = 'button', className, fullWidth = false, variant, ...rest } = props
+    const classes = clsx(
+      s.button,
+      variant ? s[variant] : '', // Если variant не определен, не используем его как индекс
+      fullWidth ? s.fullWidth : '',
+      className
     )
+
+    return <Component className={classes} {...rest} ref={ref} />
   }
 )

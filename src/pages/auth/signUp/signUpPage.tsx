@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import { SignUp } from '@/components/auth/signUp'
 import { PageWrapper } from '@/components/ui/pageWrapper'
@@ -32,7 +32,6 @@ export const SignUpPage = () => {
   return (
     <PageWrapper>
       <SignUp onSubmit={handleSubmit} />
-      <ToastContainer />
     </PageWrapper>
   )
 }

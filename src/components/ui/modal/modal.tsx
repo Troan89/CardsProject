@@ -12,10 +12,12 @@ import s from './modal.module.scss'
 export type ModalProps = {
   children?: ReactNode
   className?: string
+  iconId?: string
   isOpen: boolean
   onChange?: (isOpen: boolean) => void
   title?: string
   titleBtn?: string
+  variantBtn?: string
 } & ComponentPropsWithoutRef<typeof Dialog.Root>
 
 export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(
@@ -33,9 +35,13 @@ export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(
           <Button
             aria-label={'Open'}
             onClick={() => onChange && onChange(true)}
-            variant={'primary'}
+            variant={rest.variantBtn}
           >
-            {rest.titleBtn}
+            {rest.iconId ? (
+              <Icons className={s.passwordIcon} iconId={rest.iconId} />
+            ) : (
+              rest.titleBtn
+            )}
           </Button>
         </Dialog.Trigger>
         <Dialog.Portal>
