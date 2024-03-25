@@ -27,7 +27,6 @@ const tabs: TabType[] = [
 ]
 
 export const DecksPage = () => {
-
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [perPageItem, setPerPageItem] = useState<number | string>(10)

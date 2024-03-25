@@ -16,9 +16,9 @@ import {
   useGetCardQuery,
 } from '@/services/deck/deck.service'
 import { Card } from '@/services/deck/deck.types'
+import { useGetOneDeckQuery } from '@/services/decks/decks.service'
 
 import s from '@/pages/decks-page/decks-page.module.scss'
-import {useGetOneDeckQuery} from "@/services/decks/decks.service";
 
 const columns: Column[] = [
   {
@@ -61,14 +61,14 @@ export const Deck = ({ onSort, sort }: Props) => {
 
   const { deckId } = useParams()
 
-  const {data: deck} = useGetOneDeckQuery({id: deckId || ""})
+  const { data: deck } = useGetOneDeckQuery({ id: deckId || '' })
 
   const [createCards] = useCreateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
 
   const { data } = useGetCardQuery({
-    id: deckId || '',
     currentPage: page,
+    id: deckId || '',
     itemsPerPage: perPageItem,
     question: search,
   })

@@ -27,7 +27,7 @@ const cardsService = baseApi.injectEndpoints({
       }),
       getCard: builder.query<CardsResponse, GetCardsArgs>({
         providesTags: ['Deck'],
-        query: ({id, ...args}) => ({
+        query: ({ id, ...args }) => ({
           params: args,
           url: `v1/decks/${id}/cards`,
         }),

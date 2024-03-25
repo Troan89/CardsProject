@@ -1,6 +1,9 @@
+import { Link } from 'react-router-dom'
+
 import { Icons } from '@/assets/icons/Icons'
 import { DeleteDeckDialog } from '@/components/decks/delete-deck-dialog'
 import { EditDeckDialog } from '@/components/decks/edit-deck-dialog'
+import { Button } from '@/components/ui/button'
 import { Column, Sort, TableSort } from '@/components/ui/table/tableSort'
 import { Typography } from '@/components/ui/typography'
 import { Deck, EditDecks } from '@/services/decks/decks.types'
@@ -8,8 +11,6 @@ import { Deck, EditDecks } from '@/services/decks/decks.types'
 import s from './decks-table.module.scss'
 
 import { Table } from '../ui/table'
-import {Link} from "react-router-dom";
-import {Button} from "@/components/ui/button";
 
 const columns: Column[] = [
   {
