@@ -33,7 +33,13 @@ export const DeckDialog = ({ onClick }: Props) => {
   }
 
   return (
-    <Modal isOpen={open} onChange={setOpen} title={'Add New Deck'} titleBtn={'Add New Deck'}>
+    <Modal
+      isOpen={open}
+      onChange={setOpen}
+      title={'Add New Deck'}
+      titleBtn={'Add New Deck'}
+      variant={'primary'}
+    >
       <div className={s.input}>
         <TextField
           label={'Name pack'}

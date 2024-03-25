@@ -18,6 +18,7 @@ import {
 import { Card } from '@/services/deck/deck.types'
 
 import s from '@/pages/decks-page/decks-page.module.scss'
+import {useGetOneDeckQuery} from "@/services/decks/decks.service";
 
 const columns: Column[] = [
   {
@@ -60,10 +61,13 @@ export const Deck = ({ onSort, sort }: Props) => {
 
   const { deckId } = useParams()
 
+  const {data: deck} = useGetOneDeckQuery({id: deckId || ""})
+
   const [createCards] = useCreateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
 
   const { data } = useGetCardQuery({
+    id: deckId || '',
     currentPage: page,
     itemsPerPage: perPageItem,
     question: search,
@@ -81,6 +85,7 @@ export const Deck = ({ onSort, sort }: Props) => {
 
   return (
     <div>
+      <Typography variant={'large'}>{deck?.name}</Typography>
       <Button onClick={createCard}>add</Button>
       <TextField onValueChange={setSearch} placeholder={'Input search'} type={'text'} />
       <Table.Root>

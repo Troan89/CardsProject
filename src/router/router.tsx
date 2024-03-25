@@ -26,6 +26,7 @@ import { RecoverPasswordPage } from '@/pages/auth/recoverPassword'
 import { SignInPage } from '@/pages/auth/signIn'
 import { SignUpPage } from '@/pages/auth/signUp'
 import { Error404Page } from '@/pages/error404'
+import {Deck} from "@/pages/deck/deck";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -70,10 +71,6 @@ const privateRoutes: RouteObject[] = [
         path: ROUTES.checkEmail,
       },
       {
-        element: <div>Hello</div>,
-        path: ROUTES.base,
-      },
-      {
         element: <SignUpPage />,
         path: ROUTES.signUp,
       },
@@ -89,6 +86,9 @@ const privateRoutes: RouteObject[] = [
         element: <DecksPage />,
         path: '/',
       },
+      {element: <Deck />,
+        path: '/decks/:deckId'
+      }
     ],
     element: <App />,
     path: '/',

@@ -8,6 +8,8 @@ import { Deck, EditDecks } from '@/services/decks/decks.types'
 import s from './decks-table.module.scss'
 
 import { Table } from '../ui/table'
+import {Link} from "react-router-dom";
+import {Button} from "@/components/ui/button";
 
 const columns: Column[] = [
   {
@@ -32,7 +34,7 @@ const columns: Column[] = [
   },
   {
     column: 1,
-    sortBy: '',
+    sortBy: 'a',
     sortable: false,
     title: '',
   },
@@ -68,20 +70,10 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
               <Typography variant={'body2'}> {deck.author.name}</Typography>
             </Table.Cell>
             <Table.Cell className={s.lastCol} rows={1}>
-              <button className={s.icon}>
+              <Button as={Link} to={`decks/${deck.id}`} variant={'icon'}>
                 <Icons iconId={'decksList-play'} />
-              </button>
+              </Button>
               <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={onEditClick} />
-              {/*<button className={s.icon} onClick={handleEditClick(deck.id)}>*/}
-              {/*  <Icons iconId={'decksList-edit'} />*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*  className={s.icon}*/}
-              {/*  onClick={handleDeleteClick(deck.id)}*/}
-              {/*  style={{ fill: 'write' }}*/}
-              {/*>*/}
-              {/*  <Icons iconId={'decksList-delete'} />*/}
-              {/*</button>*/}
               <DeleteDeckDialog
                 deckId={deck.id}
                 deckName={deck.name}

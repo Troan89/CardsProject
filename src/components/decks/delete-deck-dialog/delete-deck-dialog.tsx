@@ -19,7 +19,13 @@ export const DeleteDeckDialog = ({ deckId, deckName, onDeleteClick }: Props) => 
   }
 
   return (
-    <Modal isOpen={open} onChange={setOpen} title={'Delete deck'} titleBtn={'Delete'}>
+    <Modal
+      isOpen={open}
+      onChange={setOpen}
+      title={'Delete deck'}
+      titleIcon={'decksList-delete'}
+      variant={'icon'}
+    >
       <div className={s.content}>
         <p>
           Do you really want to remove <strong>{deckName}</strong>?

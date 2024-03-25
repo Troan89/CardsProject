@@ -11,7 +11,7 @@ export type SliderProps = ComponentPropsWithoutRef<typeof SliderPrimitive.Root> 
 }
 export const Slider = forwardRef(
   (
-    { ariaLabelMax, ariaLabelMin, className, onValueChange, value, ...rest }: SliderProps,
+    { ariaLabelMax, ariaLabelMin, className, max, onValueChange, value, ...rest }: SliderProps,
     ref: any
   ) => {
     const [valueSlider, setValueSlider] = useState(value)
@@ -45,6 +45,7 @@ export const Slider = forwardRef(
           className={clsx(s.SliderRoot, className)}
           onValueChange={newValue => onChangeValueHandler(newValue)}
           {...rest}
+          max={max}
           ref={ref}
           value={valueSlider}
         >

@@ -27,6 +27,7 @@ const tabs: TabType[] = [
 ]
 
 export const DecksPage = () => {
+
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [perPageItem, setPerPageItem] = useState<number | string>(10)
@@ -61,7 +62,13 @@ export const DecksPage = () => {
   }
 
   const createDeck = (data: CreateDecks) => {
+    setPage(1)
     createDecks(data)
+  }
+
+  const handleSearch = (name: string) => {
+    setPage(1)
+    setSearch(name)
   }
 
   const editDeck = (data: EditDecks) => {
@@ -71,10 +78,12 @@ export const DecksPage = () => {
   const sliderValue = maxMinCard ? [maxMinCard.min, maxMinCard.max] : undefined
 
   const onChangeValueHandler = (newValue: number[]) => {
+    setPage(1)
     setMinMaxCard(newValue)
   }
 
   const handleSort = (key: Sort) => {
+    setPage(1)
     if (key && sortKey === key.sortBy) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
     } else {
@@ -84,7 +93,18 @@ export const DecksPage = () => {
   }
 
   const handleSwitcher = (value: string) => {
+    setPage(1)
     setSwitcher(value)
+  }
+
+  const handleClearFilter = () => {
+    setSearch('')
+    setSwitcher('')
+    setMinMaxCard([0, 100])
+    setSortKey('')
+    setSortDirection('asc')
+    setPage(1)
+    setPerPageItem(10)
   }
 
   return (
@@ -96,9 +116,10 @@ export const DecksPage = () => {
       <div className={s.filteredEl}>
         <TextField
           className={s.input}
-          onValueChange={setSearch}
+          onValueChange={handleSearch}
           placeholder={'Input search'}
           type={'text'}
+          value={search}
         />
         <div className={s.tab}>
           <TabSwitcher
@@ -111,10 +132,10 @@ export const DecksPage = () => {
         </div>
         <div className={s.slider}>
           <Typography variant={'body2'}>Number of cards</Typography>
-          <Slider onValueChange={onChangeValueHandler} value={sliderValue} />
+          <Slider max={maxMinCard?.max} onValueChange={onChangeValueHandler} value={sliderValue} />
         </div>
         <div className={s.btn}>
-          <Button variant={'secondary'}>
+          <Button onClick={handleClearFilter} variant={'secondary'}>
             <Icons iconId={'decksList-delete'} /> Clear Filter
           </Button>
         </div>
