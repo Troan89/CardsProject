@@ -33,8 +33,10 @@ export const DecksPage = () => {
   const [sortKey, setSortKey] = useState<string | undefined>('')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [switcher, setSwitcher] = useState('')
-  const [minCardCount, setMinCardCount] = useState<number>()
-  const [maxCardCount, setMaxCardCount] = useState<number>()
+
+  const { data: maxMinCard, isFetching: isLoadingMaxMinCards } = useGetMaxMinCardsQuery()
+  const [minCardCount, setMinCardCount] = useState<number>(maxMinCard?.min ?? 0)
+  const [maxCardCount, setMaxCardCount] = useState<number>(maxMinCard?.max ?? 100)
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
     authorId: switcher === tabs[0].value ? 'f2be95b9-4d07-4751-a775-bd612fc9553a' : undefined,
@@ -48,7 +50,6 @@ export const DecksPage = () => {
   const [createDecks] = useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
   const [editDecks] = useUpdateDeckMutation()
-  const { data: maxMinCard, isFetching: isLoadingMaxMinCards } = useGetMaxMinCardsQuery()
 
   if (isLoading || isLoadingMaxMinCards) {
     return <div>Loading...</div>
@@ -75,7 +76,7 @@ export const DecksPage = () => {
     editDecks(data)
   }
 
-  const sliderValue = maxMinCard ? [maxMinCard.min, maxMinCard.max] : undefined
+  const sliderValue = maxMinCard ? [minCardCount, maxCardCount] : undefined
 
   const onChangeValueHandler = (newValue: number[]) => {
     setPage(1)
@@ -106,7 +107,7 @@ export const DecksPage = () => {
     setPage(1)
     setPerPageItem(10)
     setMinCardCount(0)
-    setMaxCardCount(100)
+    setMaxCardCount(maxMinCard?.max ?? 100)
   }
 
   return (
