@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
 
+import { CreateCard } from '@/components/cards/createCard'
 import { DeleteCard } from '@/components/cards/deleteCard'
 import { EditCard } from '@/components/cards/editCard'
 import { Button } from '@/components/ui/button'
@@ -87,30 +88,31 @@ export const Deck = ({ onSort, sort }: Props) => {
     <div>
       <Typography variant={'large'}>{deck?.name}</Typography>
       <Button onClick={createCard}>add</Button>
+      <CreateCard />
       <TextField onValueChange={setSearch} placeholder={'Input search'} type={'text'} />
       <Table.Root>
         <TableSort columns={columns} onSort={onSort} sort={sort}></TableSort>
         <Table.Body>
-          {data?.items.map((deck, index) => {
+          {data?.items.map((card, index) => {
             return (
               <Table.Row key={index}>
                 <Table.Cell>
-                  <Typography variant={'body2'}>{deck.question}</Typography>
+                  <Typography variant={'body2'}>{card.question}</Typography>
                 </Table.Cell>
                 <Table.Cell>
-                  <Typography variant={'body2'}>{deck.answer}</Typography>
+                  <Typography variant={'body2'}>{card.answer}</Typography>
                 </Table.Cell>
                 <Table.Cell>
                   <Typography variant={'body2'}>
-                    {new Date(deck.updated).toLocaleDateString('ru-RU')}
+                    {new Date(card.updated).toLocaleDateString('ru-RU')}
                   </Typography>
                 </Table.Cell>
                 <Table.Cell>
-                  <Rating value={deck.grade} />
+                  <Rating value={card.grade} />
                 </Table.Cell>
                 <Table.Cell>
-                  <EditCard cardId={deck.id} onEditClick={handleEditClick} />
-                  <DeleteCard cardId={deck.id} onDeleteClick={handleDeleteClick} />
+                  <EditCard cardId={card.id} onEditClick={handleEditClick} />
+                  <DeleteCard cardId={card.id} onDeleteClick={handleDeleteClick} />
                 </Table.Cell>
               </Table.Row>
             )

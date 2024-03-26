@@ -25,6 +25,7 @@ export const EditCard = ({ cardId, cardName = ' iii', onEditClick }: Props) => {
       title={'Edit card'}
       titleBtn={'Edit'}
       titleIcon={'edit-2-outline'}
+      variant={'icon'}
     >
       <div className={s.content}>
         <p>

@@ -48,7 +48,7 @@ export type CardItem = {
 export type GetCardsArgs = {
   answer?: string
   currentPage?: number
-  id?: string
+  id?: string | undefined
   itemsPerPage?: number | string
   orderBy?: string
   question?: string

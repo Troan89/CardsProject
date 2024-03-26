@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import s from './rating.module.scss'
 
-export type RatingValueType = 0 | 1 | 2 | 3 | 4 | 5
+export type RatingValueType = number
 
 export type RatingPropsType = {
   value: RatingValueType

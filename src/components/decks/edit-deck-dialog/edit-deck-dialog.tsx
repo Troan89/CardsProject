@@ -32,7 +32,13 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
   }
 
   return (
-    <Modal isOpen={open} onChange={setOpen} title={'Edit deck'} titleIcon={'decksList-edit'} variant={'icon'}>
+    <Modal
+      isOpen={open}
+      onChange={setOpen}
+      title={'Edit deck'}
+      titleIcon={'decksList-edit'}
+      variant={'icon'}
+    >
       <div className={s.content}>
         <p>
           Do you really want to edit <strong>{deckName}</strong>?
