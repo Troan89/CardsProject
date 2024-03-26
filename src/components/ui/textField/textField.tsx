@@ -1,6 +1,7 @@
 import React, { ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import { Icons } from '@/assets/icons/Icons'
+import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 
@@ -77,7 +78,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             {...rest}
           />
           {isShowPasswordIconBtn && (
-            <button
+            <Button
               className={classes.passwordBtn}
               disabled={rest.disabled}
               onClick={() => setShowPassword(prevValue => !prevValue)}
@@ -88,7 +89,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               ) : (
                 <Icons className={s.passwordIcon} iconId={'eye-off-outline'} />
               )}
-            </button>
+            </Button>
           )}
         </div>
         {error && (

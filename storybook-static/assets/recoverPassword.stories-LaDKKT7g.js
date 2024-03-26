@@ -1,0 +1,3 @@
+import{R as s}from"./recoverPassword-BFUZIeck.js";import"./jsx-runtime-DzgN-JE8.js";import"./index-CO9pbFv1.js";import"./_commonjsHelpers-BosuxZz1.js";import"./zod-C96BnJbV.js";import"./textField-DaZ4w6xp.js";import"./Icons-i9HqDeSz.js";import"./typography-BUUkRT78.js";import"./clsx-B-dksMZM.js";import"./index-C6OcbDX4.js";import"./index-BT32HCm8.js";import"./button-BXHm91ri.js";import"./card-CFWRH6tA.js";const w={component:s,tags:["autodocs"],title:"Auth/RecoverPassword"},r={args:{}};var o,t,e;r.parameters={...r.parameters,docs:{...(o=r.parameters)==null?void 0:o.docs,source:{originalSource:`{
+  args: {}
+}`,...(e=(t=r.parameters)==null?void 0:t.docs)==null?void 0:e.source}}};const x=["Default"];export{r as Default,x as __namedExportsOrder,w as default};

@@ -55,10 +55,6 @@ const privateRoutes: RouteObject[] = [
   {
     children: [
       {
-        element: <div>Hello !</div>,
-        path: '/123',
-      },
-      {
         element: <SignInPage />,
         path: ROUTES.login,
       },
@@ -69,6 +65,10 @@ const privateRoutes: RouteObject[] = [
       {
         element: <CheckEmailPage />,
         path: ROUTES.checkEmail,
+      },
+      {
+        element: <DecksPage />,
+        path: ROUTES.base,
       },
       {
         element: <SignUpPage />,
