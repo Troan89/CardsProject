@@ -58,14 +58,14 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
         {decks?.map((deck, index) => (
           <Table.Row key={index}>
             <Table.Cell rows={3}>
-              <div className={s.root}>
+              <Typography as={Link} className={s.root} to={`decks/${deck.id}`}>
                 {deck.cover ? (
                   <img alt={deck.name} src={deck.cover} />
                 ) : (
                   <img alt={'react'} src={pic} />
                 )}
                 <Typography variant={'body2'}>{deck.name}</Typography>
-              </div>
+              </Typography>
             </Table.Cell>
             <Table.Cell rows={1}>
               <Typography variant={'body2'}>{deck.cardsCount}</Typography>
