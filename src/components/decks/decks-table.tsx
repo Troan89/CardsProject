@@ -6,6 +6,7 @@ import { EditDeckDialog } from '@/components/decks/edit-deck-dialog'
 import { Button } from '@/components/ui/button'
 import { Column, Sort, TableSort } from '@/components/ui/table/tableSort'
 import { Typography } from '@/components/ui/typography'
+import { useGetMeQuery } from '@/services/auth'
 import { Deck, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-table.module.scss'
@@ -51,6 +52,8 @@ type Props = {
 }
 
 export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: Props) => {
+  const { data: me } = useGetMeQuery()
+
   return (
     <Table.Root>
       <TableSort columns={columns} onSort={onSort} sort={sort} />
@@ -82,12 +85,18 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
               <Button as={Link} to={`decks/${deck.id}`} variant={'icon'}>
                 <Icons iconId={'decksList-play'} />
               </Button>
-              <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={onEditClick} />
-              <DeleteDeckDialog
-                deckId={deck.id}
-                deckName={deck.name}
-                onDeleteClick={onDeleteClick}
-              />
+              {me?.id === deck.author.id ? (
+                <>
+                  <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={onEditClick} />
+                  <DeleteDeckDialog
+                    deckId={deck.id}
+                    deckName={deck.name}
+                    onDeleteClick={onDeleteClick}
+                  />
+                </>
+              ) : (
+                ''
+              )}
             </Table.Cell>
           </Table.Row>
         ))}

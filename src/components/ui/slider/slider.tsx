@@ -8,6 +8,7 @@ import s from './slider.module.scss'
 export type SliderProps = ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & {
   ariaLabelMax?: string
   ariaLabelMin?: string
+  value: number[]
 }
 export const Slider = forwardRef(
   (
@@ -17,17 +18,18 @@ export const Slider = forwardRef(
     const onChangeValueHandler = (newValue: number[]) => {
       onValueChange?.(newValue)
     }
-    const changeInputValue = (number: number, value: number) => {
-      // @ts-ignore
+
+    const changeInputValue = (number: number, valueNew: number) => {
       const oldVal: number | undefined = value?.[number ? 0 : 1]
 
       let newValue: number[]
 
       if (number === 0) {
-        newValue = [value, oldVal as number]
+        newValue = [valueNew, oldVal as number]
       } else {
-        newValue = [oldVal as number, value]
+        newValue = [oldVal as number, valueNew]
       }
+
       onValueChange?.(newValue)
     }
 
@@ -36,7 +38,7 @@ export const Slider = forwardRef(
         <input onChange={e => changeInputValue(0, Number(e.target.value))} value={value?.[0]} />
         <SliderPrimitive.Root
           className={clsx(s.SliderRoot, className)}
-          onValueChange={newValue => onChangeValueHandler(newValue)}
+          onValueChange={onChangeValueHandler}
           {...rest}
           max={max}
           ref={ref}

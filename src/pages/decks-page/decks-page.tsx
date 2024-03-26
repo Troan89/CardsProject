@@ -10,6 +10,7 @@ import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
 import { Sort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
+import { useGetMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
@@ -38,8 +39,10 @@ export const DecksPage = () => {
   const [minCardCount, setMinCardCount] = useState<number>(0)
   const [maxCardCount, setMaxCardCount] = useState<number>(100)
 
+  const { data: me } = useGetMeQuery()
+
   const { data, error, isError, isLoading } = useGetDecksQuery({
-    authorId: switcher === tabs[0].value ? 'f2be95b9-4d07-4751-a775-bd612fc9553a' : undefined,
+    authorId: switcher === tabs[0].value ? me?.id : undefined,
     currentPage: page,
     itemsPerPage: perPageItem,
     maxCardsCount: maxCardCount,
