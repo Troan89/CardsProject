@@ -35,22 +35,20 @@ export const CreateNewPassword = ({ onSubmit }: Props) => {
   return (
     <Card className={s.wrapper}>
       <form className={s.content} onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <Typography variant={'h1'}>Create new password</Typography>
-        </div>
-
+        <Typography as={'div'} variant={'h1'}>
+          Create new password
+        </Typography>
         <FormTextField
           {...register('password')}
+          className={s.password}
           control={control}
           error={errors.password?.message}
           label={'Password'}
           type={'password'}
         />
-        <div>
-          <Typography className={s.info}>
-            Create new password and we will send you further instructions to email
-          </Typography>
-        </div>
+        <Typography as={'div'} className={s.info}>
+          Create new password and we will send you further instructions to email
+        </Typography>
         <Button fullWidth type={'submit'} variant={'primary'}>
           Create new password
         </Button>
