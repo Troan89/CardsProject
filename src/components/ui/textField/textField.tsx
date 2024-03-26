@@ -11,7 +11,7 @@ export type TextFieldProps = {
   label?: string
   labelProps?: ComponentProps<'label'>
   onValueChange?: (value: string) => void
-  type: 'email' | 'password' | 'search' | 'text'
+  type: 'email' | 'file' | 'password' | 'search' | 'text'
   value?: string
 } & ComponentPropsWithoutRef<'input'>
 

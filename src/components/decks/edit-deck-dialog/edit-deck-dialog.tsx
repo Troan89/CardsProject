@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/check-box'
@@ -17,9 +17,10 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
   const [editDeckValue, setEditDeckValue] = useState<string>(deckName)
   const [privatePack, setPrivatePack] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
+  const [file, setFile] = useState<File | null>(null)
 
   const editDeck = () => {
-    onEditClick({ id: deckId, isPrivate: privatePack, name: editDeckValue })
+    onEditClick({ cover: file, id: deckId, isPrivate: privatePack, name: editDeckValue })
     setOpen(false)
   }
 
@@ -32,7 +33,13 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
   }
 
   return (
-    <Modal isOpen={open} onChange={setOpen} title={'Edit deck'} titleIcon={'decksList-edit'} variant={'icon'}>
+    <Modal
+      isOpen={open}
+      onChange={setOpen}
+      title={'Edit deck'}
+      titleIcon={'decksList-edit'}
+      variant={'icon'}
+    >
       <div className={s.content}>
         <p>
           Do you really want to edit <strong>{deckName}</strong>?
@@ -46,9 +53,16 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
           type={'text'}
           value={editDeckValue}
         />
-        <Button className={s.Button} fullWidth variant={'secondary'}>
-          Upload Image
-        </Button>
+        <Button
+          as={'input'}
+          className={s.Button}
+          fullWidth
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setFile(e.currentTarget?.files?.[0] ?? null)
+          }
+          type={'file'}
+          variant={'secondary'}
+        />
         <Checkbox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
       </div>
       <div className={s.btn}>

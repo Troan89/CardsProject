@@ -30,17 +30,18 @@ export const DecksPage = () => {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [perPageItem, setPerPageItem] = useState<number | string>(10)
-  const [minMaxCard, setMinMaxCard] = useState<number[]>([])
   const [sortKey, setSortKey] = useState<string | undefined>('')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [switcher, setSwitcher] = useState('')
+  const [minCardCount, setMinCardCount] = useState<number>()
+  const [maxCardCount, setMaxCardCount] = useState<number>()
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
     authorId: switcher === tabs[0].value ? 'f2be95b9-4d07-4751-a775-bd612fc9553a' : undefined,
     currentPage: page,
     itemsPerPage: perPageItem,
-    maxCardsCount: minMaxCard[1],
-    minCardsCount: minMaxCard[0],
+    maxCardsCount: maxCardCount,
+    minCardsCount: minCardCount,
     name: search,
     orderBy: sortKey ? `${sortKey}-${sortDirection}` : undefined,
   })
@@ -78,7 +79,8 @@ export const DecksPage = () => {
 
   const onChangeValueHandler = (newValue: number[]) => {
     setPage(1)
-    setMinMaxCard(newValue)
+    setMinCardCount(newValue[0])
+    setMaxCardCount(newValue[1])
   }
 
   const handleSort = (key: Sort) => {
@@ -99,11 +101,12 @@ export const DecksPage = () => {
   const handleClearFilter = () => {
     setSearch('')
     setSwitcher('')
-    setMinMaxCard([0, 100])
     setSortKey('')
     setSortDirection('asc')
     setPage(1)
     setPerPageItem(10)
+    setMinCardCount(0)
+    setMaxCardCount(100)
   }
 
   return (

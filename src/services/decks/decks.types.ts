@@ -35,7 +35,7 @@ export type GetDecksArgs = {
 }
 
 export type CreateDecks = {
-  cover?: string
+  cover?: File | null
   isPrivate?: boolean
   name: string
 }
@@ -50,7 +50,7 @@ export type UpdateDeck = {
 }
 
 export type EditDecks = {
-  cover?: string
+  cover?: File | null
   id: string
   isPrivate?: boolean
   name: string

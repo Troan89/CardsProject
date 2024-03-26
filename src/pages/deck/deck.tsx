@@ -86,6 +86,7 @@ export const Deck = ({ onSort, sort }: Props) => {
   return (
     <div>
       <Typography variant={'large'}>{deck?.name}</Typography>
+      {deck?.cover && <img alt={deck.name} src={deck.cover} />}
       <Button onClick={createCard}>add</Button>
       <TextField onValueChange={setSearch} placeholder={'Input search'} type={'text'} />
       <Table.Root>

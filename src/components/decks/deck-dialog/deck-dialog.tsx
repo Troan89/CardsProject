@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/check-box'
@@ -16,6 +16,7 @@ export const DeckDialog = ({ onClick }: Props) => {
   const [createDeckValue, setCreateDeckValue] = useState<string>('')
   const [privatePack, setPrivatePack] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
+  const [file, setFile] = useState<File | null>(null)
 
   const handleValue = (e: string) => {
     setCreateDeckValue(e)
@@ -26,7 +27,7 @@ export const DeckDialog = ({ onClick }: Props) => {
   }
 
   const handleCreateDeck = () => {
-    onClick({ isPrivate: privatePack, name: createDeckValue })
+    onClick({ cover: file, isPrivate: privatePack, name: createDeckValue })
     setCreateDeckValue('')
     setPrivatePack(false)
     setOpen(false)
@@ -48,9 +49,16 @@ export const DeckDialog = ({ onClick }: Props) => {
           type={'text'}
           value={createDeckValue}
         />
-        <Button className={s.Button} fullWidth variant={'secondary'}>
-          Upload Image
-        </Button>
+        <Button
+          as={'input'}
+          className={s.Button}
+          fullWidth
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setFile(e.currentTarget?.files?.[0] ?? null)
+          }
+          type={'file'}
+          variant={'secondary'}
+        />
         <Checkbox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
       </div>
       <div className={s.btn}>
