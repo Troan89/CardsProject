@@ -10,6 +10,7 @@ import { Deck, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-table.module.scss'
 
+import pic from '../../assets/img/imgreplace.jpg'
 import { Table } from '../ui/table'
 
 const columns: Column[] = [
@@ -58,7 +59,11 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
           <Table.Row key={index}>
             <Table.Cell rows={3}>
               <div className={s.root}>
-                {deck.cover && <img alt={deck.name} src={deck.cover} />}
+                {deck.cover ? (
+                  <img alt={deck.name} src={deck.cover} />
+                ) : (
+                  <img alt={'react'} src={pic} />
+                )}
                 <Typography variant={'body2'}>{deck.name}</Typography>
               </div>
             </Table.Cell>

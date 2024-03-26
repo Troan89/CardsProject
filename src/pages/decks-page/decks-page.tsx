@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Icons } from '@/assets/icons/Icons'
 import { DecksTable } from '@/components/decks'
@@ -34,9 +34,9 @@ export const DecksPage = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [switcher, setSwitcher] = useState('')
 
-  const { data: maxMinCard, isFetching: isLoadingMaxMinCards } = useGetMaxMinCardsQuery()
-  const [minCardCount, setMinCardCount] = useState<number>(maxMinCard?.min ?? 0)
-  const [maxCardCount, setMaxCardCount] = useState<number>(maxMinCard?.max ?? 100)
+  const { data: maxMinCard } = useGetMaxMinCardsQuery()
+  const [minCardCount, setMinCardCount] = useState<number>(0)
+  const [maxCardCount, setMaxCardCount] = useState<number>(100)
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
     authorId: switcher === tabs[0].value ? 'f2be95b9-4d07-4751-a775-bd612fc9553a' : undefined,
@@ -51,7 +51,14 @@ export const DecksPage = () => {
   const [deleteDecks] = useDeleteDeckMutation()
   const [editDecks] = useUpdateDeckMutation()
 
-  if (isLoading || isLoadingMaxMinCards) {
+  useEffect(() => {
+    if (maxMinCard) {
+      setMinCardCount(maxMinCard.min)
+      setMaxCardCount(maxMinCard.max)
+    }
+  }, [maxMinCard])
+
+  if (isLoading) {
     return <div>Loading...</div>
   }
   if (isError) {
@@ -137,11 +144,9 @@ export const DecksPage = () => {
           <Typography variant={'body2'}>Number of cards</Typography>
           <Slider max={maxMinCard?.max} onValueChange={onChangeValueHandler} value={sliderValue} />
         </div>
-        <div className={s.btn}>
-          <Button onClick={handleClearFilter} variant={'secondary'}>
-            <Icons iconId={'decksList-delete'} /> Clear Filter
-          </Button>
-        </div>
+        <Button onClick={handleClearFilter} variant={'secondary'}>
+          <Icons iconId={'decksList-delete'} /> <span>Clear Filter</span>
+        </Button>
       </div>
       <DecksTable
         decks={data?.items}

@@ -1,7 +1,9 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
+import { Icons } from '@/assets/icons/Icons'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/check-box'
+import { ImageUploader } from '@/components/ui/imageUploader/imageUploader'
 import { Modal } from '@/components/ui/modal'
 import { TextField } from '@/components/ui/textField'
 import { CreateDecks } from '@/services/decks/decks.types'
@@ -32,6 +34,10 @@ export const DeckDialog = ({ onClick }: Props) => {
     setPrivatePack(false)
     setOpen(false)
   }
+  const handleCancelBtn = () => {
+    setCreateDeckValue('')
+    setOpen(false)
+  }
 
   return (
     <Modal
@@ -39,7 +45,7 @@ export const DeckDialog = ({ onClick }: Props) => {
       onChange={setOpen}
       title={'Add New Deck'}
       titleBtn={'Add New Deck'}
-      variant={'primary'}
+      variantBtn={'primary'}
     >
       <div className={s.input}>
         <TextField
@@ -49,23 +55,25 @@ export const DeckDialog = ({ onClick }: Props) => {
           type={'text'}
           value={createDeckValue}
         />
-        <Button
-          as={'input'}
-          className={s.Button}
-          fullWidth
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setFile(e.currentTarget?.files?.[0] ?? null)
-          }
-          type={'file'}
-          variant={'secondary'}
-        />
+        <div className={s.Button}>
+          <ImageUploader
+            setFile={(img: File | null) => setFile(img)}
+            trigger={
+              <Button as={'span'} fullWidth variant={'secondary'}>
+                <Icons iconId={'upload_image'} /> Upload image
+              </Button>
+            }
+          />
+        </div>
         <Checkbox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
       </div>
       <div className={s.btn}>
-        <Button onClick={() => setOpen(false)} variant={'secondary'}>
+        <Button onClick={handleCancelBtn} variant={'secondary'}>
           Cancel
         </Button>
-        <Button onClick={handleCreateDeck}>Add New Pack</Button>
+        <Button onClick={handleCreateDeck} variant={'primary'}>
+          Add New Pack
+        </Button>
       </div>
     </Modal>
   )

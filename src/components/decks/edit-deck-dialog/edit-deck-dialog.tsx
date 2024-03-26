@@ -1,7 +1,9 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
+import { Icons } from '@/assets/icons/Icons'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/check-box'
+import { ImageUploader } from '@/components/ui/imageUploader/imageUploader'
 import { Modal } from '@/components/ui/modal'
 import { TextField } from '@/components/ui/textField'
 import { EditDecks } from '@/services/decks/decks.types'
@@ -34,11 +36,11 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
 
   return (
     <Modal
+      iconId={'decksList-edit'}
       isOpen={open}
       onChange={setOpen}
       title={'Edit deck'}
-      titleIcon={'decksList-edit'}
-      variant={'icon'}
+      variantBtn={'icon'}
     >
       <div className={s.content}>
         <p>
@@ -53,23 +55,25 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
           type={'text'}
           value={editDeckValue}
         />
-        <Button
-          as={'input'}
-          className={s.Button}
-          fullWidth
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setFile(e.currentTarget?.files?.[0] ?? null)
-          }
-          type={'file'}
-          variant={'secondary'}
-        />
+        <div className={s.Button}>
+          <ImageUploader
+            setFile={(img: File | null) => setFile(img)}
+            trigger={
+              <Button as={'span'} fullWidth variant={'secondary'}>
+                <Icons iconId={'upload_image'} /> Upload image
+              </Button>
+            }
+          />
+        </div>
         <Checkbox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
       </div>
       <div className={s.btn}>
         <Button onClick={() => setOpen(false)} variant={'secondary'}>
           Cancel
         </Button>
-        <Button onClick={editDeck}>Edit deck</Button>
+        <Button onClick={editDeck} variant={'primary'}>
+          Edit deck
+        </Button>
       </div>
     </Modal>
   )
