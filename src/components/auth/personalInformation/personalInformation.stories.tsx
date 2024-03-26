@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { PersonalInformation } from '@/components/auth/personalInformation/personalInformation'
+import { withRouter } from 'storybook-addon-react-router-v6'
 
 import avatar from '../../../assets/img/avatarDemo.jpeg'
 
 const meta: Meta<typeof PersonalInformation> = {
   component: PersonalInformation,
+  decorators: [withRouter],
   parameters: {
     layout: 'centered',
   },

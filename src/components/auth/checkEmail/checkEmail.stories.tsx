@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { CheckEmail } from '@/components/auth/checkEmail/checkEmail'
+import { withRouter } from 'storybook-addon-react-router-v6'
 
 const meta = {
   component: CheckEmail,
+  decorators: [withRouter],
   parameters: {
     layout: 'centered',
   },
