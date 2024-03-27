@@ -14,8 +14,7 @@ import { SignInPage } from '@/pages/auth/signIn'
 import { SignUpPage } from '@/pages/auth/signUp'
 import { Deck } from '@/pages/deck/deck'
 import { Error404Page } from '@/pages/error404'
-import { Layout } from '@/pages/layout'
-import { useAppOutletContext } from '@/router/hooks/useOutletContex'
+import { Layout, useAuthContext } from '@/pages/layout'
 
 export const ROUTES = {
   base: '/',
@@ -79,8 +78,6 @@ export const router = createBrowserRouter([
       },
     ],
     element: <Layout />,
-    errorElement: <Error404Page />,
-    path: ROUTES.base,
   },
 ])
 
@@ -89,13 +86,13 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const { isAuthenticated } = useAppOutletContext()
+  const { isAuthenticated } = useAuthContext()
 
-  return isAuthenticated ? <Navigate to={ROUTES.login} /> : <Outlet />
+  return isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.login} />
 }
 
 function PublicRoutes() {
-  const { isAuthenticated } = useAppOutletContext()
+  const { isAuthenticated } = useAuthContext()
 
   return isAuthenticated ? <Navigate to={ROUTES.decks} /> : <Outlet />
 }
