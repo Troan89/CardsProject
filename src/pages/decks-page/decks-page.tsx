@@ -35,9 +35,9 @@ export const DecksPage = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [switcher, setSwitcher] = useState('')
 
-  const { data: maxMinCard } = useGetMaxMinCardsQuery()
-  const [minCardCount, setMinCardCount] = useState<number>(0)
-  const [maxCardCount, setMaxCardCount] = useState<number>(100)
+  const { data: maxMinCard, isFetching } = useGetMaxMinCardsQuery()
+  const [minCardCount, setMinCardCount] = useState<number>(maxMinCard?.min ?? 0)
+  const [maxCardCount, setMaxCardCount] = useState<number>(maxMinCard?.max ?? 100)
 
   const { data: me } = useGetMeQuery()
 
@@ -56,12 +56,12 @@ export const DecksPage = () => {
 
   useEffect(() => {
     if (maxMinCard) {
-      setMinCardCount(maxMinCard.min)
       setMaxCardCount(maxMinCard.max)
+      setMinCardCount(maxMinCard.min)
     }
   }, [maxMinCard])
 
-  if (isLoading) {
+  if (isLoading || !maxMinCard || isFetching) {
     return <div>Loading...</div>
   }
   if (isError) {
