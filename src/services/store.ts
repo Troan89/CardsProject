@@ -1,3 +1,4 @@
+// @ts-ignore
 import { baseApi } from '@/services/baseApi'
 import { configureStore } from '@reduxjs/toolkit'
 

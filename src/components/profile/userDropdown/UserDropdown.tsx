@@ -11,12 +11,14 @@ import {
 } from '@/components/ui/dropdown'
 
 import s from './userDropdown.module.css'
+
 type Props = {
-  avatar?: string
+  avatar?: null | string
   email?: string
+  logout: () => void
   userName?: string
 }
-export const UserDropdown = ({ avatar, email, userName }: Props) => {
+export const UserDropdown = ({ avatar, email, logout, userName }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={s.wrapper}>
@@ -40,7 +42,7 @@ export const UserDropdown = ({ avatar, email, userName }: Props) => {
           <Icons iconId={'person-outline'} /> My Profile
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={logout}>
           <Icons iconId={'log-out-outline'} /> Sign Out
         </DropdownMenuItem>
       </DropdownMenuContent>
