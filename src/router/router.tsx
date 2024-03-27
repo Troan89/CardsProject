@@ -21,7 +21,7 @@ export const ROUTES = {
   checkEmail: '/check-email',
   createNewPassword: '/create-new-password',
   deck: '/decks/:deckId',
-  decks: '/decks',
+  decks: '/',
   error: '/*',
   login: '/login',
   profile: '/profile',
@@ -53,10 +53,6 @@ const publicRoutes: RouteObject[] = [
 ]
 
 const privateRoutes: RouteObject[] = [
-  {
-    element: <Navigate to={ROUTES.decks} />,
-    path: ROUTES.base,
-  },
   {
     element: <DecksPage />,
     path: ROUTES.decks,
@@ -94,5 +90,5 @@ function PrivateRoutes() {
 function PublicRoutes() {
   const { isAuthenticated } = useAuthContext()
 
-  return isAuthenticated ? <Navigate to={ROUTES.decks} /> : <Outlet />
+  return isAuthenticated ? <Navigate to={ROUTES.base} /> : <Outlet />
 }
