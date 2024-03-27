@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
 
-import { CreateCard } from '@/components/cards/createCard'
+import { CreateCardDialog } from '@/components/cards/createCard'
 import { DeleteCard } from '@/components/cards/deleteCard'
 import { EditCard } from '@/components/cards/editCard'
-import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Rating } from '@/components/ui/rating'
 import { Table } from '@/components/ui/table'
@@ -16,7 +15,7 @@ import {
   useDeleteCardMutation,
   useGetCardQuery,
 } from '@/services/deck/deck.service'
-import { Card } from '@/services/deck/deck.types'
+import { Card, CreateCard } from '@/services/deck/deck.types'
 import { useGetOneDeckQuery } from '@/services/decks/decks.service'
 
 import s from '@/pages/decks-page/decks-page.module.scss'
@@ -74,8 +73,8 @@ export const Deck = ({ onSort, sort }: Props) => {
     question: search,
   })
 
-  const createCard = () => {
-    createCards({ answer: '1+1+1+1', id: String(deckId), question: 'my deck' })
+  const createCard = (data: CreateCard) => {
+    createCards({ ...data, id: String(deckId) })
   }
   const handleDeleteClick = (id: string) => {
     deleteCard({ id })
@@ -87,8 +86,7 @@ export const Deck = ({ onSort, sort }: Props) => {
   return (
     <div>
       <Typography variant={'large'}>{deck?.name}</Typography>
-      <Button onClick={createCard}>add</Button>
-      <CreateCard />
+      <CreateCardDialog onClick={createCard} />
       <TextField onValueChange={setSearch} placeholder={'Input search'} type={'text'} />
       <Table.Root>
         <TableSort columns={columns} onSort={onSort} sort={sort}></TableSort>

@@ -1,22 +1,24 @@
 export type Card = {
   answer: string
-  answerImg: string
-  answerVideo: string
-  cardId: string
-  created: string
+  answerImg?: string | undefined
+  answerVideo?: string
+  cardId?: string
+  created?: string
   id: string
   question: string
-  questionImg: string
-  questionVideo: string
-  shots: number
-  updated: string
-  userId: string
+  questionImg?: string | undefined
+  questionVideo?: string
+  shots?: number
+  updated?: string
+  userId?: string
 }
 
 export type CreateCard = {
   answer: string
-  id: string
+  answerImg?: string | undefined
+  id?: string
   question: string
+  questionImg?: string | undefined
 }
 
 export type CardsResponse = {

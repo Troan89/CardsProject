@@ -1,49 +1,27 @@
 import { useState } from 'react'
 
-import { Icons } from '@/assets/icons/Icons'
-import { ImageUpload } from '@/components/cards/ImageUpload'
+import { ImageFrom } from '@/components/cards/ImageFrom'
 import { Button } from '@/components/ui/button'
-import { ImageUploader } from '@/components/ui/imageUploader/imageUploader'
 import { Modal } from '@/components/ui/modal'
-import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
+import { CreateCard } from '@/services/deck/deck.types'
 
 import s from './createCard.module.css'
 
-import ReactCard from '../../assets/img/ReactCard.png'
+import CardDemo from '../../assets/img/ReactCard.png'
 
-export const CreateCard = () => {
+export type VariantUploadImage = 'Answer' | 'Question'
+
+type Props = {
+  onClick: (data: CreateCard) => void
+}
+
+export const CreateCardDialog = ({ onClick }: Props) => {
   const [open, setOpen] = useState<boolean>(false)
   const [createQuestionValue, setCreateQuestionValue] = useState<string>('')
   const [createAnswerValue, setCreateAnswerValue] = useState<string>('')
-
-  const [imageQuestion, setImageQuestion] = useState<null | string>(ReactCard)
-  const [imageAnswer, setImageAnswer] = useState<File | null | string>(ReactCard)
-
-  // const handleImageChangeQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target?.files?.[0]
-  //   const reader = new FileReader()
-  //
-  //   reader.onload = () => {
-  //     // @ts-ignore
-  //     setImageQuestion(reader.result)
-  //   }
-  //   if (file) {
-  //     reader.readAsDataURL(file) // Чтение изображения как Data URL
-  //   }
-  // }
-  // const handleImageChangeAnswer = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target?.files?.[0]
-  //   const reader = new FileReader()
-  //
-  //   reader.onload = () => {
-  //     // @ts-ignore
-  //     setImageAnswer(reader.result)
-  //   }
-  //   if (file) {
-  //     reader.readAsDataURL(file) // Чтение изображения как Data URL
-  //   }
-  // }
+  const [uploadImageQuestion, setUploadImageQuestion] = useState<File | null>(null)
+  const [uploadImageAnswer, setUploadImageAnswer] = useState<File | null>(null)
 
   const handleQuestionValue = (e: string) => {
     setCreateQuestionValue(e)
@@ -52,63 +30,64 @@ export const CreateCard = () => {
     setCreateAnswerValue(e)
   }
 
+  console.log(uploadImageQuestion)
+
+  const handleChangeUploadImage = (file: File | null, variant: VariantUploadImage) => {
+    if (variant === 'Answer') {
+      setUploadImageAnswer(file)
+    } else {
+      setUploadImageQuestion(file)
+    }
+  }
+
+  const handlerCreateCard = () => {
+    onClick({
+      answer: createAnswerValue,
+      // answerImg: uploadImageAnswer?.name,
+      question: createQuestionValue,
+      // questionImg: uploadImageQuestion?.name,
+    })
+    setOpen(false)
+    setCreateQuestionValue('')
+    setCreateAnswerValue('')
+  }
+
   return (
     <Modal
       isOpen={open}
       onChange={setOpen}
       title={'Add New Card'}
       titleBtn={'Add New Card'}
-      variant={'primary'}
+      variantBtn={'primary'}
     >
       <div className={s.wrapper}>
         <div className={s.block}>
           <Typography variant={'subtitle2'}>Question:</Typography>
-          <TextField
-            label={'Question?'}
+          <ImageFrom
+            handleChangeUploadImage={handleChangeUploadImage}
+            img={CardDemo}
+            label={'Question'}
             onValueChange={handleQuestionValue}
-            placeholder={'Name'}
-            type={'text'}
             value={createQuestionValue}
           />
-          {/*{imageQuestion && <img alt={'Preview'} src={imageQuestion} />}*/}
-          {/*<input onChange={handleImageChangeQuestion} type={'file'} />*/}
-          <ImageUpload />
-          <ImageUploader
-            setFile={handleQuestionValue}
-            trigger={
-              <Button variant={'secondary'}>
-                <Icons iconId={'image-outline'} />
-                Change Image
-              </Button>
-            }
-          ></ImageUploader>
-          {/*<Button variant={'secondary'}>*/}
-          {/*  <Icons iconId={'image-outline'} />*/}
-          {/*  Change Image*/}
-          {/*</Button>*/}
         </div>
         <div className={s.block}>
           <Typography variant={'subtitle2'}>Answer:</Typography>
-          <TextField
-            label={'Answer?'}
+          <ImageFrom
+            handleChangeUploadImage={handleChangeUploadImage}
+            img={CardDemo}
+            label={'Answer'}
             onValueChange={handleAnswerValue}
-            placeholder={'Name'}
-            type={'text'}
             value={createAnswerValue}
           />
-          {/*{imageAnswer && <img alt={'Preview'} src={imageAnswer} />}*/}
-          {/*<input onChange={handleImageChangeAnswer} type={'file'} />*/}
-          <ImageUpload />
-          {/*<Button variant={'secondary'}>*/}
-          {/*  <Icons iconId={'image-outline'} />*/}
-          {/*  Change Image*/}
-          {/*</Button>*/}
         </div>
         <div className={s.footer}>
           <Button onClick={() => setOpen(false)} variant={'secondary'}>
             Cancel
           </Button>
-          <Button variant={'primary'}>Add New Card</Button>
+          <Button onClick={handlerCreateCard} variant={'primary'}>
+            Add New Card
+          </Button>
         </div>
       </div>
     </Modal>

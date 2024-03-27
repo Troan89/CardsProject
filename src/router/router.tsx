@@ -82,10 +82,6 @@ const privateRoutes: RouteObject[] = [
         element: <Error404Page />,
         path: ROUTES.error,
       },
-      {
-        element: <DecksPage />,
-        path: '/',
-      },
       {element: <Deck />,
         path: '/decks/:deckId'
       }

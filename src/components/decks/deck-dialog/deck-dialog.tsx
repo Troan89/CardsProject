@@ -38,7 +38,7 @@ export const DeckDialog = ({ onClick }: Props) => {
       onChange={setOpen}
       title={'Add New Deck'}
       titleBtn={'Add New Deck'}
-      variant={'primary'}
+      variantBtn={'primary'}
     >
       <div className={s.input}>
         <TextField
