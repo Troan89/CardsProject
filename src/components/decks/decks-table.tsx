@@ -6,10 +6,12 @@ import { EditDeckDialog } from '@/components/decks/edit-deck-dialog'
 import { Button } from '@/components/ui/button'
 import { Column, Sort, TableSort } from '@/components/ui/table/tableSort'
 import { Typography } from '@/components/ui/typography'
+import { useGetMeQuery } from '@/services/auth'
 import { Deck, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-table.module.scss'
 
+import pic from '../../assets/img/imgreplace.jpg'
 import { Table } from '../ui/table'
 
 const columns: Column[] = [
@@ -50,6 +52,8 @@ type Props = {
 }
 
 export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: Props) => {
+  const { data: me } = useGetMeQuery()
+
   return (
     <Table.Root>
       <TableSort columns={columns} onSort={onSort} sort={sort} />
@@ -57,7 +61,14 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
         {decks?.map((deck, index) => (
           <Table.Row key={index}>
             <Table.Cell rows={3}>
-              <Typography variant={'body2'}>{deck.name}</Typography>
+              <Typography as={Link} className={s.root} to={`decks/${deck.id}`}>
+                {deck.cover ? (
+                  <img alt={deck.name} src={deck.cover} />
+                ) : (
+                  <img alt={'react'} src={pic} />
+                )}
+                <Typography variant={'body2'}>{deck.name}</Typography>
+              </Typography>
             </Table.Cell>
             <Table.Cell rows={1}>
               <Typography variant={'body2'}>{deck.cardsCount}</Typography>
@@ -74,12 +85,18 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
               <Button as={Link} to={`decks/${deck.id}`} variant={'icon'}>
                 <Icons iconId={'decksList-play'} />
               </Button>
-              <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={onEditClick} />
-              <DeleteDeckDialog
-                deckId={deck.id}
-                deckName={deck.name}
-                onDeleteClick={onDeleteClick}
-              />
+              {me?.id === deck.author.id ? (
+                <>
+                  <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={onEditClick} />
+                  <DeleteDeckDialog
+                    deckId={deck.id}
+                    deckName={deck.name}
+                    onDeleteClick={onDeleteClick}
+                  />
+                </>
+              ) : (
+                ''
+              )}
             </Table.Cell>
           </Table.Row>
         ))}

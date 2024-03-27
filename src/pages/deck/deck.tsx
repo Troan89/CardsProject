@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
 
+import pic from '@/assets/img/imgreplace.jpg'
 import { CreateCardDialog } from '@/components/cards/createCard'
 import { DeleteCard } from '@/components/cards/deleteCard'
 import { EditCard } from '@/components/cards/editCard'
+import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Rating } from '@/components/ui/rating'
 import { Table } from '@/components/ui/table'
@@ -86,6 +88,8 @@ export const Deck = ({ onSort, sort }: Props) => {
   return (
     <div>
       <Typography variant={'large'}>{deck?.name}</Typography>
+      {deck?.cover ? <img alt={deck.name} src={deck.cover} /> : <img alt={'react'} src={pic} />}
+      <Button onClick={createCard}>add</Button>
       <CreateCardDialog onClick={createCard} />
       <TextField onValueChange={setSearch} placeholder={'Input search'} type={'text'} />
       <Table.Root>

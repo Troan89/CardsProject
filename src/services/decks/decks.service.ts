@@ -14,11 +14,23 @@ const decksService = baseApi.injectEndpoints({
     return {
       createDeck: builder.mutation<Deck, CreateDecks>({
         invalidatesTags: ['Decks'],
-        query: arg => ({
-          body: arg,
-          method: 'POST',
-          url: `v1/decks`,
-        }),
+        query: args => {
+          const formData = new FormData()
+
+          formData.append('name', args.name)
+          if (args.isPrivate) {
+            formData.append('isPrivate', args.isPrivate.toString())
+          }
+          if (args.cover) {
+            formData.append('cover', args.cover)
+          }
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: `v1/decks`,
+          }
+        },
       }),
       deleteDeck: builder.mutation<Deck, IdDecks>({
         invalidatesTags: ['Decks'],
@@ -44,11 +56,23 @@ const decksService = baseApi.injectEndpoints({
       }),
       updateDeck: builder.mutation<Deck, EditDecks>({
         invalidatesTags: ['Decks'],
-        query: ({ id, ...data }) => ({
-          body: data,
-          method: 'PATCH',
-          url: `v1/decks/${id}`,
-        }),
+        query: ({ id, ...args }) => {
+          const formData = new FormData()
+
+          formData.append('name', args.name)
+          if (args.isPrivate) {
+            formData.append('isPrivate', args.isPrivate.toString())
+          }
+          if (args.cover) {
+            formData.append('cover', args.cover)
+          }
+
+          return {
+            body: formData,
+            method: 'PATCH',
+            url: `v1/decks/${id}`,
+          }
+        },
       }),
     }
   },

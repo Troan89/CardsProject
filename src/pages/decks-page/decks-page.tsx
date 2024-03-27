@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Icons } from '@/assets/icons/Icons'
 import { DecksTable } from '@/components/decks'
@@ -10,6 +10,7 @@ import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
 import { Sort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
+import { useGetMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
@@ -30,26 +31,37 @@ export const DecksPage = () => {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [perPageItem, setPerPageItem] = useState<number | string>(10)
-  const [minMaxCard, setMinMaxCard] = useState<number[]>([])
   const [sortKey, setSortKey] = useState<string | undefined>('')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [switcher, setSwitcher] = useState('')
 
+  const { data: maxMinCard } = useGetMaxMinCardsQuery()
+  const [minCardCount, setMinCardCount] = useState<number>(0)
+  const [maxCardCount, setMaxCardCount] = useState<number>(100)
+
+  const { data: me } = useGetMeQuery()
+
   const { data, error, isError, isLoading } = useGetDecksQuery({
-    authorId: switcher === tabs[0].value ? 'f2be95b9-4d07-4751-a775-bd612fc9553a' : undefined,
+    authorId: switcher === tabs[0].value ? me?.id : undefined,
     currentPage: page,
     itemsPerPage: perPageItem,
-    maxCardsCount: minMaxCard[1],
-    minCardsCount: minMaxCard[0],
+    maxCardsCount: maxCardCount,
+    minCardsCount: minCardCount,
     name: search,
     orderBy: sortKey ? `${sortKey}-${sortDirection}` : undefined,
   })
   const [createDecks] = useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
   const [editDecks] = useUpdateDeckMutation()
-  const { data: maxMinCard, isFetching: isLoadingMaxMinCards } = useGetMaxMinCardsQuery()
 
-  if (isLoading || isLoadingMaxMinCards) {
+  useEffect(() => {
+    if (maxMinCard) {
+      setMinCardCount(maxMinCard.min)
+      setMaxCardCount(maxMinCard.max)
+    }
+  }, [maxMinCard])
+
+  if (isLoading) {
     return <div>Loading...</div>
   }
   if (isError) {
@@ -74,11 +86,12 @@ export const DecksPage = () => {
     editDecks(data)
   }
 
-  const sliderValue = maxMinCard ? [maxMinCard.min, maxMinCard.max] : undefined
+  const sliderValue = maxMinCard ? [minCardCount, maxCardCount] : undefined
 
   const onChangeValueHandler = (newValue: number[]) => {
     setPage(1)
-    setMinMaxCard(newValue)
+    setMinCardCount(newValue[0])
+    setMaxCardCount(newValue[1])
   }
 
   const handleSort = (key: Sort) => {
@@ -99,11 +112,12 @@ export const DecksPage = () => {
   const handleClearFilter = () => {
     setSearch('')
     setSwitcher('')
-    setMinMaxCard([0, 100])
     setSortKey('')
     setSortDirection('asc')
     setPage(1)
     setPerPageItem(10)
+    setMinCardCount(0)
+    setMaxCardCount(maxMinCard?.max ?? 100)
   }
 
   return (
@@ -133,11 +147,9 @@ export const DecksPage = () => {
           <Typography variant={'body2'}>Number of cards</Typography>
           <Slider max={maxMinCard?.max} onValueChange={onChangeValueHandler} value={sliderValue} />
         </div>
-        <div className={s.btn}>
-          <Button onClick={handleClearFilter} variant={'secondary'}>
-            <Icons iconId={'decksList-delete'} /> Clear Filter
-          </Button>
-        </div>
+        <Button onClick={handleClearFilter} variant={'secondary'}>
+          <Icons iconId={'decksList-delete'} /> <span>Clear Filter</span>
+        </Button>
       </div>
       <DecksTable
         decks={data?.items}

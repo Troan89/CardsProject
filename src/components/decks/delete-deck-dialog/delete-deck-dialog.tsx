@@ -20,11 +20,11 @@ export const DeleteDeckDialog = ({ deckId, deckName, onDeleteClick }: Props) => 
 
   return (
     <Modal
+      iconId={'decksList-delete'}
       isOpen={open}
       onChange={setOpen}
       title={'Delete deck'}
-      titleIcon={'decksList-delete'}
-      variant={'icon'}
+      variantBtn={'icon'}
     >
       <div className={s.content}>
         <p>
@@ -36,7 +36,9 @@ export const DeleteDeckDialog = ({ deckId, deckName, onDeleteClick }: Props) => 
         <Button onClick={() => setOpen(false)} variant={'secondary'}>
           Cancel
         </Button>
-        <Button onClick={deleteDeck}>Delete deck</Button>
+        <Button onClick={deleteDeck} variant={'primary'}>
+          Delete deck
+        </Button>
       </div>
     </Modal>
   )
