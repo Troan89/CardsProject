@@ -12,11 +12,24 @@ const cardsService = baseApi.injectEndpoints({
     return {
       createCard: builder.mutation<Card, CreateCard>({
         invalidatesTags: ['Deck'],
-        query: ({ id, ...data }) => ({
-          body: data,
-          method: 'POST',
-          url: `v1/decks/${id}/cards`,
-        }),
+        query: ({ id, ...data }) => {
+          const formData = new FormData()
+
+          formData.append('question', data.question)
+          formData.append('answer', data.answer)
+          if (data.questionImg) {
+            formData.append('questionImg', data.questionImg)
+          }
+          if (data.answerImg) {
+            formData.append('answerImg', data.answerImg)
+          }
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: `/v1/decks/${id}/cards`,
+          }
+        },
       }),
       deleteCard: builder.mutation<Card, DeleteCardId>({
         invalidatesTags: ['Deck'],

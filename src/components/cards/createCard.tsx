@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { useParams } from 'react-router'
 
 import { ImageFrom } from '@/components/cards/ImageFrom'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
-import { CreateCard } from '@/services/deck/deck.types'
+import { useCreateCardMutation } from '@/services/deck/deck.service'
 
 import s from './createCard.module.css'
 
@@ -13,15 +14,19 @@ import CardDemo from '../../assets/img/ReactCard.png'
 export type VariantUploadImage = 'Answer' | 'Question'
 
 type Props = {
-  onClick: (data: CreateCard) => void
+  // onClick: (data: CreateCard) => void
 }
 
-export const CreateCardDialog = ({ onClick }: Props) => {
+export const CreateCardDialog = ({}: Props) => {
   const [open, setOpen] = useState<boolean>(false)
   const [createQuestionValue, setCreateQuestionValue] = useState<string>('')
   const [createAnswerValue, setCreateAnswerValue] = useState<string>('')
   const [uploadImageQuestion, setUploadImageQuestion] = useState<File | null>(null)
   const [uploadImageAnswer, setUploadImageAnswer] = useState<File | null>(null)
+
+  const { deckId } = useParams()
+
+  const [createCards] = useCreateCardMutation()
 
   const handleQuestionValue = (e: string) => {
     setCreateQuestionValue(e)
@@ -29,8 +34,6 @@ export const CreateCardDialog = ({ onClick }: Props) => {
   const handleAnswerValue = (e: string) => {
     setCreateAnswerValue(e)
   }
-
-  console.log(uploadImageQuestion)
 
   const handleChangeUploadImage = (file: File | null, variant: VariantUploadImage) => {
     if (variant === 'Answer') {
@@ -41,11 +44,12 @@ export const CreateCardDialog = ({ onClick }: Props) => {
   }
 
   const handlerCreateCard = () => {
-    onClick({
+    createCards({
       answer: createAnswerValue,
-      // answerImg: uploadImageAnswer?.name,
+      answerImg: uploadImageAnswer,
+      id: deckId,
       question: createQuestionValue,
-      // questionImg: uploadImageQuestion?.name,
+      questionImg: uploadImageQuestion,
     })
     setOpen(false)
     setCreateQuestionValue('')

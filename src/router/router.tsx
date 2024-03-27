@@ -54,13 +54,13 @@ const publicRoutes: RouteObject[] = [
 ]
 
 const privateRoutes: RouteObject[] = [
-  {
-    element: <Navigate to={ROUTES.decks} />,
-    path: ROUTES.base,
-  },
+  // {
+  //   element: <Navigate to={ROUTES.decks} />,
+  //   path: ROUTES.base,
+  // },
   {
     element: <DecksPage />,
-    path: ROUTES.decks,
+    path: ROUTES.base,
   },
   { element: <Deck />, path: ROUTES.deck },
   { element: <Profile />, path: ROUTES.profile },
@@ -91,7 +91,7 @@ export const Router = () => {
 function PrivateRoutes() {
   const { isAuthenticated } = useAppOutletContext()
 
-  return isAuthenticated ? <Navigate to={ROUTES.login} /> : <Outlet />
+  return !isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.login} />
 }
 
 function PublicRoutes() {

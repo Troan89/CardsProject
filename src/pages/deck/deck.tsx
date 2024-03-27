@@ -5,46 +5,42 @@ import pic from '@/assets/img/imgreplace.jpg'
 import { CreateCardDialog } from '@/components/cards/createCard'
 import { DeleteCard } from '@/components/cards/deleteCard'
 import { EditCard } from '@/components/cards/editCard'
-import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Rating } from '@/components/ui/rating'
 import { Table } from '@/components/ui/table'
 import { Column, Sort, TableSort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
-import {
-  useCreateCardMutation,
-  useDeleteCardMutation,
-  useGetCardQuery,
-} from '@/services/deck/deck.service'
-import { Card, CreateCard } from '@/services/deck/deck.types'
+import { DropdownDeck } from '@/pages/deck/dropdownDeck/DropdownDeck'
+import { useDeleteCardMutation, useGetCardQuery } from '@/services/deck/deck.service'
+import { Card } from '@/services/deck/deck.types'
 import { useGetOneDeckQuery } from '@/services/decks/decks.service'
 
-import s from '@/pages/decks-page/decks-page.module.scss'
+import s from './deckPage.module.scss'
 
 const columns: Column[] = [
   {
-    column: 1,
+    column: '1',
     sortBy: 'question',
     title: 'Question',
   },
   {
-    column: 2,
+    column: '2',
     sortBy: 'answer',
     title: 'Answer',
   },
   {
-    column: 3,
+    column: '3',
     sortBy: 'lastUpdated',
     title: 'Last Updated',
   },
   {
-    column: 4,
+    column: '4',
     sortBy: 'grade',
     title: 'Grade',
   },
   {
-    column: 5,
+    column: '5',
     sortBy: 'action',
     title: '',
   },
@@ -65,7 +61,6 @@ export const Deck = ({ onSort, sort }: Props) => {
 
   const { data: deck } = useGetOneDeckQuery({ id: deckId || '' })
 
-  const [createCards] = useCreateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
 
   const { data } = useGetCardQuery({
@@ -75,9 +70,6 @@ export const Deck = ({ onSort, sort }: Props) => {
     question: search,
   })
 
-  const createCard = (data: CreateCard) => {
-    createCards({ ...data, id: String(deckId) })
-  }
   const handleDeleteClick = (id: string) => {
     deleteCard({ id })
   }
@@ -86,11 +78,18 @@ export const Deck = ({ onSort, sort }: Props) => {
   }
 
   return (
-    <div>
-      <Typography variant={'large'}>{deck?.name}</Typography>
-      {deck?.cover ? <img alt={deck.name} src={deck.cover} /> : <img alt={'react'} src={pic} />}
-      <Button onClick={createCard}>add</Button>
-      <CreateCardDialog onClick={createCard} />
+    <div className={s.wrapper}>
+      <div className={s.header}>
+        <div>
+          <div className={s.menu}>
+            <Typography variant={'h1'}>{deck?.name}</Typography>
+            <DropdownDeck />
+          </div>
+          {deck?.cover ? <img alt={deck.name} src={deck.cover} /> : <img alt={'react'} src={pic} />}
+        </div>
+        <CreateCardDialog />
+      </div>
+
       <TextField onValueChange={setSearch} placeholder={'Input search'} type={'text'} />
       <Table.Root>
         <TableSort columns={columns} onSort={onSort} sort={sort}></TableSort>
@@ -98,11 +97,19 @@ export const Deck = ({ onSort, sort }: Props) => {
           {data?.items.map((card, index) => {
             return (
               <Table.Row key={index}>
-                <Table.Cell>
-                  <Typography variant={'body2'}>{card.question}</Typography>
+                <Table.Cell className={s.questionAnswerStyle}>
+                  <Typography variant={'body2'}>
+                    {card.questionImg ? (
+                      <img alt={card.question} src={card.questionImg} />
+                    ) : (
+                      card.question
+                    )}
+                  </Typography>
                 </Table.Cell>
-                <Table.Cell>
-                  <Typography variant={'body2'}>{card.answer}</Typography>
+                <Table.Cell className={s.questionAnswerStyle}>
+                  <Typography variant={'body2'}>
+                    {card.answerImg ? <img alt={card.answer} src={card.answerImg} /> : card.answer}
+                  </Typography>
                 </Table.Cell>
                 <Table.Cell>
                   <Typography variant={'body2'}>

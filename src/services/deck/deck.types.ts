@@ -15,10 +15,10 @@ export type Card = {
 
 export type CreateCard = {
   answer: string
-  answerImg?: string | undefined
+  answerImg?: File | null
   id?: string
   question: string
-  questionImg?: string | undefined
+  questionImg?: File | null
 }
 
 export type CardsResponse = {
