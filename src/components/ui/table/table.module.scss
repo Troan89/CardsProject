@@ -1,26 +1,25 @@
 .table {
-  display: flex;
-  flex-direction: column;
+  display: block;
 
   width: 100%;
-  max-width: 1008px;
+  max-width: 1000px;
   margin: 30px auto 0;
+
+  border: 1px solid var(--color-dark-500);
 }
 
 .thead {
-  display: flex;
-
+  display: block;
   width: 100%;
-  height: 36px;
-  padding: 6px;
-
+  min-height: 35px;
   background-color: var(--color-dark-500);
 }
 
 .tr {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   width: 100%;
+  height: 100%;
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-dark-500);
@@ -29,36 +28,57 @@
 
 .th,
 .td {
+  overflow: hidden;
+  display: flex;
   flex: 1;
-  padding: 6px;
-  text-align: left;
+  align-items: center;
+
+  min-height: 35px;
+  padding: 0 25px;
 
   &:last-child {
-    padding-right: 0;
+    padding: 0 25px 0 0;
+  }
+
+  &[data-col='1'] {
+    grid-column: 1 span;
+    padding: 0;
+  }
+
+  &[data-col='2'] {
+    grid-column: 2 span;
+  }
+
+  &[data-col='3'] {
+    grid-column: 3 span;
+  }
+
+  &[data-col='4'] {
+    grid-column: 4 span;
+  }
+
+  &[data-col='5'] {
+    grid-column: 5 span;
+  }
+
+  &[data-col='6'] {
+    grid-column: 6 span;
+  }
+
+  &[data-col='7'] {
+    grid-column: 7 span;
+  }
+
+  &[data-col='8'] {
+    grid-column: 8 span;
+  }
+
+  &[data-col='9'] {
+    grid-column: 9 span;
   }
 }
 
-.td {
-  padding: 6px;
-  word-wrap: break-word;
-  white-space: normal;
-}
-
 .tbody {
-  display: flex;
-  flex-direction: column;
-
+  display: block;
   width: 100%;
-
-  background-color: var(--color-dark-900);
-  border: 1px solid var(--color-dark-500);
-}
-
-.td:last-child {
-  padding-right: 0;
-}
-
-.th:last-child,
-.td:last-child {
-  border-right: none; /* Убрать границу у последней ячейки */
 }

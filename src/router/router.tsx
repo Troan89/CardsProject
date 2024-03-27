@@ -91,7 +91,7 @@ export const Router = () => {
 function PrivateRoutes() {
   const { isAuthenticated } = useAppOutletContext()
 
-  return !isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.login} />
+  return isAuthenticated ? <Navigate to={ROUTES.login} /> : <Outlet />
 }
 
 function PublicRoutes() {
