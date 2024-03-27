@@ -119,7 +119,6 @@ export const PersonalInformation = (props: Props) => {
                 <Icons iconId={'log-out-outline'} /> Logout
               </Button>
             </div>
-            <span>{data?.name}</span>
           </>
         )}
       </div>
