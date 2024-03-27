@@ -6,27 +6,29 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-export const ROUTES = {
-  base: '/',
-  checkEmail: '/check-email',
-  createNewPassword: '/create-new-password',
-  error: '/*',
-  login: '/login',
-  newPassword: '/create-password',
-  profile: '/profile',
-  recoverPassword: '/recover-password',
-  signUp: '/sign-up',
-} as const
-
-import { App } from '@/App'
 import { DecksPage } from '@/pages'
 import { CheckEmailPage } from '@/pages/auth/checkEmail'
 import { Profile } from '@/pages/auth/profile'
 import { RecoverPasswordPage } from '@/pages/auth/recoverPassword'
 import { SignInPage } from '@/pages/auth/signIn'
 import { SignUpPage } from '@/pages/auth/signUp'
+import { Deck } from '@/pages/deck/deck'
 import { Error404Page } from '@/pages/error404'
-import {Deck} from "@/pages/deck/deck";
+import { Layout } from '@/pages/layout'
+import { useAppOutletContext } from '@/router/hooks/useOutletContex'
+
+export const ROUTES = {
+  base: '/',
+  checkEmail: '/check-email',
+  createNewPassword: '/create-new-password',
+  deck: '/decks/:deckId',
+  decks: '/decks',
+  error: '/*',
+  login: '/login',
+  profile: '/profile',
+  recoverPassword: '/recover-password',
+  signUp: '/sign-up',
+} as const
 
 const publicRoutes: RouteObject[] = [
   {
@@ -34,16 +36,16 @@ const publicRoutes: RouteObject[] = [
     path: ROUTES.login,
   },
   {
+    element: <SignUpPage />,
+    path: ROUTES.signUp,
+  },
+  {
     element: <RecoverPasswordPage />,
     path: ROUTES.recoverPassword,
   },
   {
-    element: <div>Hello</div>,
-    path: ROUTES.base,
-  },
-  {
-    element: <SignUpPage />,
-    path: ROUTES.signUp,
+    element: <CheckEmailPage />,
+    path: ROUTES.checkEmail,
   },
   {
     element: <Error404Page />,
@@ -53,50 +55,33 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    children: [
-      {
-        element: <SignInPage />,
-        path: ROUTES.login,
-      },
-      {
-        element: <RecoverPasswordPage />,
-        path: ROUTES.recoverPassword,
-      },
-      {
-        element: <CheckEmailPage />,
-        path: ROUTES.checkEmail,
-      },
-      {
-        element: <DecksPage />,
-        path: ROUTES.base,
-      },
-      {
-        element: <SignUpPage />,
-        path: ROUTES.signUp,
-      },
-      {
-        element: <Profile />,
-        path: ROUTES.profile,
-      },
-      {
-        element: <Error404Page />,
-        path: ROUTES.error,
-      },
-      {element: <Deck />,
-        path: '/decks/:deckId'
-      }
-    ],
-    element: <App />,
-    path: '/',
+    element: <Navigate to={ROUTES.decks} />,
+    path: ROUTES.base,
   },
+  {
+    element: <DecksPage />,
+    path: ROUTES.decks,
+  },
+  { element: <Deck />, path: ROUTES.deck },
+  { element: <Profile />, path: ROUTES.profile },
 ]
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
-    children: privateRoutes,
-    element: <PrivateRoutes />,
+    children: [
+      {
+        children: privateRoutes,
+        element: <PrivateRoutes />,
+      },
+      {
+        children: publicRoutes,
+        element: <PublicRoutes />,
+      },
+    ],
+    element: <Layout />,
+    errorElement: <Error404Page />,
+    path: ROUTES.base,
   },
-  ...publicRoutes,
 ])
 
 export const Router = () => {
@@ -104,7 +89,13 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = true
+  const { isAuthenticated } = useAppOutletContext()
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.login} />
+  return isAuthenticated ? <Navigate to={ROUTES.login} /> : <Outlet />
+}
+
+function PublicRoutes() {
+  const { isAuthenticated } = useAppOutletContext()
+
+  return isAuthenticated ? <Navigate to={ROUTES.decks} /> : <Outlet />
 }

@@ -16,18 +16,18 @@ export const SignInPage = () => {
 
   const handleSubmit = async (data: LoginArgs) => {
     if (isButtonDisabled) {
-      return // Если кнопка уже отключена, не делаем ничего
+      return
     }
 
     try {
-      setIsButtonDisabled(true) // Отключаем кнопку
+      setIsButtonDisabled(true)
 
       await login(data).unwrap()
       navigate(ROUTES.base)
     } catch (error: any) {
       toast.error(error?.data?.message ?? 'Could not sign in')
     } finally {
-      setIsButtonDisabled(false) // Включаем кнопку после завершения
+      setIsButtonDisabled(false)
     }
   }
 

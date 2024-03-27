@@ -54,15 +54,15 @@ const options = [
   },
 ]
 
-const Template: StoryObj<TableSortProps> = {
+export const Template: StoryObj<TableSortProps> = {
   args: {
     columns: [
-      { column: 1, sortBy: 'number', title: 'Number' },
-      { column: 2, sortBy: 'question', title: 'Question' },
-      { column: 3, sortBy: 'answer', title: 'Answer' },
-      { column: 4, sortBy: 'username', title: 'Username' },
-      { column: 5, sortBy: 'rating', sortable: false, title: 'Rating' },
-      { column: 6, sortBy: 'emoji', sortable: false, title: 'Emoji' },
+      { column: '1', sortBy: 'number', title: 'Number' },
+      { column: '3', sortBy: 'question', title: 'Question' },
+      { column: '2', sortBy: 'answer', title: 'Answer' },
+      { column: '1', sortBy: 'username', title: 'Username' },
+      { column: '2', sortBy: 'rating', sortable: false, title: 'Rating' },
+      { column: '1', sortBy: 'emoji', sortable: false, title: 'Emoji' },
     ],
     onSort: (sort: Sort) => console.log(sort),
     sort: null,
@@ -73,22 +73,22 @@ const Template: StoryObj<TableSortProps> = {
       <Table.Body>
         {options.map((option, index) => (
           <Table.Row key={index}>
-            <Table.Cell>
+            <Table.Cell rows={'1'}>
               <Typography variant={'body2'}>{option.number}</Typography>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell rows={'3'}>
               <Typography variant={'body2'}>{option.question}</Typography>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell rows={'2'}>
               <Typography variant={'body2'}>{option.answer}</Typography>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell rows={'1'}>
               <Typography variant={'body2'}> {option.username}</Typography>
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell rows={'2'}>
               <Rating value={4} />
             </Table.Cell>
-            <Table.Cell>
+            <Table.Cell rows={'1'}>
               <Typography variant={'body2'}>{option.emoji}</Typography>
             </Table.Cell>
           </Table.Row>
@@ -106,16 +106,16 @@ export const TabFourCols: Story = {
       <Table.Root {...args}>
         <Table.Head>
           <Table.Row>
-            <Table.HeadCell columns={5}>
+            <Table.HeadCell columns={'3'}>
               <Typography variant={'subtitle2'}>Вопрос</Typography>
             </Table.HeadCell>
-            <Table.HeadCell columns={5}>
+            <Table.HeadCell columns={'4'}>
               <Typography variant={'subtitle2'}>Ответ</Typography>
             </Table.HeadCell>
-            <Table.HeadCell columns={2}>
+            <Table.HeadCell columns={'2'}>
               <Typography variant={'subtitle2'}>Рейтинг</Typography>
             </Table.HeadCell>
-            <Table.HeadCell columns={3}>
+            <Table.HeadCell columns={'1'}>
               <Typography variant={'subtitle2'}>Смайлик</Typography>
             </Table.HeadCell>
           </Table.Row>
@@ -123,16 +123,16 @@ export const TabFourCols: Story = {
         <Table.Body>
           {options.map((option, index) => (
             <Table.Row key={index}>
-              <Table.Cell rows={5}>
+              <Table.Cell rows={'3'}>
                 <Typography variant={'body2'}>{option.question}</Typography>
               </Table.Cell>
-              <Table.Cell rows={5}>
+              <Table.Cell rows={'4'}>
                 <Typography variant={'body2'}>{option.answer}</Typography>
               </Table.Cell>
-              <Table.Cell rows={2}>
-                <Rating value={4} />
+              <Table.Cell rows={'2'}>
+                <Rating value={1} />
               </Table.Cell>
-              <Table.Cell rows={3}>
+              <Table.Cell rows={'1'}>
                 <Typography variant={'body2'}>{option.emoji}</Typography>
               </Table.Cell>
             </Table.Row>
