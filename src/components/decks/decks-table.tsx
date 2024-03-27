@@ -1,12 +1,17 @@
+import { Link } from 'react-router-dom'
+
 import { Icons } from '@/assets/icons/Icons'
 import { DeleteDeckDialog } from '@/components/decks/delete-deck-dialog'
 import { EditDeckDialog } from '@/components/decks/edit-deck-dialog'
+import { Button } from '@/components/ui/button'
 import { Column, Sort, TableSort } from '@/components/ui/table/tableSort'
 import { Typography } from '@/components/ui/typography'
+import { useGetMeQuery } from '@/services/auth'
 import { Deck, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-table.module.scss'
 
+import pic from '../../assets/img/imgreplace.jpg'
 import { Table } from '../ui/table'
 
 const columns: Column[] = [
@@ -17,7 +22,7 @@ const columns: Column[] = [
   },
   {
     column: 1,
-    sortBy: 'cards',
+    sortBy: 'cardsCount',
     title: 'Cards',
   },
   {
@@ -32,7 +37,8 @@ const columns: Column[] = [
   },
   {
     column: 1,
-    sortBy: 'actions',
+    sortBy: 'a',
+    sortable: false,
     title: '',
   },
 ]
@@ -46,6 +52,8 @@ type Props = {
 }
 
 export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: Props) => {
+  const { data: me } = useGetMeQuery()
+
   return (
     <Table.Root>
       <TableSort columns={columns} onSort={onSort} sort={sort} />
@@ -53,7 +61,14 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
         {decks?.map((deck, index) => (
           <Table.Row key={index}>
             <Table.Cell rows={3}>
-              <Typography variant={'body2'}>{deck.name}</Typography>
+              <Typography as={Link} className={s.root} to={`decks/${deck.id}`}>
+                {deck.cover ? (
+                  <img alt={deck.name} src={deck.cover} />
+                ) : (
+                  <img alt={'react'} src={pic} />
+                )}
+                <Typography variant={'body2'}>{deck.name}</Typography>
+              </Typography>
             </Table.Cell>
             <Table.Cell rows={1}>
               <Typography variant={'body2'}>{deck.cardsCount}</Typography>
@@ -67,25 +82,21 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
               <Typography variant={'body2'}> {deck.author.name}</Typography>
             </Table.Cell>
             <Table.Cell className={s.lastCol} rows={1}>
-              <button className={s.icon}>
+              <Button as={Link} to={`decks/${deck.id}`} variant={'icon'}>
                 <Icons iconId={'decksList-play'} />
-              </button>
-              <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={onEditClick} />
-              {/*<button className={s.icon} onClick={handleEditClick(deck.id)}>*/}
-              {/*  <Icons iconId={'decksList-edit'} />*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*  className={s.icon}*/}
-              {/*  onClick={handleDeleteClick(deck.id)}*/}
-              {/*  style={{ fill: 'write' }}*/}
-              {/*>*/}
-              {/*  <Icons iconId={'decksList-delete'} />*/}
-              {/*</button>*/}
-              <DeleteDeckDialog
-                deckId={deck.id}
-                deckName={deck.name}
-                onDeleteClick={onDeleteClick}
-              />
+              </Button>
+              {me?.id === deck.author.id ? (
+                <>
+                  <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={onEditClick} />
+                  <DeleteDeckDialog
+                    deckId={deck.id}
+                    deckName={deck.name}
+                    onDeleteClick={onDeleteClick}
+                  />
+                </>
+              ) : (
+                ''
+              )}
             </Table.Cell>
           </Table.Row>
         ))}

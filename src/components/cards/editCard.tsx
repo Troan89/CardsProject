@@ -3,32 +3,32 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
 
-import s from './delete-deck-dialog.module.scss'
+import s from './deleteCard.module.css'
 
 type Props = {
-  deckId: string
-  deckName?: string
-  onDeleteClick: (id: string) => void
+  cardId: string
+  cardName?: string
+  onEditClick: (id: string) => void
 }
-export const DeleteDeckDialog = ({ deckId, deckName, onDeleteClick }: Props) => {
+export const EditCard = ({ cardId, cardName = ' iii', onEditClick }: Props) => {
   const [open, setOpen] = useState<boolean>(false)
 
   const deleteDeck = () => {
-    onDeleteClick(deckId)
+    onEditClick(cardId)
     setOpen(false)
   }
 
   return (
     <Modal
-      iconId={'decksList-delete'}
       isOpen={open}
       onChange={setOpen}
-      title={'Delete deck'}
-      variantBtn={'icon'}
+      title={'Edit card'}
+      titleBtn={'Edit'}
+      titleIcon={'edit-2-outline'}
     >
       <div className={s.content}>
         <p>
-          Do you really want to remove <strong>{deckName}</strong>?
+          Do you really want to remove <strong>{cardName}</strong>?
         </p>
         <p>All cards will be deleted.</p>
       </div>
@@ -36,9 +36,7 @@ export const DeleteDeckDialog = ({ deckId, deckName, onDeleteClick }: Props) => 
         <Button onClick={() => setOpen(false)} variant={'secondary'}>
           Cancel
         </Button>
-        <Button onClick={deleteDeck} variant={'primary'}>
-          Delete deck
-        </Button>
+        <Button onClick={deleteDeck}>Edit Card</Button>
       </div>
     </Modal>
   )

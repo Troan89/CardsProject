@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ComponentPropsWithoutRef, forwardRef } from 'react'
 
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import clsx from 'clsx'
@@ -8,38 +8,41 @@ import s from './slider.module.scss'
 export type SliderProps = ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & {
   ariaLabelMax?: string
   ariaLabelMin?: string
+  value: number[]
 }
 export const Slider = forwardRef(
   (
-    { ariaLabelMax, ariaLabelMin, className, onValueChange, value, ...rest }: SliderProps,
+    { ariaLabelMax, ariaLabelMin, className, max, onValueChange, value, ...rest }: SliderProps,
     ref: any
   ) => {
-    const [valueSlider, setValueSlider] = useState(value)
     const onChangeValueHandler = (newValue: number[]) => {
-      setValueSlider(newValue)
+      onValueChange?.(newValue)
     }
-    const changeInputValue = (number: number, value: number) => {
-      const oldVal = valueSlider?.[number ? 0 : 1]
+
+    const changeInputValue = (number: number, valueNew: number) => {
+      const oldVal: number | undefined = value?.[number ? 0 : 1]
+
+      let newValue: number[]
 
       if (number === 0) {
-        oldVal && setValueSlider([value, oldVal])
+        newValue = [valueNew, oldVal as number]
       } else {
-        oldVal && setValueSlider([oldVal, value])
+        newValue = [oldVal as number, valueNew]
       }
+
+      onValueChange?.(newValue)
     }
 
     return (
       <div className={s.container}>
-        <input
-          onChange={e => changeInputValue(0, Number(e.target.value))}
-          value={valueSlider?.[0]}
-        />
+        <input onChange={e => changeInputValue(0, Number(e.target.value))} value={value?.[0]} />
         <SliderPrimitive.Root
           className={clsx(s.SliderRoot, className)}
-          onValueChange={newValue => onChangeValueHandler(newValue)}
+          onValueChange={onChangeValueHandler}
           {...rest}
+          max={max}
           ref={ref}
-          value={valueSlider}
+          value={value}
         >
           <SliderPrimitive.Track className={s.SliderTrack}>
             <SliderPrimitive.Range className={s.SliderRange} />
@@ -47,10 +50,7 @@ export const Slider = forwardRef(
           <SliderPrimitive.Thumb aria-label={ariaLabelMin} className={s.SliderThumb} />
           <SliderPrimitive.Thumb aria-label={ariaLabelMax} className={s.SliderThumb} />
         </SliderPrimitive.Root>
-        <input
-          onChange={e => changeInputValue(1, Number(e.target.value))}
-          value={valueSlider?.[1]}
-        />
+        <input onChange={e => changeInputValue(1, Number(e.target.value))} value={value?.[1]} />
       </div>
     )
   }

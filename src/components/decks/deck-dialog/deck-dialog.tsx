@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
+import { Icons } from '@/assets/icons/Icons'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/check-box'
+import { ImageUploader } from '@/components/ui/imageUploader/imageUploader'
 import { Modal } from '@/components/ui/modal'
 import { TextField } from '@/components/ui/textField'
 import { CreateDecks } from '@/services/decks/decks.types'
@@ -16,6 +18,7 @@ export const DeckDialog = ({ onClick }: Props) => {
   const [createDeckValue, setCreateDeckValue] = useState<string>('')
   const [privatePack, setPrivatePack] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
+  const [file, setFile] = useState<File | null>(null)
 
   const handleValue = (e: string) => {
     setCreateDeckValue(e)
@@ -26,14 +29,24 @@ export const DeckDialog = ({ onClick }: Props) => {
   }
 
   const handleCreateDeck = () => {
-    onClick({ isPrivate: privatePack, name: createDeckValue })
+    onClick({ cover: file, isPrivate: privatePack, name: createDeckValue })
     setCreateDeckValue('')
     setPrivatePack(false)
     setOpen(false)
   }
+  const handleCancelBtn = () => {
+    setCreateDeckValue('')
+    setOpen(false)
+  }
 
   return (
-    <Modal isOpen={open} onChange={setOpen} title={'Add New Deck'} titleBtn={'Add New Deck'}>
+    <Modal
+      isOpen={open}
+      onChange={setOpen}
+      title={'Add New Deck'}
+      titleBtn={'Add New Deck'}
+      variantBtn={'primary'}
+    >
       <div className={s.input}>
         <TextField
           label={'Name pack'}
@@ -42,16 +55,25 @@ export const DeckDialog = ({ onClick }: Props) => {
           type={'text'}
           value={createDeckValue}
         />
-        <Button className={s.Button} fullWidth variant={'secondary'}>
-          Upload Image
-        </Button>
+        <div className={s.Button}>
+          <ImageUploader
+            setFile={(img: File | null) => setFile(img)}
+            trigger={
+              <Button as={'span'} fullWidth variant={'secondary'}>
+                <Icons iconId={'upload_image'} /> Upload image
+              </Button>
+            }
+          />
+        </div>
         <Checkbox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
       </div>
       <div className={s.btn}>
-        <Button onClick={() => setOpen(false)} variant={'secondary'}>
+        <Button onClick={handleCancelBtn} variant={'secondary'}>
           Cancel
         </Button>
-        <Button onClick={handleCreateDeck}>Add New Pack</Button>
+        <Button onClick={handleCreateDeck} variant={'primary'}>
+          Add New Pack
+        </Button>
       </div>
     </Modal>
   )
