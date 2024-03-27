@@ -12,6 +12,7 @@ import { useGetMeQuery, useLogoutMutation, useUpdateProfileMutation } from '@/se
 
 export const Profile = () => {
   const { data } = useGetMeQuery()
+
   const [updateProfile] = useUpdateProfileMutation()
   const [logout] = useLogoutMutation()
   const navigate = useNavigate()

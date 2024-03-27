@@ -30,7 +30,7 @@ export const UserDropdown = ({ avatar, email, logout, userName }: Props) => {
       <DropdownMenuContent>
         <DropdownMenuLabel>
           <div>
-            <Avatar src={AvatarDemo} />
+            <Avatar src={avatar || AvatarDemo} />
           </div>
           <div>
             <div>{userName}</div>
