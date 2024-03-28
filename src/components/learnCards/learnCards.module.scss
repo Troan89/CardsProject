@@ -1,0 +1,27 @@
+.backBtn {
+  margin: 24px auto;
+}
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  padding: 33px 36px 54px 36px;
+}
+
+.name {
+  margin-bottom: 45px;
+}
+
+.countAnswer {
+  margin: 15px 0;
+  color: var(--color-dark-100);
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}

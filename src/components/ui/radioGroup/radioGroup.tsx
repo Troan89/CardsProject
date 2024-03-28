@@ -24,7 +24,7 @@ const RadioGroupItem = forwardRef<
   )
 })
 
-type Options = {
+export type Options = {
   label: string
   value: string
 }

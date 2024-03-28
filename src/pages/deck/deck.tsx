@@ -89,7 +89,6 @@ export const Deck = ({ onSort, sort }: Props) => {
         </div>
         <CreateCardDialog />
       </div>
-
       <TextField onValueChange={setSearch} placeholder={'Input search'} type={'text'} />
       <Table.Root>
         <TableSort columns={columns} onSort={onSort} sort={sort}></TableSort>

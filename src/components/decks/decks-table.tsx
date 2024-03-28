@@ -82,7 +82,7 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
               <Typography variant={'body2'}> {deck.author.name}</Typography>
             </Table.Cell>
             <Table.Cell className={s.lastCol} rows={'2'}>
-              <Button as={Link} to={`decks/${deck.id}`} variant={'icon'}>
+              <Button as={Link} to={`decks/${deck.id}/learn`} variant={'icon'}>
                 <Icons iconId={'decksList-play'} />
               </Button>
               {me?.id === deck.author.id ? (
