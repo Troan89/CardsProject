@@ -36,9 +36,11 @@ export const LearnCards = () => {
   }
 
   return (
-    <>
-      <BackButton className={s.backBtn} text={'Back to Decks List'} />
-      <div className={s.root}>
+    <div className={s.root}>
+      <div className={s.backBtn}>
+        <BackButton text={'Back to Decks List'} />
+      </div>
+      <div className={s.card}>
         <Card className={s.modal}>
           <Typography className={s.name} variant={'h1'}>
             Learn &quot;{deck?.name}&quot;
@@ -49,23 +51,23 @@ export const LearnCards = () => {
             Количество попыток ответов на вопрос: {countAnswer}
           </Typography>
           {!open && (
-            <Button fullWidth onClick={() => setOpen(true)} variant={'primary'}>
-              Show Answer
-            </Button>
+              <Button fullWidth onClick={() => setOpen(true)} variant={'primary'}>
+                Show Answer
+              </Button>
           )}
           {open && (
-            <div>
-              <Typography variant={'body1'}>Answer: {data?.answer}</Typography>
-              {data?.answerImg && <img alt={'answer Image'} src={data?.answerImg} />}
-              <Typography variant={'body1'}>Rate yourself:</Typography>
-              <RadioGroup options={radio}></RadioGroup>
-              <Button fullWidth onClick={handleNextQuestion} variant={'primary'}>
-                Next Question
-              </Button>
-            </div>
+              <div>
+                <Typography className={s.answer} variant={'body1'}>Answer: {data?.answer}</Typography>
+                {data?.answerImg && <img alt={'answer Image'} src={data?.answerImg} />}
+                <Typography className={s.rateYourself} variant={'body1'}>Rate yourself:</Typography>
+                <RadioGroup options={radio}></RadioGroup>
+                <Button className={s.buttonNext} fullWidth onClick={handleNextQuestion} variant={'primary'}>
+                  Next Question
+                </Button>
+              </div>
           )}
         </Card>
       </div>
-    </>
+    </div>
   )
 }

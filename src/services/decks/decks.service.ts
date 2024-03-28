@@ -1,4 +1,5 @@
 import { baseApi } from '@/services/baseApi'
+import { CardItem } from '@/services/deck/deck.types'
 import {
   CreateDecks,
   Deck,
@@ -6,8 +7,8 @@ import {
   EditDecks,
   GetDecksArgs,
   GetMaxMinCard,
-  GetRandomCardLearn,
   IdDecks,
+  PostCardGrade,
   RandomCardLearn,
 } from '@/services/decks/decks.types'
 
@@ -56,12 +57,21 @@ const decksService = baseApi.injectEndpoints({
         providesTags: ['Decks'],
         query: ({ id }) => `v1/decks/${id}`,
       }),
-      getRandomCardLearn: builder.query<GetRandomCardLearn, RandomCardLearn>({
+      getRandomCardLearn: builder.query<CardItem, RandomCardLearn>({
         providesTags: ['Decks'],
         query: ({ id, ...args }) => {
           return {
             params: args,
             url: `v1/decks/${id}/learn`,
+          }
+        },
+      }),
+      postCardGrade: builder.mutation<CardItem, PostCardGrade>({
+        invalidatesTags: ['Decks'],
+        query: ({ id, ...args }) => {
+          return {
+            params: args,
+            url: `v1/cards/${id}/learn`,
           }
         },
       }),
@@ -96,6 +106,7 @@ export const {
   useGetMaxMinCardsQuery,
   useGetOneDeckQuery,
   useGetRandomCardLearnQuery,
+  usePostCardGradeMutation,
   useUpdateDeckMutation,
 } = decksService
 

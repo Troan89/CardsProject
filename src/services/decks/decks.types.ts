@@ -66,18 +66,10 @@ export type RandomCardLearn = {
   previousCardId?: string
 }
 
-export type GetRandomCardLearn = {
-  answer: string
-  answerImg: string
-  answerVideo: string
-  created: string
-  deckId: string
-  grade: number
+export type PostCardGrade = {
   id: string
-  question: string
-  questionImg: string
-  questionVideo: string
-  shots: number
-  updated: string
-  userId: string
+  cardId: string
+  grade: number
 }
+
+
