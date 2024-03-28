@@ -8,7 +8,7 @@ import s from './slider.module.scss'
 export type SliderProps = ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & {
   ariaLabelMax?: string
   ariaLabelMin?: string
-  value: number[]
+  value: number[] | undefined
 }
 export const Slider = forwardRef(
   (
