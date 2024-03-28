@@ -1,7 +1,8 @@
-import { createContext, useContext } from 'react'
+import React, { createContext, useContext } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { Header } from '@/components/ui/header/header'
+import { Spinner } from '@/components/ui/spinner/spinner'
 import { useGetMeQuery, useLogoutMutation } from '@/services/auth'
 
 import s from './layout.module.scss'
@@ -51,7 +52,7 @@ export const Layout = () => {
         logout={logout}
         userName={data?.name}
       />
-      <main className={s.main}>{isLoading ? <div>loading...</div> : <Outlet />}</main>
+      <main className={s.main}>{isLoading ? <Spinner className={s.spinner} /> : <Outlet />}</main>
     </AuthContextProvider>
   )
 }
