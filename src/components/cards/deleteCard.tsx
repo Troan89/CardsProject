@@ -20,11 +20,11 @@ export const DeleteCard = ({ cardId, cardName = ' iii', onDeleteClick }: Props) 
 
   return (
     <Modal
+      iconId={'trash-outline'}
       isOpen={open}
       onChange={setOpen}
       title={'Delete card'}
       titleBtn={'Delete'}
-      titleIcon={'trash-outline'}
     >
       <div className={s.content}>
         <p>

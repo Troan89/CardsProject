@@ -60,6 +60,7 @@ export const RecoverPassword = ({ onSubmit }: Props) => {
           fullWidth
           style={{ marginBottom: '31px', marginLeft: '0' }}
           type={'submit'}
+          variant={'primary'}
         >
           Send Instructions
         </Button>

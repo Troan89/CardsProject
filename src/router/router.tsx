@@ -8,6 +8,7 @@ import {
 
 import { DecksPage } from '@/pages'
 import { CheckEmailPage } from '@/pages/auth/checkEmail'
+import { CreateNewPasswordPage } from '@/pages/auth/createPassword'
 import { Profile } from '@/pages/auth/profile'
 import { RecoverPasswordPage } from '@/pages/auth/recoverPassword'
 import { SignInPage } from '@/pages/auth/signIn'
@@ -19,13 +20,12 @@ import { Layout, useAuthContext } from '@/pages/layout'
 export const ROUTES = {
   base: '/',
   checkEmail: '/check-email',
-  createNewPassword: '/create-new-password',
+  createNewPassword: '/recover-password/:token',
   deck: '/decks/:deckId',
   decks: '/',
   error: '/*',
   login: '/login',
   profile: '/profile',
-  recoverPassword: '/recover-password',
   signUp: '/sign-up',
 } as const
 
@@ -40,7 +40,7 @@ const publicRoutes: RouteObject[] = [
   },
   {
     element: <RecoverPasswordPage />,
-    path: ROUTES.recoverPassword,
+    path: ROUTES.createNewPassword,
   },
   {
     element: <CheckEmailPage />,
@@ -59,6 +59,7 @@ const privateRoutes: RouteObject[] = [
   },
   { element: <Deck />, path: ROUTES.deck },
   { element: <Profile />, path: ROUTES.profile },
+  { element: <CreateNewPasswordPage />, path: ROUTES.createNewPassword },
 ]
 
 export const router = createBrowserRouter([

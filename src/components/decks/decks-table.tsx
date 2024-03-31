@@ -16,27 +16,27 @@ import { Table } from '../ui/table'
 
 const columns: Column[] = [
   {
-    column: 3,
+    column: '3',
     sortBy: 'name',
     title: 'Name',
   },
   {
-    column: 1,
+    column: '1',
     sortBy: 'cardsCount',
     title: 'Cards',
   },
   {
-    column: 2,
+    column: '2',
     sortBy: 'updated',
     title: 'Last Updated',
   },
   {
-    column: 3,
+    column: '3',
     sortBy: 'author.name',
     title: 'Created By',
   },
   {
-    column: 1,
+    column: '1',
     sortBy: 'a',
     sortable: false,
     title: '',
@@ -60,7 +60,7 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
       <Table.Body>
         {decks?.map((deck, index) => (
           <Table.Row key={index}>
-            <Table.Cell rows={3}>
+            <Table.Cell rows={'3'}>
               <Typography as={Link} className={s.root} to={`decks/${deck.id}`}>
                 {deck.cover ? (
                   <img alt={deck.name} src={deck.cover} />
@@ -70,18 +70,18 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
                 <Typography variant={'body2'}>{deck.name}</Typography>
               </Typography>
             </Table.Cell>
-            <Table.Cell rows={1}>
+            <Table.Cell rows={'1'}>
               <Typography variant={'body2'}>{deck.cardsCount}</Typography>
             </Table.Cell>
-            <Table.Cell rows={2}>
+            <Table.Cell rows={'2'}>
               <Typography variant={'body2'}>
                 {new Date(deck.updated).toLocaleDateString('ru-RU')}
               </Typography>
             </Table.Cell>
-            <Table.Cell rows={3}>
+            <Table.Cell rows={'3'}>
               <Typography variant={'body2'}> {deck.author.name}</Typography>
             </Table.Cell>
-            <Table.Cell className={s.lastCol} rows={1}>
+            <Table.Cell className={s.lastCol} rows={'1'}>
               <Button as={Link} to={`decks/${deck.id}`} variant={'icon'}>
                 <Icons iconId={'decksList-play'} />
               </Button>

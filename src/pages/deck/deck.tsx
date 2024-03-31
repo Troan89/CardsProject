@@ -23,27 +23,27 @@ import s from '@/pages/decks-page/decks-page.module.scss'
 
 const columns: Column[] = [
   {
-    column: 1,
+    column: '1',
     sortBy: 'question',
     title: 'Question',
   },
   {
-    column: 2,
+    column: '2',
     sortBy: 'answer',
     title: 'Answer',
   },
   {
-    column: 3,
+    column: '3',
     sortBy: 'lastUpdated',
     title: 'Last Updated',
   },
   {
-    column: 4,
+    column: '4',
     sortBy: 'grade',
     title: 'Grade',
   },
   {
-    column: 5,
+    column: '5',
     sortBy: 'action',
     title: '',
   },

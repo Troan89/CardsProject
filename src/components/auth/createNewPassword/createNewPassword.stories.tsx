@@ -8,7 +8,7 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  title: 'Auth/CreatePassword',
+  title: 'Auth/CreateNewPasswordPage',
 } satisfies Meta<typeof CreateNewPassword>
 
 export default meta

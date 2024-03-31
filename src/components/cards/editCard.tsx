@@ -20,11 +20,11 @@ export const EditCard = ({ cardId, cardName = ' iii', onEditClick }: Props) => {
 
   return (
     <Modal
+      iconId={'edit-2-outline'}
       isOpen={open}
       onChange={setOpen}
       title={'Edit card'}
       titleBtn={'Edit'}
-      titleIcon={'edit-2-outline'}
     >
       <div className={s.content}>
         <p>

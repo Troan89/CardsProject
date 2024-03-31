@@ -13,7 +13,7 @@ const loginSchema = z.object({
   password: z.string().min(3),
 })
 
-type FormValues = z.infer<typeof loginSchema>
+export type FormValues = z.infer<typeof loginSchema>
 
 type Props = {
   onSubmit: (data: FormValues) => void
@@ -46,7 +46,7 @@ export const CreateNewPassword = ({ onSubmit }: Props) => {
           label={'Password'}
           type={'password'}
         />
-        <Typography as={'div'} className={s.info}>
+        <Typography as={'span'} variant={'body2'}>
           Create new password and we will send you further instructions to email
         </Typography>
         <Button fullWidth type={'submit'} variant={'primary'}>

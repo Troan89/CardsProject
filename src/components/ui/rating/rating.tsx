@@ -5,15 +5,13 @@ import clsx from 'clsx'
 
 import s from './rating.module.scss'
 
-export type RatingValueType = 0 | 1 | 2 | 3 | 4 | 5
-
 export type RatingPropsType = {
-  value: RatingValueType
+  value: number
 } & ComponentPropsWithoutRef<'div'>
 
 export const Rating = forwardRef<HTMLDivElement, RatingPropsType>(
   ({ value, ...rest }, ref: ForwardedRef<HTMLDivElement>) => {
-    const maxRating: RatingValueType = 5
+    const maxRating: number = 5
     const stars = [...Array(maxRating)].map((_, index) => index + 1)
 
     return (

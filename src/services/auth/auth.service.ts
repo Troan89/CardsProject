@@ -1,4 +1,5 @@
 import {
+  CreateNewPasswordArgs,
   LoginArgs,
   RecoverPasswordArgs,
   ResendCheckEmailArgs,
@@ -44,7 +45,7 @@ const authService = baseApi.injectEndpoints({
       resendCheckEmail: builder.mutation<void, ResendCheckEmailArgs>({
         query: args => ({ body: args, method: 'POST', url: '/v1/auth/resend-verification-email' }),
       }),
-      resetPassword: builder.mutation<void, { password: string; token: string }>({
+      resetPassword: builder.mutation<void, CreateNewPasswordArgs>({
         invalidatesTags: ['Me'],
         query: ({ password, token }) => ({
           body: { password },

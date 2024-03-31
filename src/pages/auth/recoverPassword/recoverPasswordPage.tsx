@@ -2,12 +2,13 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { RecoverPassword } from '@/components/auth/recoverPassword'
+import { Spinner } from '../../../components/ui/spinner'
 import { PageWrapper } from '@/components/ui/pageWrapper'
 import { ROUTES } from '@/router/router'
 import { useRecoverPasswordMutation } from '@/services/auth'
 
 export const RecoverPasswordPage = () => {
-  const [recoverPassword] = useRecoverPasswordMutation()
+  const [recoverPassword, { isLoading }] = useRecoverPasswordMutation()
 
   const navigate = useNavigate()
 
@@ -18,6 +19,10 @@ export const RecoverPasswordPage = () => {
     } catch (error: any) {
       toast.error(error?.data?.message ?? 'Uncaught Error')
     }
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return (
