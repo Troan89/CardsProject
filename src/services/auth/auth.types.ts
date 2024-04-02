@@ -39,4 +39,9 @@ export type ResendCheckEmailArgs = {
   userId: string
 }
 
+export type CreateNewPasswordArgs = {
+  password: string
+  token: string
+}
+
 export type RecoverPasswordArgs = Pick<SignUpArgs, 'email' | 'html' | 'subject'>

@@ -1,27 +1,19 @@
 .cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   width: 420px;
   height: 100%;
   margin: 36px auto;
   padding: 33px;
 }
 
-.cardWrapper .info {
-  font: 700 26px/36px sans-serif;
-  color: var(--color-light-100);
-}
-
-.cardWrapper .infoWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 33px 13px;
-}
-
 .editInput {
   margin-bottom: 36px;
 }
 
-.cardWrapper .infoWrapper .content {
+.content {
   position: relative;
 
   display: flex;
@@ -32,7 +24,7 @@
   padding: 5px;
 }
 
-.cardWrapper .editButton {
+.editButton {
   all: unset;
 
   cursor: pointer;
@@ -55,17 +47,20 @@
   border-radius: 4px;
 }
 
-.cardWrapper .editButton2 {
+.editButton2 {
   all: unset;
   cursor: pointer;
+}
+
+.saveButton {
+  margin-top: 12px;
 }
 
 .avatar {
   margin: 27px 0 12px;
 }
 
-.infoWrapper .avatarWrapper,
-.avatarWrapper2 {
+.avatarWrapper {
   position: relative;
   display: flex;
   gap: 10px;
@@ -85,4 +80,8 @@
 .iconButton {
   width: 24px;
   height: 24px;
+}
+
+.logout {
+  margin-top: 12px;
 }

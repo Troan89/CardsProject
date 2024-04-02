@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { SignUp } from '@/components/auth/signUp'
+import { Spinner } from '../../../components/ui/spinner'
 import { PageWrapper } from '@/components/ui/pageWrapper'
 import { ROUTES } from '@/router/router'
 import { useSignUpMutation } from '@/services/auth'
@@ -10,7 +11,7 @@ import { SignUpArgs } from '@/services/auth/auth.types'
 import 'react-toastify/dist/ReactToastify.css'
 
 export const SignUpPage = () => {
-  const [signUp] = useSignUpMutation()
+  const [signUp, { isLoading }] = useSignUpMutation()
   const navigate = useNavigate()
   const notify = () => toast.error('User already exists')
 
@@ -27,6 +28,10 @@ export const SignUpPage = () => {
         toast.error(error?.data?.message ?? 'Could not sign up')
       }
     }
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return (

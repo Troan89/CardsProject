@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react'
 
+import { Icons } from '@/assets/icons/Icons'
 import clsx from 'clsx'
 
 import s from './avatar.module.css'
@@ -11,13 +12,25 @@ type Props = {
   width?: string
 } & ComponentPropsWithoutRef<'img'>
 export const Avatar = (props: Props) => {
-  const { className, height = '36px', style, width = '36px', ...rest } = props
+  const { className, height = '36px', src, style, width = '36px', ...rest } = props
+
+  if (!src) {
+    return (
+      <Icons
+        className={clsx(s.avatarIcon, className)}
+        height={height}
+        iconId={'person-outline'}
+        width={width}
+        {...rest}
+      />
+    )
+  }
 
   return (
     <img
       alt={'avatar'}
       className={clsx(s.avatar, className)}
-      src={props.src}
+      src={src}
       style={{
         ...style,
         height,
