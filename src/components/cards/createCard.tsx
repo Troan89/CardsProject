@@ -9,7 +9,7 @@ import { useCreateCardMutation } from '@/services/deck/deck.service'
 
 import s from './createCard.module.css'
 
-import CardDemo from '../../assets/img/ReactCard.png'
+import CardDemo from '../../assets/img/imgreplace.jpg'
 
 export type VariantUploadImage = 'Answer' | 'Question'
 
