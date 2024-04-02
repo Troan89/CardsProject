@@ -11,17 +11,16 @@ import { Sort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/services/auth'
-import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
-
-import s from './decks-page.module.scss'
-
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useGetMaxMinCardsQuery,
   useUpdateDeckMutation,
-} from '../../services/decks/decks.service'
+} from '@/services/decks/decks.service'
+import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
+
+import s from './decks-page.module.scss'
 
 const tabs: TabType[] = [
   { content: <div></div>, title: 'My Cards', value: 'my card' },
