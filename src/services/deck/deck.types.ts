@@ -33,14 +33,14 @@ export type CardsPagination = {
 }
 export type CardItem = {
   answer: string
-  answerImg: File | string
+  answerImg: string
   answerVideo: string
   cardId: string
   created: string
   grade: number
   id: string
   question: string
-  questionImg: File | string
+  questionImg: string
   questionVideo: string
   shots: number
   updated: string

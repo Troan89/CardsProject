@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import { Icons } from '@/assets/icons/Icons'
 import {
   DropdownMenu,
@@ -9,16 +11,22 @@ import {
 
 type Props = {
   handleDeleteClickDeck: () => void
+  id: string | undefined
 }
 
-export const DropdownDeck = ({ handleDeleteClickDeck }: Props) => {
+export const DropdownDeck = ({ handleDeleteClickDeck, id }: Props) => {
+  const navigate = useNavigate()
+  const handlerLearn = () => {
+    navigate(`decks/${id}/learn`)
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Icons iconId={'more-vertical-outline'} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handlerLearn}>
           <Icons iconId={'play-circle-outline'} /> Learn
         </DropdownMenuItem>
         <DropdownMenuSeparator />
