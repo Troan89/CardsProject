@@ -71,7 +71,7 @@ export const SignIn = ({ disabled, onSubmit }: LoginProps) => {
         <Typography
           as={NavLink}
           className={s.recoverLink}
-          to={ROUTES.createNewPassword}
+          to={ROUTES.recoverPassword}
           variant={'body1'}
         >
           Forgot Password?
