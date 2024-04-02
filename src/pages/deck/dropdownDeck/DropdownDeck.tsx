@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import { Icons } from '@/assets/icons/Icons'
+import { EditDeckDialog } from '@/components/decks/edit-deck-dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,16 +9,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown'
+import { useUpdateDeckMutation } from '@/services/decks/decks.service'
+import { EditDecks } from '@/services/decks/decks.types'
 
 type Props = {
   handleDeleteClickDeck: () => void
   id: string | undefined
+  name: string | undefined
 }
 
-export const DropdownDeck = ({ handleDeleteClickDeck, id }: Props) => {
+export const DropdownDeck = ({ handleDeleteClickDeck, id, name }: Props) => {
   const navigate = useNavigate()
   const handlerLearn = () => {
     navigate(`decks/${id}/learn`)
+  }
+
+  const [editDecks] = useUpdateDeckMutation()
+
+  const editDeck = (data: EditDecks) => {
+    editDecks(data)
   }
 
   return (
@@ -26,12 +36,13 @@ export const DropdownDeck = ({ handleDeleteClickDeck, id }: Props) => {
         <Icons iconId={'more-vertical-outline'} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={handlerLearn}>
+        <DropdownMenuItem>
           <Icons iconId={'play-circle-outline'} /> Learn
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Icons iconId={'edit-2-outline'} /> Edit
+          <EditDeckDialog deckId={id} deckName={name} onEditClick={editDeck} /> Edit
+          {/*<Icons iconId={'edit-2-outline'} /> */}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleDeleteClickDeck}>
