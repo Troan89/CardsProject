@@ -67,9 +67,7 @@ export type RandomCardLearn = {
 }
 
 export type PostCardGrade = {
-  id: string
   cardId: string
   grade: number
+  id: string
 }
-
-

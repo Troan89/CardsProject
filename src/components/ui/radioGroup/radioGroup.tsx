@@ -30,12 +30,13 @@ export type Options = {
 }
 export type RadioGroupProps = ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> & {
   errorMessage?: string
+  onChangeValue: (grade: number) => void
   options: Options[]
 }
 
 const RadioGroup = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, RadioGroupProps>(
   (props, ref) => {
-    const { errorMessage, options, ...rest } = props
+    const { errorMessage, onChangeValue, options, ...rest } = props
 
     const radioGroupOptions = options.map(option => {
       return (
@@ -52,7 +53,7 @@ const RadioGroup = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Radio
       <RadioGroupRoot
         {...rest}
         onValueChange={e => {
-          console.log(e)
+          onChangeValue(+e)
         }}
         ref={ref}
       >

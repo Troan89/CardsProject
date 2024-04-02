@@ -6,7 +6,11 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Options, RadioGroup } from '@/components/ui/radioGroup'
 import { Typography } from '@/components/ui/typography'
-import { useGetOneDeckQuery, useGetRandomCardLearnQuery } from '@/services/decks/decks.service'
+import {
+  useGetOneDeckQuery,
+  useGetRandomCardLearnQuery,
+  usePostCardGradeMutation,
+} from '@/services/decks/decks.service'
 
 import s from './learnCards.module.scss'
 
@@ -22,17 +26,23 @@ export const LearnCards = () => {
   const [open, setOpen] = useState<boolean>(false)
   const [countAnswer, setCountAnswer] = useState<number>(10)
   const [nextQuestion, setNextQuestion] = useState<string>()
+  const [grade, setGrade] = useState<number>(0)
 
   const { deckId } = useParams()
 
   const { data: deck } = useGetOneDeckQuery({ id: deckId || '' })
   const { data } = useGetRandomCardLearnQuery({ id: deckId || '', previousCardId: nextQuestion })
+  const [cardGrade] = usePostCardGradeMutation()
 
   console.log(data)
 
   const handleNextQuestion = () => {
     setOpen(false)
+    if (data && grade) {
+      cardGrade({ cardId: data.id, grade: grade, id: data.deckId })
+    }
     setNextQuestion(data?.id)
+    setGrade(0)
   }
 
   return (
@@ -51,20 +61,32 @@ export const LearnCards = () => {
             Количество попыток ответов на вопрос: {countAnswer}
           </Typography>
           {!open && (
-              <Button fullWidth onClick={() => setOpen(true)} variant={'primary'}>
-                Show Answer
-              </Button>
+            <Button fullWidth onClick={() => setOpen(true)} variant={'primary'}>
+              Show Answer
+            </Button>
           )}
           {open && (
-              <div>
-                <Typography className={s.answer} variant={'body1'}>Answer: {data?.answer}</Typography>
-                {data?.answerImg && <img alt={'answer Image'} src={data?.answerImg} />}
-                <Typography className={s.rateYourself} variant={'body1'}>Rate yourself:</Typography>
-                <RadioGroup options={radio}></RadioGroup>
-                <Button className={s.buttonNext} fullWidth onClick={handleNextQuestion} variant={'primary'}>
-                  Next Question
-                </Button>
-              </div>
+            <div>
+              <Typography className={s.answer} variant={'body1'}>
+                Answer: {data?.answer}
+              </Typography>
+              {data?.answerImg && <img alt={'answer Image'} src={data?.answerImg} />}
+              <Typography className={s.rateYourself} variant={'body1'}>
+                Rate yourself:
+              </Typography>
+              <RadioGroup
+                onChangeValue={(num: number) => setGrade(num)}
+                options={radio}
+              ></RadioGroup>
+              <Button
+                className={s.buttonNext}
+                fullWidth
+                onClick={handleNextQuestion}
+                variant={'primary'}
+              >
+                Next Question
+              </Button>
+            </div>
           )}
         </Card>
       </div>

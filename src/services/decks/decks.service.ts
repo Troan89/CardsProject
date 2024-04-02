@@ -70,8 +70,9 @@ const decksService = baseApi.injectEndpoints({
         invalidatesTags: ['Decks'],
         query: ({ id, ...args }) => {
           return {
-            params: args,
-            url: `v1/cards/${id}/learn`,
+            body: args,
+            method: 'POST',
+            url: `v1/decks/${id}/learn`,
           }
         },
       }),

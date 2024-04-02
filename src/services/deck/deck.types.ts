@@ -35,8 +35,8 @@ export type CardItem = {
   answer: string
   answerImg: string
   answerVideo: string
-  cardId: string
   created: string
+  deckId: string
   grade: number
   id: string
   question: string
