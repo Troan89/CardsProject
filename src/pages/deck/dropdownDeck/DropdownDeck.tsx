@@ -7,7 +7,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown'
 
-export const DropdownDeck = () => {
+type Props = {
+  handleDeleteClickDeck: () => void
+}
+
+export const DropdownDeck = ({ handleDeleteClickDeck }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -22,7 +26,7 @@ export const DropdownDeck = () => {
           <Icons iconId={'edit-2-outline'} /> Edit
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleDeleteClickDeck}>
           <Icons iconId={'trash-outline'} /> Delete
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -7,6 +7,11 @@
   margin: 0 auto;
 }
 
+.backButton {
+  margin-top: 24px;
+  padding: 0;
+}
+
 .header {
   display: flex;
   align-items: flex-start;
@@ -36,4 +41,8 @@
     width: 118px;
     height: 48px;
   }
+}
+
+.pagination {
+  margin-top: 24px;
 }

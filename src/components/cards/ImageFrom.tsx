@@ -12,7 +12,7 @@ type Props = {
   img: string
   label: 'Answer' | 'Question'
   onValueChange: (e: string) => void
-  value: string
+  value: string | undefined
 }
 
 export const ImageFrom = ({ handleChangeUploadImage, img, label, onValueChange, value }: Props) => {
