@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import {memo, useCallback, useEffect, useState} from 'react'
+import { toast } from 'react-toastify'
 
 import { Icons } from '@/assets/icons/Icons'
 import { DecksTable } from '@/components/decks'
@@ -6,9 +7,11 @@ import { DeckDialog } from '@/components/decks/deck-dialog/deck-dialog'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
+import { Spinner } from '@/components/ui/spinner'
 import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
 import { Sort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
+import { Toast } from '@/components/ui/toast'
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/services/auth'
 import {
@@ -27,7 +30,8 @@ const tabs: TabType[] = [
   { content: <div></div>, title: 'All Cards', value: 'Tab 2' },
 ]
 
-export const DecksPage = () => {
+export const DecksPage = memo(() => {
+  console.log('DecksPage')
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [perPageItem, setPerPageItem] = useState<number | string>(10)
@@ -50,9 +54,10 @@ export const DecksPage = () => {
     name: search,
     orderBy: sortKey ? `${sortKey}-${sortDirection}` : undefined,
   })
-  const [createDecks] = useCreateDeckMutation()
+  const [createDecks, { error: errorCreateDeck, isError: isErrorCreateDeck }] =
+    useCreateDeckMutation()
   const [deleteDecks] = useDeleteDeckMutation()
-  const [editDecks] = useUpdateDeckMutation()
+  const [editDecks, { error: errorEditDeck, isError: isErrorEditDeck }] = useUpdateDeckMutation()
 
   useEffect(() => {
     if (maxMinCard) {
@@ -61,40 +66,33 @@ export const DecksPage = () => {
     }
   }, [maxMinCard])
 
-  if (isLoading || !maxMinCard || isFetching) {
-    return <div>Loading...</div>
-  }
-  if (isError) {
-    return <div>{JSON.stringify(error)}</div>
-  }
+  const deleteDeck = useCallback((id: string) => {
+    deleteDecks({id})
+  },[deleteDecks])
 
-  const deleteDeck = (id: string) => {
-    deleteDecks({ id })
-  }
-
-  const createDeck = (data: CreateDecks) => {
+  const createDeck = useCallback((data: CreateDecks) => {
     setPage(1)
     createDecks(data)
-  }
+  }, [createDecks])
 
-  const handleSearch = (name: string) => {
+  const handleSearch = useCallback((name: string) => {
     setPage(1)
     setSearch(name)
-  }
+  },[search])
 
-  const editDeck = (data: EditDecks) => {
+  const editDeck = useCallback((data: EditDecks) => {
     editDecks(data)
-  }
+  }, [editDecks])
 
   const sliderValue = maxMinCard ? [minCardCount, maxCardCount] : undefined
 
-  const onChangeValueHandler = (newValue: number[]) => {
+  const onChangeValueHandler = useCallback((newValue: number[]) => {
     setPage(1)
     setMinCardCount(newValue[0])
     setMaxCardCount(newValue[1])
-  }
+  },[minCardCount, maxCardCount])
 
-  const handleSort = (key: Sort) => {
+  const handleSort = useCallback((key: Sort) => {
     setPage(1)
     if (key && sortKey === key.sortBy) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
@@ -102,14 +100,14 @@ export const DecksPage = () => {
       setSortKey(key ? key.sortBy : undefined)
       setSortDirection('asc')
     }
-  }
+  }, [sortDirection, sortKey])
 
-  const handleSwitcher = (value: string) => {
+  const handleSwitcher =useCallback((value: string) => {
     setPage(1)
     setSwitcher(value)
-  }
+  },[switcher])
 
-  const handleClearFilter = () => {
+  const handleClearFilter = useCallback(() => {
     setSearch('')
     setSwitcher('')
     setSortKey('')
@@ -118,6 +116,30 @@ export const DecksPage = () => {
     setPerPageItem(10)
     setMinCardCount(0)
     setMaxCardCount(maxMinCard?.max ?? 100)
+  },[])
+
+  const [errorShown, setErrorShown] = useState(false);
+
+  useEffect(() => {
+    if (isError && !errorShown) {
+      const errorMessage = error?.data.errorMessages[0]?.message || "Unknown error occurred";
+      toast.error(`Error getting decks: ${errorMessage}`);
+      setErrorShown(true);
+    }
+    if (isErrorCreateDeck && !errorShown) {
+      const errorMessage = errorCreateDeck?.data.errorMessages[0]?.message || "Unknown error occurred";
+      toast.error(`Error creating deck: ${errorMessage}`);
+      setErrorShown(true);
+    }
+    if (isErrorEditDeck && !errorShown) {
+      const errorMessage = errorEditDeck?.data.errorMessages[0]?.message || "Unknown error occurred";
+      toast.error(`Error editing deck: ${errorMessage}`);
+      setErrorShown(true);
+    }
+  }, [isErrorCreateDeck, errorCreateDeck, errorShown, isErrorEditDeck, errorEditDeck]);
+
+  if (isLoading || !maxMinCard || isFetching) {
+    return <Spinner />
   }
 
   return (
@@ -171,6 +193,7 @@ export const DecksPage = () => {
           />
         </div>
       )}
+      <Toast />
     </div>
   )
-}
+})

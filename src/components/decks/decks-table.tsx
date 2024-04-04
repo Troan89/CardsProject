@@ -13,6 +13,7 @@ import s from './decks-table.module.scss'
 
 import pic from '../../assets/img/imgreplace.jpg'
 import { Table } from '../ui/table'
+import {memo} from "react";
 
 const columns: Column[] = [
   {
@@ -51,7 +52,8 @@ type Props = {
   sort?: Sort
 }
 
-export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: Props) => {
+export const DecksTable = memo(({ decks, onDeleteClick, onEditClick, onSort, sort }: Props) => {
+  console.log('DecksTable')
   const { data: me } = useGetMeQuery()
 
   return (
@@ -103,4 +105,4 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
       </Table.Body>
     </Table.Root>
   )
-}
+})
