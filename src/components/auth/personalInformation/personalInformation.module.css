@@ -1,10 +1,9 @@
-.cardWrapper {
+.personalInformation {
   display: flex;
   flex-direction: column;
   align-items: center;
 
   width: 420px;
-  height: 348px;
   margin: 36px auto;
   padding: 33px;
 }
@@ -60,12 +59,21 @@
   display: flex;
 }
 
+.name {
+  padding: 10px;
+}
+
 .form input {
   margin-top: 12px;
 }
 
 .email {
+  transform: translateY(-10px);
   color: var(--color-dark-100);
+}
+
+.content .link {
+  color: var(--color-accent-700);
 }
 
 .icons {

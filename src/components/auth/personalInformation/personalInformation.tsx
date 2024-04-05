@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { NavLink } from 'react-router-dom'
 
 import { Icons } from '@/assets/icons/Icons'
 import { FormTextField } from '@/components/formComponents/formTextField'
@@ -8,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ImageUploader, imageSchema } from '@/components/ui/imageUploader/imageUploader'
 import { Typography } from '@/components/ui/typography'
+import { ROUTES } from '@/router/router'
 import { User } from '@/services/auth/auth.types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -61,7 +63,7 @@ export const PersonalInformation = (props: Props) => {
   }
 
   return (
-    <Card className={s.cardWrapper}>
+    <Card className={s.personalInformation}>
       <Typography as={'span'} variant={'h1'}>
         Personal Information
       </Typography>
@@ -101,7 +103,9 @@ export const PersonalInformation = (props: Props) => {
       ) : (
         <>
           <div className={s.avatarWrapper}>
-            <Typography variant={'h2'}>{data?.name}</Typography>
+            <Typography className={s.name} variant={'h2'}>
+              {data?.name}
+            </Typography>
             <Button className={s.editButton2} onClick={() => setEditMode(true)}>
               <Icons className={s.icons} iconId={'edit-2-outline'} />
             </Button>
@@ -109,6 +113,14 @@ export const PersonalInformation = (props: Props) => {
           <div className={s.content}>
             <Typography as={'span'} className={s.email} variant={'body2'}>
               {data?.email}
+            </Typography>
+            <Typography
+              as={NavLink}
+              className={s.link}
+              to={ROUTES.createNewPassword}
+              variant={'link1'}
+            >
+              Create new password?
             </Typography>
             <Button as={'button'} className={s.logout} onClick={logout} variant={'secondary'}>
               <Icons iconId={'log-out-outline'} /> Logout
