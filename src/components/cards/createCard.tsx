@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
+import { toast } from 'react-toastify'
 
 import { ImageFrom } from '@/components/cards/ImageFrom'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
+import { Toast } from '@/components/ui/toast'
 import { Typography } from '@/components/ui/typography'
 import { useCreateCardMutation } from '@/services/deck/deck.service'
 
-import s from './createCard.module.css'
+import s from './createCard.module.scss'
 
 import CardDemo from '../../assets/img/imgreplace.jpg'
 
@@ -43,17 +45,29 @@ export const CreateCardDialog = ({}: Props) => {
     }
   }
 
-  const handlerCreateCard = () => {
-    createCards({
-      answer: createAnswerValue,
-      answerImg: uploadImageAnswer,
-      id: deckId,
-      question: createQuestionValue,
-      questionImg: uploadImageQuestion,
-    })
-    setOpen(false)
-    setCreateQuestionValue('')
-    setCreateAnswerValue('')
+  const handlerCreateCard = async () => {
+    if (createQuestionValue && createAnswerValue) {
+      const res = await createCards({
+        answer: createAnswerValue,
+        answerImg: uploadImageAnswer,
+        id: deckId,
+        question: createQuestionValue,
+        questionImg: uploadImageQuestion,
+      })
+
+      // @ts-ignore
+      if (res?.error?.data.errorMessages[0].message) {
+        // @ts-ignore
+        toast.error(res.error.data.errorMessages[0].message)
+      } else {
+        setOpen(false)
+        setCreateQuestionValue('')
+        setCreateAnswerValue('')
+        toast.success('Success message')
+      }
+    } else {
+      toast.error(createQuestionValue ? 'Не заполнено поле Answer' : 'Не заполнено поле Question')
+    }
   }
 
   return (
@@ -94,6 +108,7 @@ export const CreateCardDialog = ({}: Props) => {
           </Button>
         </div>
       </div>
+      <Toast />
     </Modal>
   )
 }

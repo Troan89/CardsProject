@@ -7,6 +7,8 @@ import { Card } from '@/components/ui/card'
 import { ImageUploader } from '@/components/ui/imageUploader/imageUploader'
 import { TextField } from '@/components/ui/textField'
 
+import s from './imageForm.module.scss'
+
 type Props = {
   handleChangeUploadImage: (file: File | null, variant: VariantUploadImage) => void
   img: string
@@ -27,7 +29,7 @@ export const ImageFrom = ({ handleChangeUploadImage, img, label, onValueChange, 
   }, [coverImg])
 
   return (
-    <Card style={{ width: '420px' }}>
+    <Card className={s.wrapper}>
       <TextField
         label={`${label}?`}
         name={'name'}
@@ -38,13 +40,9 @@ export const ImageFrom = ({ handleChangeUploadImage, img, label, onValueChange, 
       {currentImg || isValidImage ? (
         <div>
           {isValidImage ? (
-            <img
-              alt={'cover'}
-              src={URL.createObjectURL(coverImg)}
-              style={{ margin: '0 auto', width: '100%' }}
-            />
+            <img alt={'cover'} src={URL.createObjectURL(coverImg)} />
           ) : (
-            <img alt={'cover'} src={currentImg} style={{ margin: '0 auto', width: '100%' }} />
+            <img alt={'cover'} src={currentImg} />
           )}
           <div>
             <ImageUploader

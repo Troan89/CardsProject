@@ -14,14 +14,14 @@ import { EditDecks } from '@/services/decks/decks.types'
 
 type Props = {
   handleDeleteClickDeck: () => void
-  id: string | undefined
-  name: string | undefined
+  id: string
+  name: string
 }
 
 export const DropdownDeck = ({ handleDeleteClickDeck, id, name }: Props) => {
   const navigate = useNavigate()
   const handlerLearn = () => {
-    navigate(`decks/${id}/learn`)
+    navigate(`/decks/${id}/learn`)
   }
 
   const [editDecks] = useUpdateDeckMutation()
@@ -36,7 +36,7 @@ export const DropdownDeck = ({ handleDeleteClickDeck, id, name }: Props) => {
         <Icons iconId={'more-vertical-outline'} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handlerLearn}>
           <Icons iconId={'play-circle-outline'} /> Learn
         </DropdownMenuItem>
         <DropdownMenuSeparator />

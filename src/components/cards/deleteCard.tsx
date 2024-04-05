@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
 
-import s from './deleteCard.module.css'
+import s from './deleteCard.module.scss'
 
 type Props = {
   cardId: string
@@ -35,7 +35,9 @@ export const DeleteCard = ({ cardId, onDeleteClick }: Props) => {
         <Button onClick={() => setOpen(false)} variant={'secondary'}>
           Cancel
         </Button>
-        <Button onClick={deleteDeck}>Delete Card</Button>
+        <Button onClick={deleteDeck} variant={'primary'}>
+          Delete Card
+        </Button>
       </div>
     </Modal>
   )

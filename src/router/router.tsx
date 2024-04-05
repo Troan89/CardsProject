@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { LearnCards } from '@/components/learnCards/learnCards'
 import { DecksPage } from '@/pages'
 import { CheckEmailPage } from '@/pages/auth/checkEmail'
 import { CreateNewPasswordPage } from '@/pages/auth/createPassword'
@@ -24,6 +25,7 @@ export const ROUTES = {
   deck: '/decks/:deckId',
   decks: '/',
   error: '/*',
+  learnCard: '/decks/:deckId/learn',
   login: '/login',
   profile: '/profile',
   signUp: '/sign-up',
@@ -60,6 +62,7 @@ const privateRoutes: RouteObject[] = [
   { element: <Deck />, path: ROUTES.deck },
   { element: <Profile />, path: ROUTES.profile },
   { element: <CreateNewPasswordPage />, path: ROUTES.createNewPassword },
+  { element: <LearnCards />, path: ROUTES.learnCard },
 ]
 
 export const router = createBrowserRouter([

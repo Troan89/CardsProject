@@ -10,7 +10,7 @@ import { Toast } from '@/components/ui/toast'
 import { Typography } from '@/components/ui/typography'
 import { useGetCardQuery, useUpdateCardMutation } from '@/services/deck/deck.service'
 
-import s from './createCard.module.css'
+import s from './createCard.module.scss'
 
 type Props = {
   cardId: string

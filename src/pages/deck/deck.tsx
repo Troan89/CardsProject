@@ -82,7 +82,6 @@ export const Deck = ({ onSort, sort }: Props) => {
     deleteCard({ id })
   }
   const handleDeleteClickDeck = () => {
-    debugger
     if (deck?.id && deck?.userId === me?.id) {
       deleteDeck({ id: deck.id })
       navigate(ROUTES.base)
@@ -100,8 +99,8 @@ export const Deck = ({ onSort, sort }: Props) => {
             <Typography variant={'h1'}>{deck?.name}</Typography>
             <DropdownDeck
               handleDeleteClickDeck={handleDeleteClickDeck}
-              id={deckId}
-              name={deck?.name}
+              id={deckId ? deckId : ''}
+              name={deck?.name ? deck?.name : ''}
             />
           </div>
           {deck?.cover ? <img alt={deck.name} src={deck.cover} /> : <img alt={'react'} src={pic} />}
