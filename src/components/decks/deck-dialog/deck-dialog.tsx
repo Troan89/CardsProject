@@ -14,7 +14,7 @@ type Props = {
   onClick: (data: CreateDecks) => void
 }
 
-export const DeckDialog = ({ onClick}: Props) => {
+export const DeckDialog = ({ onClick }: Props) => {
   const [createDeckValue, setCreateDeckValue] = useState<string>('')
   const [privatePack, setPrivatePack] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)

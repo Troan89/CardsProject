@@ -1,4 +1,6 @@
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { Icons } from '@/assets/icons/Icons'
 import { DeleteDeckDialog } from '@/components/decks/delete-deck-dialog'
@@ -7,13 +9,13 @@ import { Button } from '@/components/ui/button'
 import { Column, Sort, TableSort } from '@/components/ui/table/tableSort'
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/services/auth'
+import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks.service'
 import { Deck, EditDecks } from '@/services/decks/decks.types'
 
 import s from './decks-table.module.scss'
 
 import pic from '../../assets/img/imgreplace.jpg'
 import { Table } from '../ui/table'
-import {memo} from "react";
 
 const columns: Column[] = [
   {
@@ -46,15 +48,50 @@ const columns: Column[] = [
 
 type Props = {
   decks: Deck[] | undefined
-  onDeleteClick: (id: string) => void
-  onEditClick: (data: EditDecks) => void
   onSort: (key: Sort) => void
   sort?: Sort
 }
 
-export const DecksTable = memo(({ decks, onDeleteClick, onEditClick, onSort, sort }: Props) => {
-  console.log('DecksTable')
+export const DecksTable = memo(({ decks, onSort, sort }: Props) => {
   const { data: me } = useGetMeQuery()
+  const [deleteDecks] = useDeleteDeckMutation()
+  const [editDecks] = useUpdateDeckMutation()
+
+  const deleteDeck = async (id: string) => {
+    const res = await deleteDecks({ id })
+
+    if ('data' in res) {
+      toast.success('Deck deleted successfully!')
+    }
+    if ('error' in res) {
+      const errorMessage =
+        // @ts-ignore
+        res.error?.data?.errorMessages?.[0]?.message ||
+        // @ts-ignore
+        res.error?.data?.message ||
+        'Unknown error occurred'
+
+      toast.error(`Error deleting deck: ${errorMessage}`)
+    }
+  }
+
+  const editDeck = async (data: EditDecks) => {
+    const res = await editDecks(data)
+
+    if ('data' in res) {
+      toast.success('Deck edit successfully!')
+    }
+    if ('error' in res) {
+      const errorMessage =
+        // @ts-ignore
+        res.error?.data?.errorMessages?.[0]?.message ||
+        // @ts-ignore
+        res.error?.data?.message ||
+        'Unknown error occurred'
+
+      toast.error(`Error editing deck: ${errorMessage}`)
+    }
+  }
 
   return (
     <Table.Root>
@@ -89,11 +126,11 @@ export const DecksTable = memo(({ decks, onDeleteClick, onEditClick, onSort, sor
               </Button>
               {me?.id === deck.author.id ? (
                 <>
-                  <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={onEditClick} />
+                  <EditDeckDialog deckId={deck.id} deckName={deck.name} onEditClick={editDeck} />
                   <DeleteDeckDialog
                     deckId={deck.id}
                     deckName={deck.name}
-                    onDeleteClick={onDeleteClick}
+                    onDeleteClick={deleteDeck}
                   />
                 </>
               ) : (
