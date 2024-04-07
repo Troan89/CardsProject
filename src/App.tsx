@@ -1,13 +1,11 @@
-import { Outlet } from 'react-router-dom'
-
-import s from './app.module.scss'
+import { Router } from '@/router/router'
 
 import { Toast } from './components/ui/toast'
 
 export function App() {
   return (
-    <div className={s.app}>
-      <Outlet />
+    <div>
+      <Router />
       <Toast />
     </div>
   )

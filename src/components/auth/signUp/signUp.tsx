@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 import { ROUTES } from '@/router/router'
+import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -48,6 +49,7 @@ export const SignUp = ({ onSubmit }: LogProps) => {
         Sign Up
       </Typography>
       <form className={s.formRoot} onSubmit={handleSubmit(onSubmit)}>
+        <DevTool control={control} />
         <div className={s.name}>
           <FormTextField
             control={control}
