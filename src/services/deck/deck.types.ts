@@ -1,22 +1,24 @@
 export type Card = {
   answer: string
-  answerImg: string
-  answerVideo: string
-  cardId: string
-  created: string
+  answerImg?: string
+  answerVideo?: string
+  cardId?: string
+  created?: string
   id: string
   question: string
-  questionImg: string
-  questionVideo: string
-  shots: number
-  updated: string
-  userId: string
+  questionImg?: string
+  questionVideo?: string
+  shots?: number
+  updated?: string
+  userId?: string
 }
 
-export type CreateCard = {
+export type CreateUpdateCard = {
   answer: string
-  id: string
+  answerImg?: File | null
+  id?: string
   question: string
+  questionImg?: File | null
 }
 
 export type CardsResponse = {
@@ -33,8 +35,8 @@ export type CardItem = {
   answer: string
   answerImg: string
   answerVideo: string
-  cardId: string
   created: string
+  deckId: string
   grade: number
   id: string
   question: string
@@ -48,11 +50,11 @@ export type CardItem = {
 export type GetCardsArgs = {
   answer?: string
   currentPage?: number
-  id?: string
+  id?: string | undefined
   itemsPerPage?: number | string
   orderBy?: string
   question?: string
 }
-export type DeleteCardId = {
-  id: string
+export type DeleteGetCardId = {
+  id: string | undefined
 }

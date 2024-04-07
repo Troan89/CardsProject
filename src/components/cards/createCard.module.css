@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input {
+}
+
+.img {
+  max-width: 484px;
+  max-height: 119px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}

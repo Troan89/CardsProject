@@ -60,3 +60,14 @@ export type GetMaxMinCard = {
   max: number
   min: number
 }
+
+export type RandomCardLearn = {
+  id: string
+  previousCardId?: string
+}
+
+export type PostCardGrade = {
+  cardId: string
+  grade: number
+  id: string
+}

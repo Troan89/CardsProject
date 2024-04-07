@@ -11,16 +11,17 @@ import { Sort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/services/auth'
+import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
+
+import s from './decks-page.module.scss'
+
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useGetMaxMinCardsQuery,
   useUpdateDeckMutation,
-} from '@/services/decks/decks.service'
-import { CreateDecks, EditDecks } from '@/services/decks/decks.types'
-
-import s from './decks-page.module.scss'
+} from '../../services/decks/decks.service'
 
 const tabs: TabType[] = [
   { content: <div></div>, title: 'My Cards', value: 'my card' },
@@ -35,9 +36,9 @@ export const DecksPage = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [switcher, setSwitcher] = useState('')
 
-  const { data: maxMinCard } = useGetMaxMinCardsQuery()
-  const [minCardCount, setMinCardCount] = useState<number>(0)
-  const [maxCardCount, setMaxCardCount] = useState<number>(100)
+  const { data: maxMinCard, isFetching } = useGetMaxMinCardsQuery()
+  const [minCardCount, setMinCardCount] = useState<number>(maxMinCard?.min ?? 0)
+  const [maxCardCount, setMaxCardCount] = useState<number>(maxMinCard?.max ?? 100)
 
   const { data: me } = useGetMeQuery()
 
@@ -56,12 +57,12 @@ export const DecksPage = () => {
 
   useEffect(() => {
     if (maxMinCard) {
-      setMinCardCount(maxMinCard.min)
       setMaxCardCount(maxMinCard.max)
+      setMinCardCount(maxMinCard.min)
     }
   }, [maxMinCard])
 
-  if (isLoading) {
+  if (isLoading || !maxMinCard || isFetching) {
     return <div>Loading...</div>
   }
   if (isError) {

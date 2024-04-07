@@ -34,6 +34,8 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
     setPrivatePack(checked)
   }
 
+  debugger
+
   return (
     <Modal
       iconId={'decksList-edit'}

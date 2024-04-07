@@ -31,12 +31,12 @@ const columns: Column[] = [
     title: 'Last Updated',
   },
   {
-    column: '3',
+    column: '2',
     sortBy: 'author.name',
     title: 'Created By',
   },
   {
-    column: '1',
+    column: '2',
     sortBy: 'a',
     sortable: false,
     title: '',
@@ -78,11 +78,11 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick, onSort, sort }: 
                 {new Date(deck.updated).toLocaleDateString('ru-RU')}
               </Typography>
             </Table.Cell>
-            <Table.Cell rows={'3'}>
+            <Table.Cell rows={'2'}>
               <Typography variant={'body2'}> {deck.author.name}</Typography>
             </Table.Cell>
-            <Table.Cell className={s.lastCol} rows={'1'}>
-              <Button as={Link} to={`decks/${deck.id}`} variant={'icon'}>
+            <Table.Cell className={s.lastCol} rows={'2'}>
+              <Button as={Link} to={`decks/${deck.id}/learn`} variant={'icon'}>
                 <Icons iconId={'decksList-play'} />
               </Button>
               {me?.id === deck.author.id ? (

@@ -1,0 +1,48 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  max-width: 1008px;
+  margin: 0 auto;
+}
+
+.backButton {
+  margin-top: 24px;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  width: 100%;
+  margin: 35px 0;
+
+  img {
+    width: 170px;
+    height: 107px;
+    margin-top: 15px;
+  }
+}
+
+.header .menu {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.questionAnswerStyle {
+  width: 301px;
+  max-height: 61px;
+
+  img {
+    width: 118px;
+    height: 48px;
+  }
+}
+
+.pagination {
+  margin-top: 24px;
+}
