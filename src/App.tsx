@@ -1,12 +1,9 @@
-import { Router } from '@/router/router'
-
-import { Toast } from './components/ui/toast'
+import { Outlet } from 'react-router-dom'
 
 export function App() {
   return (
     <div>
-      <Router />
-      <Toast />
+      <Outlet />
     </div>
   )
 }

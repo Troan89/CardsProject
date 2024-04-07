@@ -25,6 +25,7 @@ export const Profile = () => {
       const updateProfilePromise = updateProfile(formData).unwrap()
 
       await updateProfilePromise
+      toast.success('Avatar updated successfully')
     } catch (error) {
       toast.error('Failed to update avatar')
     }
@@ -38,6 +39,7 @@ export const Profile = () => {
       const updateProfilePromise = updateProfile(formData).unwrap()
 
       await updateProfilePromise
+      toast.success('Username updated successfully')
     } catch (error) {
       toast.error('Failed to update username')
     }
