@@ -7,7 +7,8 @@ export const Toast = () => {
     <ToastContainer
       autoClose={2000}
       closeOnClick
-      hideProgressBar
+      draggable
+      hideProgressBar={false}
       limit={2}
       newestOnTop={false}
       pauseOnFocusLoss
