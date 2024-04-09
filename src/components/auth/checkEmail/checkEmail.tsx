@@ -19,7 +19,10 @@ export const CheckEmail = ({ email }: Props) => {
         <Email />
       </div>
       <Typography className={s.info} variant={'body2'}>
-        We’ve sent an Email with instructions to {email}
+        We’ve sent an Email with instructions to
+      </Typography>
+      <Typography as={'a'} className={s.email} variant={'link1'}>
+        {email ? email : 'example@test.com'}
       </Typography>
       <Button as={Link} fullWidth to={ROUTES.login} variant={'primary'}>
         Back to Sign In

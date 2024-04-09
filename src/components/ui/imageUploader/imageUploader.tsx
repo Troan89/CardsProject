@@ -1,4 +1,12 @@
-import { ChangeEvent, ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react'
 import { toast } from 'react-toastify'
 
 import { Typography } from '@/components/ui/typography'
@@ -13,6 +21,7 @@ export const imageSchema = z
   )
 
 export type FileUploaderProps = {
+  onError?: (error: Error | ZodError) => void
   schema?: ZodEffects<any>
   setFile: (file: File | null) => void
   trigger: ReactNode
@@ -20,6 +29,12 @@ export type FileUploaderProps = {
 
 export const ImageUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
   ({ className, name, schema = imageSchema, setFile, trigger, ...rest }, ref) => {
+    const [errorMessage, setErrorMessage] = useState<null | string>(null)
+
+    useEffect(() => {
+      toast.error(errorMessage)
+    }, [errorMessage])
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0]
 
@@ -27,10 +42,15 @@ export const ImageUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
         try {
           schema.parse(file)
           setFile(file)
+          setErrorMessage(null)
         } catch (e) {
           const error = e as Error | ZodError
 
-          toast.error(error.message + ' The file format is not correct')
+          if (error instanceof ZodError) {
+            setErrorMessage('Error during image upload: ' + error.errors[0].message)
+          } else {
+            setErrorMessage('Other error: ' + error.message)
+          }
           setFile(null)
         }
       } else {

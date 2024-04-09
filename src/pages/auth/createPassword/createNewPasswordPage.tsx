@@ -4,10 +4,9 @@ import { toast } from 'react-toastify'
 
 import { CreateNewPassword, FormValues } from '@/components/auth/createNewPassword'
 import { PageWrapper } from '@/components/ui/pageWrapper'
+import { Spinner } from '@/components/ui/spinner'
 import { ROUTES } from '@/router/router'
 import { useResetPasswordMutation } from '@/services/auth'
-
-import { Spinner } from '@/components/ui/spinner'
 
 export const CreateNewPasswordPage = () => {
   const [resetPassword, { isLoading }] = useResetPasswordMutation()

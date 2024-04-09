@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { Icons } from '@/assets/icons/Icons'
 import { FormTextField } from '@/components/formComponents/formTextField'
@@ -63,7 +63,7 @@ export const PersonalInformation = (props: Props) => {
   }
 
   return (
-    <Card className={s.cardWrapper}>
+    <Card className={s.personalInformation}>
       <Typography as={'span'} variant={'h1'}>
         Personal Information
       </Typography>
@@ -76,7 +76,6 @@ export const PersonalInformation = (props: Props) => {
         />
         {!editMode && (
           <ImageUploader
-            className={s.uploader}
             ref={ref}
             setFile={updateAvatarHandler}
             trigger={
@@ -89,37 +88,39 @@ export const PersonalInformation = (props: Props) => {
       </div>
 
       {editMode ? (
-        <div className={s.content}>
-          <form className={s.form} onSubmit={handleSubmit(onSubmitHandler)}>
-            <div className={s.username}>
-              <FormTextField
-                control={control}
-                error={errors.name?.message}
-                label={'Name'}
-                name={'name'}
-                type={'text'}
-              />
-            </div>
-            <Button className={s.saveButton} fullWidth type={'submit'} variant={'primary'}>
-              Save Changes
-            </Button>
-          </form>
-        </div>
+        <form className={s.form} onSubmit={handleSubmit(onSubmitHandler)}>
+          <FormTextField
+            control={control}
+            error={errors.name?.message}
+            label={'Name'}
+            name={'name'}
+            type={'text'}
+          />
+          <Button className={s.saveButton} fullWidth type={'submit'} variant={'primary'}>
+            Save Changes
+          </Button>
+        </form>
       ) : (
         <>
           <div className={s.avatarWrapper}>
-            <Typography variant={'h2'}>{data?.name}</Typography>
+            <Typography className={s.name} variant={'h2'}>
+              {data?.name}
+            </Typography>
             <Button className={s.editButton2} onClick={() => setEditMode(true)}>
               <Icons className={s.icons} iconId={'edit-2-outline'} />
             </Button>
           </div>
-
           <div className={s.content}>
             <Typography as={'span'} className={s.email} variant={'body2'}>
               {data?.email}
             </Typography>
-            <Typography as={Link} to={ROUTES.createNewPassword} variant={'link1'}>
-              Change password?
+            <Typography
+              as={NavLink}
+              className={s.link}
+              to={ROUTES.createNewPassword}
+              variant={'link1'}
+            >
+              Create new password?
             </Typography>
             <Button as={'button'} className={s.logout} onClick={logout} variant={'secondary'}>
               <Icons iconId={'log-out-outline'} /> Logout

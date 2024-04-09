@@ -10,5 +10,5 @@ type PageProps = {
 }
 
 export const PageWrapper = ({ children, className }: PageProps) => {
-  return <div className={clsx(s.content, className)}>{children}</div>
+  return <div className={clsx(s.container, className)}>{children}</div>
 }
