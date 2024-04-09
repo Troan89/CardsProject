@@ -40,7 +40,7 @@ export const Layout = () => {
   const isAuthenticated = !isError && !isLoading
 
   if (isLoading) {
-    return <div>loading...</div>
+    return <Spinner />
   }
 
   return (

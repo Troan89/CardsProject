@@ -10,13 +10,13 @@ import { LearnCards } from '@/components/learnCards/learnCards'
 import { DecksPage } from '@/pages'
 import { CheckEmailPage } from '@/pages/auth/checkEmail'
 import { CreateNewPasswordPage } from '@/pages/auth/createPassword'
-import { Profile } from '@/pages/auth/profile'
 import { RecoverPasswordPage } from '@/pages/auth/recoverPassword'
 import { SignInPage } from '@/pages/auth/signIn'
 import { SignUpPage } from '@/pages/auth/signUp'
 import { Deck } from '@/pages/deck/deck'
 import { Error404Page } from '@/pages/error404'
 import { Layout, useAuthContext } from '@/pages/layout'
+import { Profile } from '@/pages/profile'
 
 export const ROUTES = {
   base: '/',
@@ -28,6 +28,7 @@ export const ROUTES = {
   error: '/*',
   login: '/login',
   profile: '/profile',
+  recoverPassword: '/recover-password',
   signUp: '/sign-up',
 } as const
 
@@ -42,7 +43,7 @@ const publicRoutes: RouteObject[] = [
   },
   {
     element: <RecoverPasswordPage />,
-    path: ROUTES.createNewPassword,
+    path: ROUTES.recoverPassword,
   },
   {
     element: <CheckEmailPage />,

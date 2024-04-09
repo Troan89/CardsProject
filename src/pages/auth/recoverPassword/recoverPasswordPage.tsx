@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { RecoverPassword } from '@/components/auth/recoverPassword'
-import { Spinner } from '../../../components/ui/spinner'
 import { PageWrapper } from '@/components/ui/pageWrapper'
+import { Spinner } from '@/components/ui/spinner'
 import { ROUTES } from '@/router/router'
 import { useRecoverPasswordMutation } from '@/services/auth'
 
@@ -15,6 +15,7 @@ export const RecoverPasswordPage = () => {
   const handleOnSubmit = async (email: string) => {
     try {
       await recoverPassword({ email }).unwrap()
+      toast.success(' Password changed successfully!')
       navigate(ROUTES.checkEmail, { state: { email } })
     } catch (error: any) {
       toast.error(error?.data?.message ?? 'Uncaught Error')

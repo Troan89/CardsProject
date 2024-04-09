@@ -1,11 +1,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
   width: 100%;
   max-width: 1024px;
   height: calc(100vh - 60px);
-  margin: 36px auto;
+  margin: 0 auto;
 }

@@ -26,7 +26,7 @@ export const Header = ({ avatar, email, isLoggedIn, logout, userName }: Props) =
           <UserDropdown avatar={avatar} email={email} logout={logout} userName={userName} />
         )}
         {!isLoggedIn && (
-          <Button as={Link} to={ROUTES.login}>
+          <Button as={Link} to={ROUTES.login} variant={'secondary'}>
             Sign In
           </Button>
         )}
