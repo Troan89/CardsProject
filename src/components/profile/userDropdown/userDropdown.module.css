@@ -1,4 +1,4 @@
-.wrapper {
+.form {
   display: flex;
   gap: 10px;
 
@@ -6,6 +6,6 @@
   align-items: center;
 }
 
-.wrapper div {
+.form div {
   border-bottom: 1px dashed white;
 }
