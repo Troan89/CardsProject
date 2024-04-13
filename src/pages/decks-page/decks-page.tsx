@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 
 import { Icons } from '@/assets/icons/Icons'
 import { DecksTable } from '@/components/decks'
-import { DeckDialog } from '@/components/decks/deck-dialog/deck-dialog'
+import { DeckDialogForm } from '@/components/decks/deck-dialog-form/deck-dialog-form'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
@@ -11,7 +11,6 @@ import { Spinner } from '@/components/ui/spinner'
 import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
 import { Sort } from '@/components/ui/table/tableSort'
 import { TextField } from '@/components/ui/textField'
-import { Toast } from '@/components/ui/toast'
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/services/auth'
 import {
@@ -141,7 +140,8 @@ export const DecksPage = () => {
     <div className={s.root}>
       <div className={s.header}>
         <Typography variant={'h1'}>Decks list</Typography>
-        <DeckDialog onClick={createDeck} />
+        <DeckDialogForm onClick={createDeck} />
+        {/*<DeckDialog onClick={createDeck} />*/}
       </div>
       <div className={s.filteredEl}>
         <TextField
@@ -186,7 +186,6 @@ export const DecksPage = () => {
           />
         </div>
       )}
-      <Toast />
     </div>
   )
 }
