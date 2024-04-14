@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react'
 import { Outlet } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { Header } from '@/components/ui/header/header'
 import { Spinner } from '@/components/ui/spinner/spinner'
@@ -17,6 +18,7 @@ export const useAuthContext = (): AuthContextType => {
   const context = useContext(AuthContext)
 
   if (!context) {
+    toast.error('Oops! Something went wrong!')
     throw new Error('useAuthContext must be used within an AuthContextProvider')
   }
 
@@ -38,10 +40,6 @@ export const Layout = () => {
   const [logout] = useLogoutMutation()
 
   const isAuthenticated = !isError && !isLoading
-
-  if (isLoading) {
-    return <Spinner />
-  }
 
   return (
     <AuthContextProvider isAuthenticated={isAuthenticated}>
