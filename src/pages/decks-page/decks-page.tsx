@@ -62,7 +62,6 @@ export const DecksPage = () => {
   const createDeck = async (data: CreateDecks) => {
     try {
       await createDecks(data).unwrap()
-
       setPage(1)
       toast.success('Deck created successfully!')
     } catch (err) {
@@ -119,17 +118,12 @@ export const DecksPage = () => {
     setMaxCardCount(maxMinCard?.max ?? 100)
   }, [maxMinCard?.max])
 
-  useEffect(
-    () => {
-      if (isError) {
-        // @ts-ignore
-        const errorMessage = error?.data.errorMessages[0]?.message || 'Unknown error occurred'
+  if (isError) {
+    // @ts-ignore
+    const errorMessage = error?.data.errorMessages[0]?.message || 'Unknown error occurred'
 
-        toast.error(`Error getting decks: ${errorMessage}`)
-      }
-    }, // @ts-ignore
-    [isError, error?.data.errorMessages]
-  )
+    toast.error(`Error getting decks: ${errorMessage}`)
+  }
 
   if (isLoading || !maxMinCard) {
     return <Spinner />
