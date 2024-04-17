@@ -60,21 +60,20 @@ export const DecksPage = () => {
   }, [maxMinCard])
 
   const createDeck = async (data: CreateDecks) => {
-    const res = await createDecks(data)
+    try {
+      await createDecks(data).unwrap()
 
-    if ('data' in res) {
       setPage(1)
       toast.success('Deck created successfully!')
-    }
-    if ('error' in res) {
-      const errorMessage =
-        // @ts-ignore
-        res.error?.data?.errorMessages?.[0]?.message ||
-        // @ts-ignore
-        res.error?.data?.message ||
-        'Unknown error occurred'
+    } catch (err) {
+      // @ts-ignore
+      if ('data' in err) {
+        const errorMessage =
+          // @ts-ignore
+          err?.data?.errorMessages?.[0]?.message || err?.data?.message || 'Unknown error occurred'
 
-      toast.error(`Error creating deck: ${errorMessage}`)
+        toast.error(`Error creating deck: ${errorMessage}`)
+      }
     }
   }
 
@@ -141,7 +140,6 @@ export const DecksPage = () => {
       <div className={s.header}>
         <Typography variant={'h1'}>Decks list</Typography>
         <DeckDialogForm onClick={createDeck} />
-        {/*<DeckDialog onClick={createDeck} />*/}
       </div>
       <div className={s.filteredEl}>
         <TextField

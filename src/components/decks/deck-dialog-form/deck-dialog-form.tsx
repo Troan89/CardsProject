@@ -13,7 +13,7 @@ import { z } from 'zod'
 import s from './deck-dialog-form.module.scss'
 
 const newDeckSchema = z.object({
-  cover: z.instanceof(File),
+  cover: z.union([z.instanceof(File), z.null()]),
   isPrivate: z.boolean(),
   name: z.string().min(3).max(50),
 })
@@ -34,7 +34,7 @@ export const DeckDialogForm = ({ onClick }: Props) => {
     reset,
   } = useForm<FormValues>({
     defaultValues: {
-      cover: undefined,
+      cover: null,
       isPrivate: false,
       name: '',
     },
@@ -78,7 +78,7 @@ export const DeckDialogForm = ({ onClick }: Props) => {
               render={({ field }) => (
                 <ImageUploader
                   id={'cover'}
-                  setFile={(img: File | null) => field.onChange(img)} // Используем field.onChange для обновления значения поля
+                  setFile={(img: File | null) => field.onChange(img)}
                   trigger={
                     <Button as={'span'} fullWidth variant={'secondary'}>
                       <Icons iconId={'upload_image'} /> Upload image
