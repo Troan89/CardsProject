@@ -100,8 +100,8 @@ export const Deck = ({ onSort, sort }: Props) => {
             <Typography variant={'h1'}>{deck?.name}</Typography>
             <DropdownDeck
               handleDeleteClickDeck={handleDeleteClickDeck}
-              id={deckId}
-              name={deck?.name}
+              id={deckId || ''}
+              name={deck?.name || ''}
             />
           </div>
           {deck?.cover ? <img alt={deck.name} src={deck.cover} /> : <img alt={'react'} src={pic} />}

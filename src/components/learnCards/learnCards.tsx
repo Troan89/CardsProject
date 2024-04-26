@@ -24,7 +24,6 @@ const radio: Options[] = [
 
 export const LearnCards = () => {
   const [open, setOpen] = useState<boolean>(false)
-  const [countAnswer, setCountAnswer] = useState<number>(10)
   const [nextQuestion, setNextQuestion] = useState<string>()
   const [grade, setGrade] = useState<number>(0)
 
@@ -33,8 +32,6 @@ export const LearnCards = () => {
   const { data: deck } = useGetOneDeckQuery({ id: deckId || '' })
   const { data } = useGetRandomCardLearnQuery({ id: deckId || '', previousCardId: nextQuestion })
   const [cardGrade] = usePostCardGradeMutation()
-
-  console.log(data)
 
   const handleNextQuestion = () => {
     setOpen(false)
@@ -58,7 +55,7 @@ export const LearnCards = () => {
           <Typography variant={'body1'}>Question: {data?.question}</Typography>
           {data?.questionImg && <img alt={'question Image'} src={data?.questionImg} />}
           <Typography className={s.countAnswer} variant={'body2'}>
-            Количество попыток ответов на вопрос: {countAnswer}
+            Количество попыток ответов на вопрос: {data?.shots}
           </Typography>
           {!open && (
             <Button fullWidth onClick={() => setOpen(true)} variant={'primary'}>

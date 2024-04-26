@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { Icons } from '@/assets/icons/Icons'
 import { EditDeckDialog } from '@/components/decks/edit-deck-dialog'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,16 +15,11 @@ import { EditDecks } from '@/services/decks/decks.types'
 
 type Props = {
   handleDeleteClickDeck: () => void
-  id: string | undefined
-  name: string | undefined
+  id: string
+  name: string
 }
 
 export const DropdownDeck = ({ handleDeleteClickDeck, id, name }: Props) => {
-  const navigate = useNavigate()
-  const handlerLearn = () => {
-    navigate(`decks/${id}/learn`)
-  }
-
   const [editDecks] = useUpdateDeckMutation()
 
   const editDeck = (data: EditDecks) => {
@@ -37,7 +33,9 @@ export const DropdownDeck = ({ handleDeleteClickDeck, id, name }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <Icons iconId={'play-circle-outline'} /> Learn
+          <Button as={Link} to={`/decks/${id}/learn`} variant={'icon'}>
+            <Icons iconId={'play-circle-outline'} /> Learn
+          </Button>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
