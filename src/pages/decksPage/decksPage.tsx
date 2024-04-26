@@ -3,8 +3,9 @@ import { toast } from 'react-toastify'
 
 import { Icons } from '@/assets/icons/Icons'
 import { DecksTable } from '@/components/decks'
-import { DeckDialogForm } from '@/components/decks/deck-dialog-form/deck-dialog-form'
+import { DeckDialogForm } from '@/components/decks/deckDialogForm/deck-dialog-form'
 import { Button } from '@/components/ui/button'
+import { PageWrapper } from '@/components/ui/pageWrapper'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { Spinner } from '@/components/ui/spinner'
@@ -20,7 +21,7 @@ import {
 } from '@/services/decks/decks.service'
 import { CreateDecks } from '@/services/decks/decks.types'
 
-import s from './decks-page.module.scss'
+import s from './decksPage.module.scss'
 
 const tabs: TabType[] = [
   { content: <div></div>, title: 'My Cards', value: 'my card' },
@@ -130,7 +131,7 @@ export const DecksPage = () => {
   }
 
   return (
-    <div className={s.root}>
+    <PageWrapper className={s.root}>
       <div className={s.header}>
         <Typography variant={'h1'}>Decks list</Typography>
         <DeckDialogForm onClick={createDeck} />
@@ -178,6 +179,6 @@ export const DecksPage = () => {
           />
         </div>
       )}
-    </div>
+    </PageWrapper>
   )
 }

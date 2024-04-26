@@ -7,6 +7,7 @@ import { CreateCardDialog } from '@/components/cards/createCard'
 import { DeleteCard } from '@/components/cards/deleteCard'
 import { EditCard } from '@/components/cards/editCard'
 import { BackButton } from '@/components/ui/backButton/backButton'
+import { PageWrapper } from '@/components/ui/pageWrapper'
 import { Pagination } from '@/components/ui/pagination'
 import { Rating } from '@/components/ui/rating'
 import { Table } from '@/components/ui/table'
@@ -20,7 +21,7 @@ import { useDeleteCardMutation, useGetCardsQuery } from '@/services/deck/deck.se
 import { Card } from '@/services/deck/deck.types'
 import { useDeleteDeckMutation, useGetOneDeckQuery } from '@/services/decks/decks.service'
 
-import s from './deckPage.module.scss'
+import s from './deck.module.scss'
 
 const columns: Column[] = [
   {
@@ -90,10 +91,8 @@ export const Deck = ({ onSort, sort }: Props) => {
   }
 
   return (
-    <div className={s.wrapper}>
-      <div>
-        <BackButton className={s.backButton} text={'Back to  Decks List'} />
-      </div>
+    <PageWrapper className={s.wrapper}>
+      <BackButton className={s.backButton} text={'Back to  Decks List'} />
       <div className={s.header}>
         <div>
           <div className={s.menu}>
@@ -164,6 +163,6 @@ export const Deck = ({ onSort, sort }: Props) => {
           />
         </div>
       )}
-    </div>
+    </PageWrapper>
   )
 }

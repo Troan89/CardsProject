@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { CreateNewPassword } from '@/components/auth/createNewPassword/createNewPassword'
+import { withRouter } from 'storybook-addon-react-router-v6'
 
 const meta = {
   component: CreateNewPassword,
+  decorators: [withRouter],
   parameters: {
     layout: 'centered',
   },

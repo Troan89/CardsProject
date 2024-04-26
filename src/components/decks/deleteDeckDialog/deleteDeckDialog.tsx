@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
 
-import s from './delete-deck-dialog.module.scss'
+import s from './deleteDeckDialog.module.scss'
 
 type Props = {
   deckId: string

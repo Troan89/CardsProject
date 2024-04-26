@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { Icons } from '@/assets/icons/Icons'
-import { DeleteDeckDialog } from '@/components/decks/delete-deck-dialog'
-import { EditDeckDialog } from '@/components/decks/edit-deck-dialog'
+import { EditDeckDialog } from '@/components/decks/editDeckDialog'
 import { Button } from '@/components/ui/button'
 import { Column, Sort, TableSort } from '@/components/ui/table/tableSort'
 import { Typography } from '@/components/ui/typography'
@@ -12,10 +11,11 @@ import { useGetMeQuery } from '@/services/auth'
 import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/services/decks/decks.service'
 import { Deck, EditDecks } from '@/services/decks/decks.types'
 
-import s from './decks-table.module.scss'
+import s from './decksTable.module.scss'
 
 import pic from '../../assets/img/imgreplace.jpg'
 import { Table } from '../ui/table'
+import { DeleteDeckDialog } from './deleteDeckDialog'
 
 const columns: Column[] = [
   {
@@ -94,7 +94,7 @@ export const DecksTable = memo(({ decks, onSort, sort }: Props) => {
   }
 
   return (
-    <Table.Root>
+    <Table.Root className={s.wrapperTable}>
       <TableSort columns={columns} onSort={onSort} sort={sort} />
       <Table.Body>
         {decks?.length === 0 ? (

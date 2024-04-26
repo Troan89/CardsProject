@@ -1,3 +1,7 @@
+.wrapperTable {
+  max-width: 1024px;
+}
+
 .root {
   display: flex;
   gap: 10px;
@@ -11,7 +15,7 @@
 }
 
 .empty {
-  padding: 10px;
   margin-left: 15px;
+  padding: 10px;
   color: var(--color-dark-100);
 }

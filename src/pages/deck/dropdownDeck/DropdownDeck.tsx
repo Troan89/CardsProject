@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { Icons } from '@/assets/icons/Icons'
-import { EditDeckDialog } from '@/components/decks/edit-deck-dialog'
+import { EditDeckDialog } from '@/components/decks/editDeckDialog'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
