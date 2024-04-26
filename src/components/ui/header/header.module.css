@@ -1,5 +1,6 @@
 .headerWrapper {
   width: 100%;
+  padding-inline: 16px;
   background: var(--color-dark-700);
   border-bottom: 1px solid var(--color-dark-500);
 }
@@ -18,4 +19,11 @@
   max-width: 1024px;
   height: 60px;
   margin: 0 auto;
+  padding-inline: 16px;
+
+  &.button {
+    /* box-sizing: border-box; */
+    margin-top: 0;
+    margin-left: 0;
+  }
 }

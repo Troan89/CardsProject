@@ -86,7 +86,7 @@ export const SignUp = ({ onSubmit }: LogProps) => {
             type={'password'}
           />
         </div>
-        <Button as={'button'} className={s.btn} fullWidth type={'submit'}>
+        <Button as={'button'} className={s.btn} fullWidth type={'submit'} variant={'primary'}>
           Sign Up
         </Button>
       </form>

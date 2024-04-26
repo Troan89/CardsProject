@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown'
+import { Typography } from '@/components/ui/typography'
 import { ROUTES } from '@/router/router'
 
 import s from './userDropdown.module.css'
@@ -32,7 +33,7 @@ export const UserDropdown = ({ avatar, email, logout, userName }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={s.wrapper}>
-        <div>{userName}</div>
+        <Typography as={'div'}>{userName}</Typography>
         <Avatar src={avatar || AvatarDemo} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -41,8 +42,8 @@ export const UserDropdown = ({ avatar, email, logout, userName }: Props) => {
             <Avatar src={avatar || AvatarDemo} />
           </div>
           <div>
-            <div>{userName}</div>
-            <div>{email}</div>
+            <Typography as={'div'}>{userName}</Typography>
+            <Typography as={'div'}>{email}</Typography>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

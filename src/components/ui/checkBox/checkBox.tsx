@@ -5,7 +5,7 @@ import { Typography } from '@/components/ui/typography'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
 
-import s from './check-box.module.scss'
+import s from './checkBox.module.scss'
 
 export type Props = {
   checked?: boolean
@@ -19,7 +19,7 @@ export type Props = {
 
 export type CheckboxProps = Props & ComponentPropsWithoutRef<'button'>
 
-export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
+export const CheckBox = forwardRef<HTMLButtonElement, CheckboxProps>(
   ({ checked, className, disabled, id, label, onChange, required }: CheckboxProps, ref) => {
     const classNames = {
       buttonWrapper: clsx(s.buttonWrapper, disabled && s.disabled),

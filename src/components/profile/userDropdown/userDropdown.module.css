@@ -1,11 +1,10 @@
 .wrapper {
+  cursor: pointer;
   display: flex;
   gap: 10px;
-
-  /* justify-items: center; */
   align-items: center;
 }
 
-.form div {
+.wrapper div {
   border-bottom: 1px dashed white;
 }

@@ -2,58 +2,59 @@ import { useState } from 'react'
 
 import { Icons } from '@/assets/icons/Icons'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/check-box'
 import { ImageUploader } from '@/components/ui/imageUploader/imageUploader'
 import { Modal } from '@/components/ui/modal'
 import { TextField } from '@/components/ui/textField'
-import { CreateDecks } from '@/services/decks/decks.types'
+import { EditDecks } from '@/services/decks/decks.types'
 
-import s from './deck-dialog.module.scss'
+import s from './edit-deck-dialog.module.scss'
+
+import { CheckBox } from '../../ui/checkBox'
 
 type Props = {
-  onClick: (data: CreateDecks) => void
+  deckId: string
+  deckName: string
+  onEditClick: (data: EditDecks) => void
 }
-
-export const DeckDialog = ({ onClick }: Props) => {
-  const [createDeckValue, setCreateDeckValue] = useState<string>('')
+export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
+  const [editDeckValue, setEditDeckValue] = useState<string>(deckName)
   const [privatePack, setPrivatePack] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const [file, setFile] = useState<File | null>(null)
 
+  const editDeck = () => {
+    onEditClick({ cover: file, id: deckId, isPrivate: privatePack, name: editDeckValue })
+    setOpen(false)
+  }
+
   const handleValue = (e: string) => {
-    setCreateDeckValue(e)
+    setEditDeckValue(e)
   }
 
   const handlePrivatePackChange = (checked: any) => {
     setPrivatePack(checked)
   }
 
-  const handleCreateDeck = () => {
-    onClick({ cover: file, isPrivate: privatePack, name: createDeckValue })
-    setCreateDeckValue('')
-    setPrivatePack(false)
-    setOpen(false)
-  }
-  const handleCancelBtn = () => {
-    setCreateDeckValue('')
-    setOpen(false)
-  }
-
   return (
     <Modal
+      iconId={'decksList-edit'}
       isOpen={open}
       onChange={setOpen}
-      title={'Add New Deck'}
-      titleBtn={'Add New Deck'}
-      variantBtn={'primary'}
+      title={'Edit deck'}
+      variantBtn={'icon'}
     >
+      <div className={s.content}>
+        <p>
+          Do you really want to edit <strong>{deckName}</strong>?
+        </p>
+      </div>
       <div className={s.input}>
         <TextField
           label={'Name pack'}
           onValueChange={handleValue}
           placeholder={'Name'}
           type={'text'}
-          value={createDeckValue}
+          value={editDeckValue}
         />
         <div className={s.Button}>
           <ImageUploader
@@ -65,14 +66,14 @@ export const DeckDialog = ({ onClick }: Props) => {
             }
           />
         </div>
-        <Checkbox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
+        <CheckBox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
       </div>
       <div className={s.btn}>
-        <Button onClick={handleCancelBtn} variant={'secondary'}>
+        <Button onClick={() => setOpen(false)} variant={'secondary'}>
           Cancel
         </Button>
-        <Button onClick={handleCreateDeck} variant={'primary'}>
-          Add New Pack
+        <Button onClick={editDeck} variant={'primary'}>
+          Edit deck
         </Button>
       </div>
     </Modal>
