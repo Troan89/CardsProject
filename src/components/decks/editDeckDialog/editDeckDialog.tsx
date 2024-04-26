@@ -7,7 +7,7 @@ import { Modal } from '@/components/ui/modal'
 import { TextField } from '@/components/ui/textField'
 import { EditDecks } from '@/services/decks/decks.types'
 
-import s from './edit-deck-dialog.module.scss'
+import s from './editDeckDialog.module.scss'
 
 import { CheckBox } from '../../ui/checkBox'
 

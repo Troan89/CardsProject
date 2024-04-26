@@ -10,7 +10,7 @@ import { Modal } from '@/components/ui/modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './deck-dialog-form.module.scss'
+import s from './deckDialogForm.module.scss'
 
 const newDeckSchema = z.object({
   cover: z.union([z.instanceof(File), z.null()]),

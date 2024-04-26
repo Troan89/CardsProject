@@ -1,1 +1,1 @@
-export * from './edit-deck-dialog'
+export * from './editDeckDialog'
