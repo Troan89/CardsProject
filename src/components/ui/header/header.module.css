@@ -1,14 +1,4 @@
-.root {
-  /* position: fixed; */
-
-  /* z-index: auto; */
-
-  /* top: 0; */
-
-  /* right: 0; */
-
-  /* left: 0; */
-
+.headerWrapper {
   width: 100%;
   background: var(--color-dark-700);
   border-bottom: 1px solid var(--color-dark-500);
@@ -23,6 +13,9 @@
 .content {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+
+  max-width: 1024px;
   height: 60px;
+  margin: 0 auto;
 }

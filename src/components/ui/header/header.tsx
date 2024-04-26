@@ -17,7 +17,7 @@ type Props = {
 
 export const Header = ({ avatar, email, isLoggedIn, logout, userName }: Props) => {
   return (
-    <header className={s.root}>
+    <header className={s.headerWrapper}>
       <div className={s.content}>
         <Link to={ROUTES.base}>
           <SvgLogo />

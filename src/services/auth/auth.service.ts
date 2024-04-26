@@ -9,7 +9,7 @@ import {
 } from '@/services/auth/auth.types'
 import { baseApi } from '@/services/baseApi'
 
-const authService = baseApi.injectEndpoints({
+export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       checkEmail: builder.mutation<void, { code: string }>({

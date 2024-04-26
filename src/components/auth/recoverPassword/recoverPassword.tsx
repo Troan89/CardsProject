@@ -5,6 +5,7 @@ import { FormTextField } from '@/components/formComponents/formTextField'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
+import { ROUTES } from '@/router/router'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -68,7 +69,7 @@ export const RecoverPassword = ({ onSubmit }: Props) => {
       <Typography className={s.letter} variant={'body2'}>
         Did you remember your password?
       </Typography>
-      <Typography as={Link} className={s.loginLink} to={'#'} variant={'link1'}>
+      <Typography as={Link} className={s.loginLink} to={ROUTES.login} variant={'link1'}>
         Try logging in
       </Typography>
     </Card>
