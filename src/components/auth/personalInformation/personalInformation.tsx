@@ -1,9 +1,8 @@
 import { useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { NavLink } from 'react-router-dom'
 
 import { Icons } from '@/assets/icons/Icons'
-import { FormTextField } from '@/components/formComponents/formTextField'
+import { NameEditor, NameSchema } from '@/components/profile/nameEditor/nameEditor'
 import { Avatar } from '@/components/ui/avatar/avatar'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -11,14 +10,9 @@ import { ImageUploader, imageSchema } from '@/components/ui/imageUploader/imageU
 import { Typography } from '@/components/ui/typography'
 import { ROUTES } from '@/router/router'
 import { User } from '@/services/auth/auth.types'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './personalInformation.module.css'
-
-const NameSchema = z.object({
-  name: z.string().min(3).trim(),
-})
 
 export type NameValues = z.infer<typeof NameSchema>
 export type AvatarValues = z.infer<typeof imageSchema>
@@ -47,15 +41,6 @@ export const PersonalInformation = (props: Props) => {
   const onClickAvatar = () => {
     ref.current?.click()
   }
-
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<NameValues>({
-    defaultValues: { name: data?.name ?? 'User' },
-    resolver: zodResolver(NameSchema),
-  })
 
   const onSubmitHandler = (formData: NameValues) => {
     updateName(formData)
@@ -88,18 +73,7 @@ export const PersonalInformation = (props: Props) => {
       </div>
 
       {editMode ? (
-        <form className={s.form} onSubmit={handleSubmit(onSubmitHandler)}>
-          <FormTextField
-            control={control}
-            error={errors.name?.message}
-            label={'Name'}
-            name={'name'}
-            type={'text'}
-          />
-          <Button className={s.saveButton} fullWidth type={'submit'} variant={'primary'}>
-            Save Changes
-          </Button>
-        </form>
+        <NameEditor data={data} onSubmit={onSubmitHandler} />
       ) : (
         <>
           <div className={s.avatarWrapper}>
