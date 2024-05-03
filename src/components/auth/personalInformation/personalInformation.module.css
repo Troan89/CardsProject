@@ -20,29 +20,6 @@
 
 .editButton {
   all: unset;
-
-  cursor: pointer;
-
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 24px;
-  height: 24px;
-  margin: 0 auto;
-
-  text-align: center;
-
-  background: var(--color-dark-300);
-  border-radius: 4px;
-}
-
-.editButton2 {
-  all: unset;
   cursor: pointer;
 }
 

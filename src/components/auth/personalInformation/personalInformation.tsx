@@ -1,12 +1,13 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Icons } from '@/assets/icons/Icons'
+import { AvatarEditor } from '@/components/profile/avatarEditor/avatarEditor'
 import { NameEditor, NameSchema } from '@/components/profile/nameEditor/nameEditor'
 import { Avatar } from '@/components/ui/avatar/avatar'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { ImageUploader, imageSchema } from '@/components/ui/imageUploader/imageUploader'
+import { imageSchema } from '@/components/ui/imageUploader/imageUploader'
 import { Typography } from '@/components/ui/typography'
 import { ROUTES } from '@/router/router'
 import { User } from '@/services/auth/auth.types'
@@ -29,17 +30,12 @@ export const PersonalInformation = (props: Props) => {
 
   const [editMode, setEditMode] = useState(false)
   const [avatar, setAvatar] = useState<File | null>(null)
-  const ref = useRef<HTMLInputElement>(null)
 
   const updateAvatarHandler = async (avatar: File | null) => {
     if (avatar) {
       await updateAvatar(avatar)
       setAvatar(avatar)
     }
-  }
-
-  const onClickAvatar = () => {
-    ref.current?.click()
   }
 
   const onSubmitHandler = (formData: NameValues) => {
@@ -59,17 +55,7 @@ export const PersonalInformation = (props: Props) => {
           src={avatar ? URL.createObjectURL(avatar) : data?.avatar || undefined}
           width={'96px'}
         />
-        {!editMode && (
-          <ImageUploader
-            ref={ref}
-            setFile={updateAvatarHandler}
-            trigger={
-              <Button className={s.editButton} onClick={onClickAvatar}>
-                <Icons className={s.icons} iconId={'edit-2-outline'} />
-              </Button>
-            }
-          />
-        )}
+        {!editMode && <AvatarEditor updateAvatar={updateAvatarHandler} />}
       </div>
 
       {editMode ? (
@@ -80,7 +66,7 @@ export const PersonalInformation = (props: Props) => {
             <Typography className={s.name} variant={'h2'}>
               {data?.name}
             </Typography>
-            <Button className={s.editButton2} onClick={() => setEditMode(true)}>
+            <Button className={s.editButton} onClick={() => setEditMode(true)}>
               <Icons className={s.icons} iconId={'edit-2-outline'} />
             </Button>
           </div>

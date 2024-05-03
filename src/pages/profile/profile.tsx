@@ -46,9 +46,13 @@ export const Profile = () => {
   }
 
   const logoutHandler = async () => {
-    await logout()
-      .unwrap()
-      .then(() => navigate(ROUTES.login))
+    try {
+      await logout().unwrap()
+      navigate(ROUTES.login)
+    } catch (error) {
+      console.warn('Error when logging out:', error)
+      toast.error('Error when logging out')
+    }
   }
 
   if (isLoading) {

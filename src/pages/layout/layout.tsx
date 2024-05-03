@@ -36,7 +36,7 @@ const AuthContextProvider = ({
 }
 
 export const Layout = () => {
-  const { data, isError, isLoading } = useGetMeQuery()
+  const { data, isError, isFetching, isLoading } = useGetMeQuery()
   const [logout] = useLogoutMutation()
 
   const isAuthenticated = !isError && !isLoading
@@ -50,7 +50,9 @@ export const Layout = () => {
         logout={logout}
         userName={data?.name}
       />
-      <main className={s.main}>{isLoading ? <Spinner className={s.spinner} /> : <Outlet />}</main>
+      <main className={s.main}>
+        {isLoading || isFetching ? <Spinner className={s.spinner} /> : <Outlet />}
+      </main>
     </AuthContextProvider>
   )
 }
