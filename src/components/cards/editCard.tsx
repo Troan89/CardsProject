@@ -6,7 +6,6 @@ import { ImageFrom } from '@/components/cards/ImageFrom'
 import { VariantUploadImage } from '@/components/cards/createCard'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
-import { Toast } from '@/components/ui/toast'
 import { Typography } from '@/components/ui/typography'
 import { useGetCardQuery, useUpdateCardMutation } from '@/services/deck/deck.service'
 
@@ -105,7 +104,6 @@ export const EditCard = ({ cardId }: Props) => {
             </Button>
           </div>
         </div>
-        <Toast />
       </Modal>
     </>
   )

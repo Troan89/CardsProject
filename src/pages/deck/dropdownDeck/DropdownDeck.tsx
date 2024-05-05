@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Icons } from '@/assets/icons/Icons'
@@ -22,31 +23,47 @@ type Props = {
 export const DropdownDeck = ({ handleDeleteClickDeck, id, name }: Props) => {
   const [editDecks] = useUpdateDeckMutation()
 
+  const [open, setOpen] = useState<boolean>(false)
+
   const editDeck = (data: EditDecks) => {
     editDecks(data)
   }
 
+  const handleSetupModalState = (open: boolean) => {
+    setOpen(open)
+  }
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Icons iconId={'more-vertical-outline'} />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem>
-          <Button as={Link} to={`/decks/${id}/learn`} variant={'icon'}>
-            <Icons iconId={'play-circle-outline'} /> Learn
-          </Button>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <EditDeckDialog deckId={id} deckName={name} onEditClick={editDeck} /> Edit
-          {/*<Icons iconId={'edit-2-outline'} /> */}
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleDeleteClickDeck}>
-          <Icons iconId={'trash-outline'} /> Delete
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Icons iconId={'more-vertical-outline'} />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>
+            <Button as={Link} to={`/decks/${id}/learn`} variant={'icon'}>
+              <Icons iconId={'play-circle-outline'} /> Learn
+            </Button>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          {/*<DropdownMenuItem asChild onClick={e => e.preventDefault()}>*/}
+          <DropdownMenuItem onClick={e => e.preventDefault()}>
+            {/*<DropdownMenuItem>*/}
+            <EditDeckDialog
+              deckId={id}
+              deckName={name}
+              onChange={handleSetupModalState}
+              onEditClick={editDeck}
+              open={open}
+            />{' '}
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={handleDeleteClickDeck}>
+            <Icons iconId={'trash-outline'} /> Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   )
 }

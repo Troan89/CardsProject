@@ -14,17 +14,18 @@ import { CheckBox } from '../../ui/checkBox'
 type Props = {
   deckId: string
   deckName: string
+  onChange: (open: boolean) => void
   onEditClick: (data: EditDecks) => void
+  open: boolean
 }
-export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
+export const EditDeckDialog = ({ deckId, deckName, onEditClick, open, ...rest }: Props) => {
   const [editDeckValue, setEditDeckValue] = useState<string>(deckName)
   const [privatePack, setPrivatePack] = useState<boolean>(false)
-  const [open, setOpen] = useState<boolean>(false)
   const [file, setFile] = useState<File | null>(null)
 
   const editDeck = () => {
     onEditClick({ cover: file, id: deckId, isPrivate: privatePack, name: editDeckValue })
-    setOpen(false)
+    rest.onChange(false)
   }
 
   const handleValue = (e: string) => {
@@ -35,13 +36,15 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
     setPrivatePack(checked)
   }
 
+  console.log('EditDeckDialog', open)
+
   return (
     <Modal
       iconId={'decksList-edit'}
       isOpen={open}
-      onChange={setOpen}
       title={'Edit deck'}
       variantBtn={'icon'}
+      {...rest}
     >
       <div className={s.content}>
         <p>
@@ -69,7 +72,7 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick }: Props) => {
         <CheckBox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
       </div>
       <div className={s.btn}>
-        <Button onClick={() => setOpen(false)} variant={'secondary'}>
+        <Button onClick={() => rest.onChange(false)} variant={'secondary'}>
           Cancel
         </Button>
         <Button onClick={editDeck} variant={'primary'}>

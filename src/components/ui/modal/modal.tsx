@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef, memo } from 'react'
 
 import { Icons } from '@/assets/icons/Icons'
 import { Button } from '@/components/ui/button'
@@ -20,8 +20,8 @@ export type ModalProps = {
   variantBtn?: string
 } & ComponentPropsWithoutRef<typeof Dialog.Root>
 
-export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(
-  ({ isOpen, onChange, ...rest }, ref) => {
+export const Modal = memo(
+  forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(({ onChange, ...rest }, ref) => {
     const classes = {
       close: s.close,
       content: clsx(s.content, rest.className),
@@ -29,8 +29,10 @@ export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(
       title: clsx(s.text, rest.className),
     }
 
+    console.log('open', rest.isOpen)
+
     return (
-      <Dialog.Root open={isOpen} {...rest}>
+      <Dialog.Root {...rest}>
         <Dialog.Trigger asChild>
           <Button
             aria-label={'Open'}
@@ -68,5 +70,5 @@ export const Modal = forwardRef<ElementRef<typeof Dialog.Root>, ModalProps>(
         </Dialog.Portal>
       </Dialog.Root>
     )
-  }
+  })
 )
