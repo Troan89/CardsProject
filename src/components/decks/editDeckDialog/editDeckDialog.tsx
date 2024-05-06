@@ -25,7 +25,7 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick, open, ...rest }:
 
   const editDeck = () => {
     onEditClick({ cover: file, id: deckId, isPrivate: privatePack, name: editDeckValue })
-    rest.onChange && rest.onChange(false)
+    rest.onChange?.(false)
   }
 
   const handleValue = (e: string) => {
@@ -72,7 +72,7 @@ export const EditDeckDialog = ({ deckId, deckName, onEditClick, open, ...rest }:
         <CheckBox checked={privatePack} label={'Private pack'} onChange={handlePrivatePackChange} />
       </div>
       <div className={s.btn}>
-        <Button onClick={() => rest.onChange && rest.onChange(false)} variant={'secondary'}>
+        <Button onClick={() => rest.onChange?.(false)} variant={'secondary'}>
           Cancel
         </Button>
         <Button onClick={editDeck} variant={'primary'}>

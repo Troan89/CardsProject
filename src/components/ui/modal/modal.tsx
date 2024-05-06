@@ -34,11 +34,7 @@ export const Modal = memo(
     return (
       <Dialog.Root {...rest}>
         <Dialog.Trigger asChild>
-          <Button
-            aria-label={'Open'}
-            onClick={() => onChange && onChange(true)}
-            variant={rest.variantBtn}
-          >
+          <Button aria-label={'Open'} onClick={() => onChange?.(true)} variant={rest.variantBtn}>
             {rest.iconId ? (
               <Icons className={s.passwordIcon} iconId={rest.iconId} />
             ) : (
@@ -58,7 +54,7 @@ export const Modal = memo(
                   <Dialog.Close
                     aria-label={'Close'}
                     className={classes.close}
-                    onClick={() => onChange && onChange(false)}
+                    onClick={() => onChange?.(false)}
                   >
                     <Icons className={s.icon} iconId={'close'} />
                   </Dialog.Close>
