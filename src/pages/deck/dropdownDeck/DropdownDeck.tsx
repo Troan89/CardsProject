@@ -35,7 +35,12 @@ export const DropdownDeck = ({ handleDeleteClickDeck, id, name }: Props) => {
 
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu
+        onOpenChange={() => {
+          setOpen(true)
+        }}
+        open={open}
+      >
         <DropdownMenuTrigger>
           <Icons iconId={'more-vertical-outline'} />
         </DropdownMenuTrigger>
@@ -47,8 +52,7 @@ export const DropdownDeck = ({ handleDeleteClickDeck, id, name }: Props) => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           {/*<DropdownMenuItem asChild onClick={e => e.preventDefault()}>*/}
-          <DropdownMenuItem onClick={e => e.preventDefault()}>
-            {/*<DropdownMenuItem>*/}
+          <DropdownMenuItem>
             <EditDeckDialog
               deckId={id}
               deckName={name}
