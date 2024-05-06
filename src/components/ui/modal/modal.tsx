@@ -13,7 +13,7 @@ export type ModalProps = {
   children?: ReactNode
   className?: string
   iconId?: string
-  isOpen: boolean
+  isOpen: boolean | undefined
   onChange?: (isOpen: boolean) => void
   title?: string
   titleBtn?: string
@@ -29,7 +29,7 @@ export const Modal = memo(
       title: clsx(s.text, rest.className),
     }
 
-    console.log('open', rest.isOpen)
+    // console.log('open', rest.isOpen)
 
     return (
       <Dialog.Root {...rest}>
