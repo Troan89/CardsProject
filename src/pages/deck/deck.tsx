@@ -83,7 +83,6 @@ export const Deck = ({ onSort, sort }: Props) => {
     deleteCard({ id })
   }
   const handleDeleteClickDeck = () => {
-    debugger
     if (deck?.id && deck?.userId === me?.id) {
       deleteDeck({ id: deck.id })
       navigate(ROUTES.base)
